@@ -32,6 +32,7 @@ import (
 	cosmosmodule "github.com/cosmos/relayer/v2/relayer/chains/cosmos/module"
 	"github.com/cosmos/relayer/v2/relayer/chains/cosmos/stride"
 	ethermintcodecs "github.com/cosmos/relayer/v2/relayer/codecs/ethermint"
+	evmcodecs "github.com/cosmos/relayer/v2/relayer/codecs/evm"
 	injectivecodecs "github.com/cosmos/relayer/v2/relayer/codecs/injective"
 )
 
@@ -86,6 +87,10 @@ func MakeCodec(moduleBasics []module.AppModuleBasic, extraCodecs []string, accBe
 			injectivecodecs.RegisterInterfaces(encodingConfig.InterfaceRegistry)
 			encodingConfig.Amino.RegisterConcrete(&injectivecodecs.PubKey{}, injectivecodecs.PubKeyName, nil)
 			encodingConfig.Amino.RegisterConcrete(&injectivecodecs.PrivKey{}, injectivecodecs.PrivKeyName, nil)
+		case "evm":
+			evmcodecs.RegisterInterfaces(encodingConfig.InterfaceRegistry)
+			encodingConfig.Amino.RegisterConcrete(&evmcodecs.PubKey{}, evmcodecs.PubKeyName, nil)
+			encodingConfig.Amino.RegisterConcrete(&evmcodecs.PrivKey{}, evmcodecs.PrivKeyName, nil)
 		}
 	}
 
