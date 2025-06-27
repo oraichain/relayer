@@ -13,6 +13,7 @@ import (
 	"github.com/cosmos/go-bip39"
 	"github.com/cosmos/relayer/v2/relayer/chains/cosmos/keys/sr25519"
 	"github.com/cosmos/relayer/v2/relayer/codecs/ethermint"
+	"github.com/cosmos/relayer/v2/relayer/codecs/evm"
 	"github.com/cosmos/relayer/v2/relayer/codecs/injective"
 )
 
@@ -115,6 +116,9 @@ func (cc *CosmosProvider) KeyAddOrRestore(keyName string, coinType uint32, signi
 		for _, codec := range cc.PCfg.ExtraCodecs {
 			if codec == "injective" {
 				algo = keyring.SignatureAlgo(injective.EthSecp256k1)
+			}
+			if codec == "evm" {
+				algo = keyring.SignatureAlgo(evm.EthSecp256k1)
 			}
 		}
 	}

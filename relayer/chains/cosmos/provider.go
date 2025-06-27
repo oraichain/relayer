@@ -21,6 +21,7 @@ import (
 	commitmenttypes "github.com/cosmos/ibc-go/v8/modules/core/23-commitment/types"
 	"github.com/cosmos/relayer/v2/cclient"
 	"github.com/cosmos/relayer/v2/relayer/codecs/ethermint"
+	"github.com/cosmos/relayer/v2/relayer/codecs/evm"
 	"github.com/cosmos/relayer/v2/relayer/processor"
 	"github.com/cosmos/relayer/v2/relayer/provider"
 	"github.com/strangelove-ventures/cometbft-client/client"
@@ -109,7 +110,7 @@ func (pc CosmosProviderConfig) NewProvider(log *zap.Logger, homepath string, deb
 	cp := &CosmosProvider{
 		log:            log,
 		PCfg:           pc,
-		KeyringOptions: []keyring.Option{ethermint.EthSecp256k1Option()},
+		KeyringOptions: []keyring.Option{ethermint.EthSecp256k1Option(), evm.EthSecp256k1Option()},
 		Input:          os.Stdin,
 		Output:         os.Stdout,
 		walletStateMap: map[string]*WalletState{},
@@ -297,6 +298,7 @@ func (cc *CosmosProvider) Init(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+
 	// TODO: figure out how to deal with input or maybe just make all keyring backends test?
 
 	timeout, err := time.ParseDuration(cc.PCfg.Timeout)
