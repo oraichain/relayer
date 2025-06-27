@@ -11,20 +11,20 @@ import (
 	grpc1 "github.com/cosmos/gogoproto/grpc"
 	proto "github.com/cosmos/gogoproto/proto"
 	v113 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/app/v1"
-	v18 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/asset/v1"
-	v11 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/auction/v1"
-	v12 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/dex/v1"
-	v16 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/fee/v1"
+	v11 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/asset/v1"
+	v14 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/auction/v1"
+	v15 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/dex/v1"
+	v18 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/fee/v1"
 	v112 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/governance/v1"
-	v15 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/ibc/v1"
-	v17 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/sct/v1"
+	v17 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/ibc/v1"
+	v19 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/sct/v1"
 	v114 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/shielded_pool/v1"
 	v111 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/component/stake/v1"
 	v1 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/keys/v1"
-	v110 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/num/v1"
-	v13 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/transaction/v1"
-	v14 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/txhash/v1"
-	v19 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/crypto/tct/v1"
+	v12 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/num/v1"
+	v16 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/transaction/v1"
+	v13 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/core/txhash/v1"
+	v110 "github.com/cosmos/relayer/v2/relayer/chains/penumbra/crypto/tct/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -77,7 +77,7 @@ func (x DelegationsByAddressIndexRequest_Filter) String() string {
 }
 
 func (DelegationsByAddressIndexRequest_Filter) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{57, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{63, 0}
 }
 
 type UnbondingTokensByAddressIndexRequest_Filter int32
@@ -112,7 +112,399 @@ func (x UnbondingTokensByAddressIndexRequest_Filter) String() string {
 }
 
 func (UnbondingTokensByAddressIndexRequest_Filter) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{59, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{65, 0}
+}
+
+type LqtVotingNotesRequest struct {
+	// The epoch index to check for nullifier usage.
+	EpochIndex uint64 `protobuf:"varint,1,opt,name=epoch_index,json=epochIndex,proto3" json:"epoch_index,omitempty"`
+	// If present, filter balances to only include the account specified by the `AddressIndex`.
+	AccountFilter *v1.AddressIndex `protobuf:"bytes,2,opt,name=account_filter,json=accountFilter,proto3" json:"account_filter,omitempty"`
+}
+
+func (m *LqtVotingNotesRequest) Reset()         { *m = LqtVotingNotesRequest{} }
+func (m *LqtVotingNotesRequest) String() string { return proto.CompactTextString(m) }
+func (*LqtVotingNotesRequest) ProtoMessage()    {}
+func (*LqtVotingNotesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{0}
+}
+func (m *LqtVotingNotesRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LqtVotingNotesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LqtVotingNotesRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LqtVotingNotesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LqtVotingNotesRequest.Merge(m, src)
+}
+func (m *LqtVotingNotesRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LqtVotingNotesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LqtVotingNotesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LqtVotingNotesRequest proto.InternalMessageInfo
+
+func (m *LqtVotingNotesRequest) GetEpochIndex() uint64 {
+	if m != nil {
+		return m.EpochIndex
+	}
+	return 0
+}
+
+func (m *LqtVotingNotesRequest) GetAccountFilter() *v1.AddressIndex {
+	if m != nil {
+		return m.AccountFilter
+	}
+	return nil
+}
+
+type LqtVotingNotesResponse struct {
+	// The delegation note that can be used to vote with in current epoch, only if `already_voted` is false.
+	NoteRecord *SpendableNoteRecord `protobuf:"bytes,1,opt,name=note_record,json=noteRecord,proto3" json:"note_record,omitempty"`
+	// Flag indicating whether each note was already used for voting in the current epoch.
+	AlreadyVoted bool `protobuf:"varint,2,opt,name=already_voted,json=alreadyVoted,proto3" json:"already_voted,omitempty"`
+}
+
+func (m *LqtVotingNotesResponse) Reset()         { *m = LqtVotingNotesResponse{} }
+func (m *LqtVotingNotesResponse) String() string { return proto.CompactTextString(m) }
+func (*LqtVotingNotesResponse) ProtoMessage()    {}
+func (*LqtVotingNotesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{1}
+}
+func (m *LqtVotingNotesResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LqtVotingNotesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LqtVotingNotesResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LqtVotingNotesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LqtVotingNotesResponse.Merge(m, src)
+}
+func (m *LqtVotingNotesResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LqtVotingNotesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LqtVotingNotesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LqtVotingNotesResponse proto.InternalMessageInfo
+
+func (m *LqtVotingNotesResponse) GetNoteRecord() *SpendableNoteRecord {
+	if m != nil {
+		return m.NoteRecord
+	}
+	return nil
+}
+
+func (m *LqtVotingNotesResponse) GetAlreadyVoted() bool {
+	if m != nil {
+		return m.AlreadyVoted
+	}
+	return false
+}
+
+// Note: implementations must not accept messages with both `epoch_index`
+// and `block_height` set. This is a convenience API, to allow consumers
+// to defer epoch tracking to a view service.
+type TournamentVotesRequest struct {
+	// Retrieves votes for the specified epoch.
+	EpochIndex uint64 `protobuf:"varint,1,opt,name=epoch_index,json=epochIndex,proto3" json:"epoch_index,omitempty"`
+	// Retrieves votes as of the specified block height.
+	BlockHeight uint64 `protobuf:"varint,2,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
+	// If present, filter votes to only include the account specified by the `AddressIndex`.
+	AccountFilter *v1.AddressIndex `protobuf:"bytes,3,opt,name=account_filter,json=accountFilter,proto3" json:"account_filter,omitempty"`
+}
+
+func (m *TournamentVotesRequest) Reset()         { *m = TournamentVotesRequest{} }
+func (m *TournamentVotesRequest) String() string { return proto.CompactTextString(m) }
+func (*TournamentVotesRequest) ProtoMessage()    {}
+func (*TournamentVotesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{2}
+}
+func (m *TournamentVotesRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TournamentVotesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TournamentVotesRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TournamentVotesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TournamentVotesRequest.Merge(m, src)
+}
+func (m *TournamentVotesRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *TournamentVotesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_TournamentVotesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TournamentVotesRequest proto.InternalMessageInfo
+
+func (m *TournamentVotesRequest) GetEpochIndex() uint64 {
+	if m != nil {
+		return m.EpochIndex
+	}
+	return 0
+}
+
+func (m *TournamentVotesRequest) GetBlockHeight() uint64 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *TournamentVotesRequest) GetAccountFilter() *v1.AddressIndex {
+	if m != nil {
+		return m.AccountFilter
+	}
+	return nil
+}
+
+type TournamentVotesResponse struct {
+	// A list of votes cast for the incentivized asset.
+	Votes []*TournamentVotesResponse_Vote `protobuf:"bytes,1,rep,name=votes,proto3" json:"votes,omitempty"`
+}
+
+func (m *TournamentVotesResponse) Reset()         { *m = TournamentVotesResponse{} }
+func (m *TournamentVotesResponse) String() string { return proto.CompactTextString(m) }
+func (*TournamentVotesResponse) ProtoMessage()    {}
+func (*TournamentVotesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{3}
+}
+func (m *TournamentVotesResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TournamentVotesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TournamentVotesResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TournamentVotesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TournamentVotesResponse.Merge(m, src)
+}
+func (m *TournamentVotesResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *TournamentVotesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_TournamentVotesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TournamentVotesResponse proto.InternalMessageInfo
+
+func (m *TournamentVotesResponse) GetVotes() []*TournamentVotesResponse_Vote {
+	if m != nil {
+		return m.Votes
+	}
+	return nil
+}
+
+type TournamentVotesResponse_Vote struct {
+	// The incentivized asset receiving this vote.
+	IncentivizedAsset *v11.AssetId `protobuf:"bytes,1,opt,name=incentivized_asset,json=incentivizedAsset,proto3" json:"incentivized_asset,omitempty"`
+	// The amount of voting power that this specific vote contributed.
+	VotePower *v12.Amount `protobuf:"bytes,2,opt,name=vote_power,json=votePower,proto3" json:"vote_power,omitempty"`
+	// The amount of rewards issued for votes on this asset.
+	Reward *v11.Value `protobuf:"bytes,3,opt,name=reward,proto3" json:"reward,omitempty"`
+	// The transaction ID for the vote.
+	Transaction *v13.TransactionId `protobuf:"bytes,4,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	// Epoch index the vote occured in.
+	EpochIndex uint64 `protobuf:"varint,5,opt,name=epoch_index,json=epochIndex,proto3" json:"epoch_index,omitempty"`
+}
+
+func (m *TournamentVotesResponse_Vote) Reset()         { *m = TournamentVotesResponse_Vote{} }
+func (m *TournamentVotesResponse_Vote) String() string { return proto.CompactTextString(m) }
+func (*TournamentVotesResponse_Vote) ProtoMessage()    {}
+func (*TournamentVotesResponse_Vote) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{3, 0}
+}
+func (m *TournamentVotesResponse_Vote) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TournamentVotesResponse_Vote) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TournamentVotesResponse_Vote.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TournamentVotesResponse_Vote) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TournamentVotesResponse_Vote.Merge(m, src)
+}
+func (m *TournamentVotesResponse_Vote) XXX_Size() int {
+	return m.Size()
+}
+func (m *TournamentVotesResponse_Vote) XXX_DiscardUnknown() {
+	xxx_messageInfo_TournamentVotesResponse_Vote.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TournamentVotesResponse_Vote proto.InternalMessageInfo
+
+func (m *TournamentVotesResponse_Vote) GetIncentivizedAsset() *v11.AssetId {
+	if m != nil {
+		return m.IncentivizedAsset
+	}
+	return nil
+}
+
+func (m *TournamentVotesResponse_Vote) GetVotePower() *v12.Amount {
+	if m != nil {
+		return m.VotePower
+	}
+	return nil
+}
+
+func (m *TournamentVotesResponse_Vote) GetReward() *v11.Value {
+	if m != nil {
+		return m.Reward
+	}
+	return nil
+}
+
+func (m *TournamentVotesResponse_Vote) GetTransaction() *v13.TransactionId {
+	if m != nil {
+		return m.Transaction
+	}
+	return nil
+}
+
+func (m *TournamentVotesResponse_Vote) GetEpochIndex() uint64 {
+	if m != nil {
+		return m.EpochIndex
+	}
+	return 0
+}
+
+// There's only one transparent address per wallet, so this request has no parameters;
+// the message exists to satisfy forward-compatibility properties.
+type TransparentAddressRequest struct {
+}
+
+func (m *TransparentAddressRequest) Reset()         { *m = TransparentAddressRequest{} }
+func (m *TransparentAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*TransparentAddressRequest) ProtoMessage()    {}
+func (*TransparentAddressRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{4}
+}
+func (m *TransparentAddressRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TransparentAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TransparentAddressRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TransparentAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TransparentAddressRequest.Merge(m, src)
+}
+func (m *TransparentAddressRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *TransparentAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_TransparentAddressRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TransparentAddressRequest proto.InternalMessageInfo
+
+type TransparentAddressResponse struct {
+	// The raw (binary) transparent address
+	Address *v1.Address `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	// The t-address encoding of the transparent address
+	Encoding string `protobuf:"bytes,2,opt,name=encoding,proto3" json:"encoding,omitempty"`
+}
+
+func (m *TransparentAddressResponse) Reset()         { *m = TransparentAddressResponse{} }
+func (m *TransparentAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*TransparentAddressResponse) ProtoMessage()    {}
+func (*TransparentAddressResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{5}
+}
+func (m *TransparentAddressResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TransparentAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TransparentAddressResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TransparentAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TransparentAddressResponse.Merge(m, src)
+}
+func (m *TransparentAddressResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *TransparentAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_TransparentAddressResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TransparentAddressResponse proto.InternalMessageInfo
+
+func (m *TransparentAddressResponse) GetAddress() *v1.Address {
+	if m != nil {
+		return m.Address
+	}
+	return nil
+}
+
+func (m *TransparentAddressResponse) GetEncoding() string {
+	if m != nil {
+		return m.Encoding
+	}
+	return ""
 }
 
 // Filters in an `AuctionsRequest` will be combined using `AND` logic -- that
@@ -125,14 +517,14 @@ type AuctionsRequest struct {
 	// If set, query a fullnode for the current state of the auctions.
 	QueryLatestState bool `protobuf:"varint,3,opt,name=query_latest_state,json=queryLatestState,proto3" json:"query_latest_state,omitempty"`
 	// If present, filter to only include auctions whose IDs are in this array.
-	AuctionIdsFilter []*v11.AuctionId `protobuf:"bytes,4,rep,name=auction_ids_filter,json=auctionIdsFilter,proto3" json:"auction_ids_filter,omitempty"`
+	AuctionIdsFilter []*v14.AuctionId `protobuf:"bytes,4,rep,name=auction_ids_filter,json=auctionIdsFilter,proto3" json:"auction_ids_filter,omitempty"`
 }
 
 func (m *AuctionsRequest) Reset()         { *m = AuctionsRequest{} }
 func (m *AuctionsRequest) String() string { return proto.CompactTextString(m) }
 func (*AuctionsRequest) ProtoMessage()    {}
 func (*AuctionsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{6}
 }
 func (m *AuctionsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -182,7 +574,7 @@ func (m *AuctionsRequest) GetQueryLatestState() bool {
 	return false
 }
 
-func (m *AuctionsRequest) GetAuctionIdsFilter() []*v11.AuctionId {
+func (m *AuctionsRequest) GetAuctionIdsFilter() []*v14.AuctionId {
 	if m != nil {
 		return m.AuctionIdsFilter
 	}
@@ -190,7 +582,7 @@ func (m *AuctionsRequest) GetAuctionIdsFilter() []*v11.AuctionId {
 }
 
 type AuctionsResponse struct {
-	Id *v11.AuctionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id *v14.AuctionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// The state of the returned auction.
 	//
 	// Only present when `query_latest_state` was provided.
@@ -199,14 +591,14 @@ type AuctionsResponse struct {
 	//
 	// Only present when `query_latest_state` was provided.
 	// Could be empty, depending on the auction state.
-	Positions []*v12.Position `protobuf:"bytes,3,rep,name=positions,proto3" json:"positions,omitempty"`
+	Positions []*v15.Position `protobuf:"bytes,3,rep,name=positions,proto3" json:"positions,omitempty"`
 	// The note recording the auction NFT.
 	NoteRecord *SpendableNoteRecord `protobuf:"bytes,4,opt,name=note_record,json=noteRecord,proto3" json:"note_record,omitempty"`
 	// The sequence number of the auction state _as known to the local view
 	// service_. Note that the local view service may lag behind the fullnode. For
 	// example, if the chain hits an auction's `end_height`, but the user hasn't
 	// yet exchanged their sequence-0 (opened) auction NFT for a sequence-1
-	// (closed) auction NFT, the local view service will have a sequnce number of
+	// (closed) auction NFT, the local view service will have a sequence number of
 	// 0.
 	//
 	// Dutch auctions move from:
@@ -218,7 +610,7 @@ func (m *AuctionsResponse) Reset()         { *m = AuctionsResponse{} }
 func (m *AuctionsResponse) String() string { return proto.CompactTextString(m) }
 func (*AuctionsResponse) ProtoMessage()    {}
 func (*AuctionsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{1}
+	return fileDescriptor_dba93d04e42ddfc3, []int{7}
 }
 func (m *AuctionsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -247,7 +639,7 @@ func (m *AuctionsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuctionsResponse proto.InternalMessageInfo
 
-func (m *AuctionsResponse) GetId() *v11.AuctionId {
+func (m *AuctionsResponse) GetId() *v14.AuctionId {
 	if m != nil {
 		return m.Id
 	}
@@ -261,7 +653,7 @@ func (m *AuctionsResponse) GetAuction() *types.Any {
 	return nil
 }
 
-func (m *AuctionsResponse) GetPositions() []*v12.Position {
+func (m *AuctionsResponse) GetPositions() []*v15.Position {
 	if m != nil {
 		return m.Positions
 	}
@@ -284,14 +676,14 @@ func (m *AuctionsResponse) GetLocalSeq() uint64 {
 
 type AuthorizeAndBuildRequest struct {
 	// The transaction plan to authorize and build.
-	TransactionPlan *v13.TransactionPlan `protobuf:"bytes,1,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
+	TransactionPlan *v16.TransactionPlan `protobuf:"bytes,1,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
 }
 
 func (m *AuthorizeAndBuildRequest) Reset()         { *m = AuthorizeAndBuildRequest{} }
 func (m *AuthorizeAndBuildRequest) String() string { return proto.CompactTextString(m) }
 func (*AuthorizeAndBuildRequest) ProtoMessage()    {}
 func (*AuthorizeAndBuildRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{2}
+	return fileDescriptor_dba93d04e42ddfc3, []int{8}
 }
 func (m *AuthorizeAndBuildRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -320,7 +712,7 @@ func (m *AuthorizeAndBuildRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthorizeAndBuildRequest proto.InternalMessageInfo
 
-func (m *AuthorizeAndBuildRequest) GetTransactionPlan() *v13.TransactionPlan {
+func (m *AuthorizeAndBuildRequest) GetTransactionPlan() *v16.TransactionPlan {
 	if m != nil {
 		return m.TransactionPlan
 	}
@@ -338,7 +730,7 @@ func (m *AuthorizeAndBuildResponse) Reset()         { *m = AuthorizeAndBuildResp
 func (m *AuthorizeAndBuildResponse) String() string { return proto.CompactTextString(m) }
 func (*AuthorizeAndBuildResponse) ProtoMessage()    {}
 func (*AuthorizeAndBuildResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{3}
+	return fileDescriptor_dba93d04e42ddfc3, []int{9}
 }
 func (m *AuthorizeAndBuildResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -424,7 +816,7 @@ func (m *AuthorizeAndBuildResponse_BuildProgress) Reset() {
 func (m *AuthorizeAndBuildResponse_BuildProgress) String() string { return proto.CompactTextString(m) }
 func (*AuthorizeAndBuildResponse_BuildProgress) ProtoMessage()    {}
 func (*AuthorizeAndBuildResponse_BuildProgress) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{3, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{9, 0}
 }
 func (m *AuthorizeAndBuildResponse_BuildProgress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -463,14 +855,14 @@ func (m *AuthorizeAndBuildResponse_BuildProgress) GetProgress() float32 {
 // Signals that the transaction is complete.
 type AuthorizeAndBuildResponse_Complete struct {
 	// The finished transaction.
-	Transaction *v13.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Transaction *v16.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
 }
 
 func (m *AuthorizeAndBuildResponse_Complete) Reset()         { *m = AuthorizeAndBuildResponse_Complete{} }
 func (m *AuthorizeAndBuildResponse_Complete) String() string { return proto.CompactTextString(m) }
 func (*AuthorizeAndBuildResponse_Complete) ProtoMessage()    {}
 func (*AuthorizeAndBuildResponse_Complete) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{3, 1}
+	return fileDescriptor_dba93d04e42ddfc3, []int{9, 1}
 }
 func (m *AuthorizeAndBuildResponse_Complete) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -499,7 +891,7 @@ func (m *AuthorizeAndBuildResponse_Complete) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthorizeAndBuildResponse_Complete proto.InternalMessageInfo
 
-func (m *AuthorizeAndBuildResponse_Complete) GetTransaction() *v13.Transaction {
+func (m *AuthorizeAndBuildResponse_Complete) GetTransaction() *v16.Transaction {
 	if m != nil {
 		return m.Transaction
 	}
@@ -508,7 +900,7 @@ func (m *AuthorizeAndBuildResponse_Complete) GetTransaction() *v13.Transaction {
 
 type BroadcastTransactionRequest struct {
 	// The transaction to broadcast.
-	Transaction *v13.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Transaction *v16.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
 	// If true, wait for the view service to detect the transaction during sync.
 	AwaitDetection bool `protobuf:"varint,2,opt,name=await_detection,json=awaitDetection,proto3" json:"await_detection,omitempty"`
 }
@@ -517,7 +909,7 @@ func (m *BroadcastTransactionRequest) Reset()         { *m = BroadcastTransactio
 func (m *BroadcastTransactionRequest) String() string { return proto.CompactTextString(m) }
 func (*BroadcastTransactionRequest) ProtoMessage()    {}
 func (*BroadcastTransactionRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{4}
+	return fileDescriptor_dba93d04e42ddfc3, []int{10}
 }
 func (m *BroadcastTransactionRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -546,7 +938,7 @@ func (m *BroadcastTransactionRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_BroadcastTransactionRequest proto.InternalMessageInfo
 
-func (m *BroadcastTransactionRequest) GetTransaction() *v13.Transaction {
+func (m *BroadcastTransactionRequest) GetTransaction() *v16.Transaction {
 	if m != nil {
 		return m.Transaction
 	}
@@ -571,7 +963,7 @@ func (m *BroadcastTransactionResponse) Reset()         { *m = BroadcastTransacti
 func (m *BroadcastTransactionResponse) String() string { return proto.CompactTextString(m) }
 func (*BroadcastTransactionResponse) ProtoMessage()    {}
 func (*BroadcastTransactionResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{5}
+	return fileDescriptor_dba93d04e42ddfc3, []int{11}
 }
 func (m *BroadcastTransactionResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -648,7 +1040,7 @@ func (*BroadcastTransactionResponse) XXX_OneofWrappers() []interface{} {
 // Signals that the transaction was broadcast successfully (but has not been confirmed).
 type BroadcastTransactionResponse_BroadcastSuccess struct {
 	// The hash of the transaction that was broadcast.
-	Id *v14.TransactionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id *v13.TransactionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (m *BroadcastTransactionResponse_BroadcastSuccess) Reset() {
@@ -659,7 +1051,7 @@ func (m *BroadcastTransactionResponse_BroadcastSuccess) String() string {
 }
 func (*BroadcastTransactionResponse_BroadcastSuccess) ProtoMessage() {}
 func (*BroadcastTransactionResponse_BroadcastSuccess) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{5, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{11, 0}
 }
 func (m *BroadcastTransactionResponse_BroadcastSuccess) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -688,7 +1080,7 @@ func (m *BroadcastTransactionResponse_BroadcastSuccess) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_BroadcastTransactionResponse_BroadcastSuccess proto.InternalMessageInfo
 
-func (m *BroadcastTransactionResponse_BroadcastSuccess) GetId() *v14.TransactionId {
+func (m *BroadcastTransactionResponse_BroadcastSuccess) GetId() *v13.TransactionId {
 	if m != nil {
 		return m.Id
 	}
@@ -700,7 +1092,7 @@ func (m *BroadcastTransactionResponse_BroadcastSuccess) GetId() *v14.Transaction
 // Will not be sent unless await_detection was true.
 type BroadcastTransactionResponse_Confirmed struct {
 	// The hash of the transaction that was broadcast.
-	Id *v14.TransactionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id *v13.TransactionId `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// The height in which the transaction was detected as included in the chain, if any.
 	DetectionHeight uint64 `protobuf:"varint,2,opt,name=detection_height,json=detectionHeight,proto3" json:"detection_height,omitempty"`
 }
@@ -711,7 +1103,7 @@ func (m *BroadcastTransactionResponse_Confirmed) Reset() {
 func (m *BroadcastTransactionResponse_Confirmed) String() string { return proto.CompactTextString(m) }
 func (*BroadcastTransactionResponse_Confirmed) ProtoMessage()    {}
 func (*BroadcastTransactionResponse_Confirmed) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{5, 1}
+	return fileDescriptor_dba93d04e42ddfc3, []int{11, 1}
 }
 func (m *BroadcastTransactionResponse_Confirmed) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -740,7 +1132,7 @@ func (m *BroadcastTransactionResponse_Confirmed) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_BroadcastTransactionResponse_Confirmed proto.InternalMessageInfo
 
-func (m *BroadcastTransactionResponse_Confirmed) GetId() *v14.TransactionId {
+func (m *BroadcastTransactionResponse_Confirmed) GetId() *v13.TransactionId {
 	if m != nil {
 		return m.Id
 	}
@@ -759,26 +1151,27 @@ type TransactionPlannerRequest struct {
 	ExpiryHeight uint64 `protobuf:"varint,1,opt,name=expiry_height,json=expiryHeight,proto3" json:"expiry_height,omitempty"`
 	// The memo for the requested TransactionPlan.
 	// The memo must be unspecified unless `outputs` is nonempty.
-	Memo *v13.MemoPlaintext `protobuf:"bytes,3,opt,name=memo,proto3" json:"memo,omitempty"`
+	Memo *v16.MemoPlaintext `protobuf:"bytes,3,opt,name=memo,proto3" json:"memo,omitempty"`
 	// If present, only spends funds from the given account.
 	Source *v1.AddressIndex `protobuf:"bytes,4,opt,name=source,proto3" json:"source,omitempty"`
 	// Request contents
-	Outputs                     []*TransactionPlannerRequest_Output                     `protobuf:"bytes,20,rep,name=outputs,proto3" json:"outputs,omitempty"`
-	Spends                      []*TransactionPlannerRequest_Spend                      `protobuf:"bytes,21,rep,name=spends,proto3" json:"spends,omitempty"`
-	Swaps                       []*TransactionPlannerRequest_Swap                       `protobuf:"bytes,30,rep,name=swaps,proto3" json:"swaps,omitempty"`
-	SwapClaims                  []*TransactionPlannerRequest_SwapClaim                  `protobuf:"bytes,31,rep,name=swap_claims,json=swapClaims,proto3" json:"swap_claims,omitempty"`
-	Delegations                 []*TransactionPlannerRequest_Delegate                   `protobuf:"bytes,40,rep,name=delegations,proto3" json:"delegations,omitempty"`
-	Undelegations               []*TransactionPlannerRequest_Undelegate                 `protobuf:"bytes,50,rep,name=undelegations,proto3" json:"undelegations,omitempty"`
-	UndelegationClaims          []*TransactionPlannerRequest_UndelegateClaim            `protobuf:"bytes,51,rep,name=undelegation_claims,json=undelegationClaims,proto3" json:"undelegation_claims,omitempty"`
-	IbcRelayActions             []*v15.IbcRelay                                         `protobuf:"bytes,60,rep,name=ibc_relay_actions,json=ibcRelayActions,proto3" json:"ibc_relay_actions,omitempty"`
-	Ics20Withdrawals            []*v15.Ics20Withdrawal                                  `protobuf:"bytes,61,rep,name=ics20_withdrawals,json=ics20Withdrawals,proto3" json:"ics20_withdrawals,omitempty"`
-	PositionOpens               []*TransactionPlannerRequest_PositionOpen               `protobuf:"bytes,70,rep,name=position_opens,json=positionOpens,proto3" json:"position_opens,omitempty"`
-	PositionCloses              []*TransactionPlannerRequest_PositionClose              `protobuf:"bytes,71,rep,name=position_closes,json=positionCloses,proto3" json:"position_closes,omitempty"`
-	PositionWithdraws           []*TransactionPlannerRequest_PositionWithdraw           `protobuf:"bytes,72,rep,name=position_withdraws,json=positionWithdraws,proto3" json:"position_withdraws,omitempty"`
-	DutchAuctionScheduleActions []*TransactionPlannerRequest_ActionDutchAuctionSchedule `protobuf:"bytes,73,rep,name=dutch_auction_schedule_actions,json=dutchAuctionScheduleActions,proto3" json:"dutch_auction_schedule_actions,omitempty"`
-	DutchAuctionEndActions      []*TransactionPlannerRequest_ActionDutchAuctionEnd      `protobuf:"bytes,74,rep,name=dutch_auction_end_actions,json=dutchAuctionEndActions,proto3" json:"dutch_auction_end_actions,omitempty"`
-	DutchAuctionWithdrawActions []*TransactionPlannerRequest_ActionDutchAuctionWithdraw `protobuf:"bytes,75,rep,name=dutch_auction_withdraw_actions,json=dutchAuctionWithdrawActions,proto3" json:"dutch_auction_withdraw_actions,omitempty"`
-	DelegatorVotes              []*TransactionPlannerRequest_DelegatorVote              `protobuf:"bytes,76,rep,name=delegator_votes,json=delegatorVotes,proto3" json:"delegator_votes,omitempty"`
+	Outputs                       []*TransactionPlannerRequest_Output                        `protobuf:"bytes,20,rep,name=outputs,proto3" json:"outputs,omitempty"`
+	Spends                        []*TransactionPlannerRequest_Spend                         `protobuf:"bytes,21,rep,name=spends,proto3" json:"spends,omitempty"`
+	Swaps                         []*TransactionPlannerRequest_Swap                          `protobuf:"bytes,30,rep,name=swaps,proto3" json:"swaps,omitempty"`
+	SwapClaims                    []*TransactionPlannerRequest_SwapClaim                     `protobuf:"bytes,31,rep,name=swap_claims,json=swapClaims,proto3" json:"swap_claims,omitempty"`
+	Delegations                   []*TransactionPlannerRequest_Delegate                      `protobuf:"bytes,40,rep,name=delegations,proto3" json:"delegations,omitempty"`
+	Undelegations                 []*TransactionPlannerRequest_Undelegate                    `protobuf:"bytes,50,rep,name=undelegations,proto3" json:"undelegations,omitempty"`
+	UndelegationClaims            []*TransactionPlannerRequest_UndelegateClaim               `protobuf:"bytes,51,rep,name=undelegation_claims,json=undelegationClaims,proto3" json:"undelegation_claims,omitempty"`
+	IbcRelayActions               []*v17.IbcRelay                                            `protobuf:"bytes,60,rep,name=ibc_relay_actions,json=ibcRelayActions,proto3" json:"ibc_relay_actions,omitempty"`
+	Ics20Withdrawals              []*v17.Ics20Withdrawal                                     `protobuf:"bytes,61,rep,name=ics20_withdrawals,json=ics20Withdrawals,proto3" json:"ics20_withdrawals,omitempty"`
+	PositionOpens                 []*TransactionPlannerRequest_PositionOpen                  `protobuf:"bytes,70,rep,name=position_opens,json=positionOpens,proto3" json:"position_opens,omitempty"`
+	PositionCloses                []*TransactionPlannerRequest_PositionClose                 `protobuf:"bytes,71,rep,name=position_closes,json=positionCloses,proto3" json:"position_closes,omitempty"`
+	PositionWithdraws             []*TransactionPlannerRequest_PositionWithdraw              `protobuf:"bytes,72,rep,name=position_withdraws,json=positionWithdraws,proto3" json:"position_withdraws,omitempty"`
+	DutchAuctionScheduleActions   []*TransactionPlannerRequest_ActionDutchAuctionSchedule    `protobuf:"bytes,73,rep,name=dutch_auction_schedule_actions,json=dutchAuctionScheduleActions,proto3" json:"dutch_auction_schedule_actions,omitempty"`
+	DutchAuctionEndActions        []*TransactionPlannerRequest_ActionDutchAuctionEnd         `protobuf:"bytes,74,rep,name=dutch_auction_end_actions,json=dutchAuctionEndActions,proto3" json:"dutch_auction_end_actions,omitempty"`
+	DutchAuctionWithdrawActions   []*TransactionPlannerRequest_ActionDutchAuctionWithdraw    `protobuf:"bytes,75,rep,name=dutch_auction_withdraw_actions,json=dutchAuctionWithdrawActions,proto3" json:"dutch_auction_withdraw_actions,omitempty"`
+	DelegatorVotes                []*TransactionPlannerRequest_DelegatorVote                 `protobuf:"bytes,76,rep,name=delegator_votes,json=delegatorVotes,proto3" json:"delegator_votes,omitempty"`
+	ActionLiquidityTournamentVote []*TransactionPlannerRequest_ActionLiquidityTournamentVote `protobuf:"bytes,77,rep,name=action_liquidity_tournament_vote,json=actionLiquidityTournamentVote,proto3" json:"action_liquidity_tournament_vote,omitempty"`
 	// Specifies either that the planner should compute fees automatically or that it should use a fixed fee amount.
 	//
 	// Types that are valid to be assigned to FeeMode:
@@ -788,14 +1181,14 @@ type TransactionPlannerRequest struct {
 	// The epoch index of the transaction being planned.
 	EpochIndex uint64 `protobuf:"varint,200,opt,name=epoch_index,json=epochIndex,proto3" json:"epoch_index,omitempty"` // Deprecated: Do not use.
 	// The epoch of the transaction being planned.
-	Epoch *v17.Epoch `protobuf:"bytes,201,opt,name=epoch,proto3" json:"epoch,omitempty"`
+	Epoch *v19.Epoch `protobuf:"bytes,201,opt,name=epoch,proto3" json:"epoch,omitempty"`
 }
 
 func (m *TransactionPlannerRequest) Reset()         { *m = TransactionPlannerRequest{} }
 func (m *TransactionPlannerRequest) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest) ProtoMessage()    {}
 func (*TransactionPlannerRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12}
 }
 func (m *TransactionPlannerRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -831,10 +1224,10 @@ type isTransactionPlannerRequest_FeeMode interface {
 }
 
 type TransactionPlannerRequest_AutoFee struct {
-	AutoFee *v16.FeeTier `protobuf:"bytes,100,opt,name=auto_fee,json=autoFee,proto3,oneof" json:"auto_fee,omitempty"`
+	AutoFee *v18.FeeTier `protobuf:"bytes,100,opt,name=auto_fee,json=autoFee,proto3,oneof" json:"auto_fee,omitempty"`
 }
 type TransactionPlannerRequest_ManualFee struct {
-	ManualFee *v16.Fee `protobuf:"bytes,101,opt,name=manual_fee,json=manualFee,proto3,oneof" json:"manual_fee,omitempty"`
+	ManualFee *v18.Fee `protobuf:"bytes,101,opt,name=manual_fee,json=manualFee,proto3,oneof" json:"manual_fee,omitempty"`
 }
 
 func (*TransactionPlannerRequest_AutoFee) isTransactionPlannerRequest_FeeMode()   {}
@@ -854,7 +1247,7 @@ func (m *TransactionPlannerRequest) GetExpiryHeight() uint64 {
 	return 0
 }
 
-func (m *TransactionPlannerRequest) GetMemo() *v13.MemoPlaintext {
+func (m *TransactionPlannerRequest) GetMemo() *v16.MemoPlaintext {
 	if m != nil {
 		return m.Memo
 	}
@@ -917,14 +1310,14 @@ func (m *TransactionPlannerRequest) GetUndelegationClaims() []*TransactionPlanne
 	return nil
 }
 
-func (m *TransactionPlannerRequest) GetIbcRelayActions() []*v15.IbcRelay {
+func (m *TransactionPlannerRequest) GetIbcRelayActions() []*v17.IbcRelay {
 	if m != nil {
 		return m.IbcRelayActions
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest) GetIcs20Withdrawals() []*v15.Ics20Withdrawal {
+func (m *TransactionPlannerRequest) GetIcs20Withdrawals() []*v17.Ics20Withdrawal {
 	if m != nil {
 		return m.Ics20Withdrawals
 	}
@@ -980,14 +1373,21 @@ func (m *TransactionPlannerRequest) GetDelegatorVotes() []*TransactionPlannerReq
 	return nil
 }
 
-func (m *TransactionPlannerRequest) GetAutoFee() *v16.FeeTier {
+func (m *TransactionPlannerRequest) GetActionLiquidityTournamentVote() []*TransactionPlannerRequest_ActionLiquidityTournamentVote {
+	if m != nil {
+		return m.ActionLiquidityTournamentVote
+	}
+	return nil
+}
+
+func (m *TransactionPlannerRequest) GetAutoFee() *v18.FeeTier {
 	if x, ok := m.GetFeeMode().(*TransactionPlannerRequest_AutoFee); ok {
 		return x.AutoFee
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest) GetManualFee() *v16.Fee {
+func (m *TransactionPlannerRequest) GetManualFee() *v18.Fee {
 	if x, ok := m.GetFeeMode().(*TransactionPlannerRequest_ManualFee); ok {
 		return x.ManualFee
 	}
@@ -1002,7 +1402,7 @@ func (m *TransactionPlannerRequest) GetEpochIndex() uint64 {
 	return 0
 }
 
-func (m *TransactionPlannerRequest) GetEpoch() *v17.Epoch {
+func (m *TransactionPlannerRequest) GetEpoch() *v19.Epoch {
 	if m != nil {
 		return m.Epoch
 	}
@@ -1020,7 +1420,7 @@ func (*TransactionPlannerRequest) XXX_OneofWrappers() []interface{} {
 // Request message subtypes
 type TransactionPlannerRequest_Output struct {
 	// The amount and denomination in which the Output is issued.
-	Value *v18.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *v11.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	// The address to which Output will be sent.
 	Address *v1.Address `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 }
@@ -1029,7 +1429,7 @@ func (m *TransactionPlannerRequest_Output) Reset()         { *m = TransactionPla
 func (m *TransactionPlannerRequest_Output) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_Output) ProtoMessage()    {}
 func (*TransactionPlannerRequest_Output) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 0}
 }
 func (m *TransactionPlannerRequest_Output) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1058,7 +1458,7 @@ func (m *TransactionPlannerRequest_Output) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_Output proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_Output) GetValue() *v18.Value {
+func (m *TransactionPlannerRequest_Output) GetValue() *v11.Value {
 	if m != nil {
 		return m.Value
 	}
@@ -1074,7 +1474,7 @@ func (m *TransactionPlannerRequest_Output) GetAddress() *v1.Address {
 
 type TransactionPlannerRequest_Spend struct {
 	// The input amount and denomination in which the Spend is issued.
-	Value *v18.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *v11.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	// The source address from which the Spend will be sent.
 	Address *v1.Address `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 }
@@ -1083,7 +1483,7 @@ func (m *TransactionPlannerRequest_Spend) Reset()         { *m = TransactionPlan
 func (m *TransactionPlannerRequest_Spend) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_Spend) ProtoMessage()    {}
 func (*TransactionPlannerRequest_Spend) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 1}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 1}
 }
 func (m *TransactionPlannerRequest_Spend) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1112,7 +1512,7 @@ func (m *TransactionPlannerRequest_Spend) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_Spend proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_Spend) GetValue() *v18.Value {
+func (m *TransactionPlannerRequest_Spend) GetValue() *v11.Value {
 	if m != nil {
 		return m.Value
 	}
@@ -1128,11 +1528,11 @@ func (m *TransactionPlannerRequest_Spend) GetAddress() *v1.Address {
 
 type TransactionPlannerRequest_Swap struct {
 	// The input amount and denomination to be traded in the Swap.
-	Value *v18.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value *v11.Value `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	// The denomination to be received as a Output of the Swap.
-	TargetAsset *v18.AssetId `protobuf:"bytes,2,opt,name=target_asset,json=targetAsset,proto3" json:"target_asset,omitempty"`
+	TargetAsset *v11.AssetId `protobuf:"bytes,2,opt,name=target_asset,json=targetAsset,proto3" json:"target_asset,omitempty"`
 	// The pre-paid fee to be paid for claiming the Swap outputs.
-	Fee *v16.Fee `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`
+	Fee *v18.Fee `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`
 	// The address to which swap claim output will be sent.
 	ClaimAddress *v1.Address `protobuf:"bytes,4,opt,name=claim_address,json=claimAddress,proto3" json:"claim_address,omitempty"`
 }
@@ -1141,7 +1541,7 @@ func (m *TransactionPlannerRequest_Swap) Reset()         { *m = TransactionPlann
 func (m *TransactionPlannerRequest_Swap) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_Swap) ProtoMessage()    {}
 func (*TransactionPlannerRequest_Swap) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 2}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 2}
 }
 func (m *TransactionPlannerRequest_Swap) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1170,21 +1570,21 @@ func (m *TransactionPlannerRequest_Swap) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_Swap proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_Swap) GetValue() *v18.Value {
+func (m *TransactionPlannerRequest_Swap) GetValue() *v11.Value {
 	if m != nil {
 		return m.Value
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest_Swap) GetTargetAsset() *v18.AssetId {
+func (m *TransactionPlannerRequest_Swap) GetTargetAsset() *v11.AssetId {
 	if m != nil {
 		return m.TargetAsset
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest_Swap) GetFee() *v16.Fee {
+func (m *TransactionPlannerRequest_Swap) GetFee() *v18.Fee {
 	if m != nil {
 		return m.Fee
 	}
@@ -1202,14 +1602,14 @@ type TransactionPlannerRequest_SwapClaim struct {
 	// SwapCommitment to identify the Swap to be claimed.
 	// Use the commitment from the Swap message:
 	// penumbra.core.component.dex.v1.Swap.body.payload.commitment.
-	SwapCommitment *v19.StateCommitment `protobuf:"bytes,1,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
+	SwapCommitment *v110.StateCommitment `protobuf:"bytes,1,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_SwapClaim) Reset()         { *m = TransactionPlannerRequest_SwapClaim{} }
 func (m *TransactionPlannerRequest_SwapClaim) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_SwapClaim) ProtoMessage()    {}
 func (*TransactionPlannerRequest_SwapClaim) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 3}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 3}
 }
 func (m *TransactionPlannerRequest_SwapClaim) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1238,7 +1638,7 @@ func (m *TransactionPlannerRequest_SwapClaim) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_SwapClaim proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_SwapClaim) GetSwapCommitment() *v19.StateCommitment {
+func (m *TransactionPlannerRequest_SwapClaim) GetSwapCommitment() *v110.StateCommitment {
 	if m != nil {
 		return m.SwapCommitment
 	}
@@ -1246,7 +1646,7 @@ func (m *TransactionPlannerRequest_SwapClaim) GetSwapCommitment() *v19.StateComm
 }
 
 type TransactionPlannerRequest_Delegate struct {
-	Amount   *v110.Amount   `protobuf:"bytes,1,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount   *v12.Amount    `protobuf:"bytes,1,opt,name=amount,proto3" json:"amount,omitempty"`
 	RateData *v111.RateData `protobuf:"bytes,3,opt,name=rate_data,json=rateData,proto3" json:"rate_data,omitempty"`
 }
 
@@ -1254,7 +1654,7 @@ func (m *TransactionPlannerRequest_Delegate) Reset()         { *m = TransactionP
 func (m *TransactionPlannerRequest_Delegate) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_Delegate) ProtoMessage()    {}
 func (*TransactionPlannerRequest_Delegate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 4}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 4}
 }
 func (m *TransactionPlannerRequest_Delegate) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1283,7 +1683,7 @@ func (m *TransactionPlannerRequest_Delegate) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_Delegate proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_Delegate) GetAmount() *v110.Amount {
+func (m *TransactionPlannerRequest_Delegate) GetAmount() *v12.Amount {
 	if m != nil {
 		return m.Amount
 	}
@@ -1298,7 +1698,7 @@ func (m *TransactionPlannerRequest_Delegate) GetRateData() *v111.RateData {
 }
 
 type TransactionPlannerRequest_Undelegate struct {
-	Value    *v18.Value     `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	Value    *v11.Value     `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	RateData *v111.RateData `protobuf:"bytes,2,opt,name=rate_data,json=rateData,proto3" json:"rate_data,omitempty"`
 }
 
@@ -1306,7 +1706,7 @@ func (m *TransactionPlannerRequest_Undelegate) Reset()         { *m = Transactio
 func (m *TransactionPlannerRequest_Undelegate) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_Undelegate) ProtoMessage()    {}
 func (*TransactionPlannerRequest_Undelegate) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 5}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 5}
 }
 func (m *TransactionPlannerRequest_Undelegate) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1335,7 +1735,7 @@ func (m *TransactionPlannerRequest_Undelegate) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_Undelegate proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_Undelegate) GetValue() *v18.Value {
+func (m *TransactionPlannerRequest_Undelegate) GetValue() *v11.Value {
 	if m != nil {
 		return m.Value
 	}
@@ -1359,7 +1759,7 @@ type TransactionPlannerRequest_UndelegateClaim struct {
 	Penalty *v111.Penalty `protobuf:"bytes,3,opt,name=penalty,proto3" json:"penalty,omitempty"`
 	// The amount of unbonding tokens to claim.
 	// This is a bare number because its denom is determined by the preceding data.
-	UnbondingAmount *v110.Amount `protobuf:"bytes,4,opt,name=unbonding_amount,json=unbondingAmount,proto3" json:"unbonding_amount,omitempty"`
+	UnbondingAmount *v12.Amount `protobuf:"bytes,4,opt,name=unbonding_amount,json=unbondingAmount,proto3" json:"unbonding_amount,omitempty"`
 	// The height at which unbonding began.
 	UnbondingStartHeight uint64 `protobuf:"varint,5,opt,name=unbonding_start_height,json=unbondingStartHeight,proto3" json:"unbonding_start_height,omitempty"`
 }
@@ -1372,7 +1772,7 @@ func (m *TransactionPlannerRequest_UndelegateClaim) String() string {
 }
 func (*TransactionPlannerRequest_UndelegateClaim) ProtoMessage() {}
 func (*TransactionPlannerRequest_UndelegateClaim) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 6}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 6}
 }
 func (m *TransactionPlannerRequest_UndelegateClaim) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1423,7 +1823,7 @@ func (m *TransactionPlannerRequest_UndelegateClaim) GetPenalty() *v111.Penalty {
 	return nil
 }
 
-func (m *TransactionPlannerRequest_UndelegateClaim) GetUnbondingAmount() *v110.Amount {
+func (m *TransactionPlannerRequest_UndelegateClaim) GetUnbondingAmount() *v12.Amount {
 	if m != nil {
 		return m.UnbondingAmount
 	}
@@ -1442,7 +1842,9 @@ type TransactionPlannerRequest_PositionOpen struct {
 	//
 	// Positions are immutable, so the `PositionData` (and hence the `PositionId`)
 	// are unchanged over the entire lifetime of the position.
-	Position *v12.Position `protobuf:"bytes,1,opt,name=position,proto3" json:"position,omitempty"`
+	Position *v15.Position `protobuf:"bytes,1,opt,name=position,proto3" json:"position,omitempty"`
+	// Optionally, provide position metadata to encrypt.
+	PositionMeta *v15.PositionMetadata `protobuf:"bytes,2,opt,name=position_meta,json=positionMeta,proto3" json:"position_meta,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_PositionOpen) Reset() {
@@ -1451,7 +1853,7 @@ func (m *TransactionPlannerRequest_PositionOpen) Reset() {
 func (m *TransactionPlannerRequest_PositionOpen) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_PositionOpen) ProtoMessage()    {}
 func (*TransactionPlannerRequest_PositionOpen) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 7}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 7}
 }
 func (m *TransactionPlannerRequest_PositionOpen) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1480,16 +1882,23 @@ func (m *TransactionPlannerRequest_PositionOpen) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_PositionOpen proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_PositionOpen) GetPosition() *v12.Position {
+func (m *TransactionPlannerRequest_PositionOpen) GetPosition() *v15.Position {
 	if m != nil {
 		return m.Position
 	}
 	return nil
 }
 
+func (m *TransactionPlannerRequest_PositionOpen) GetPositionMeta() *v15.PositionMetadata {
+	if m != nil {
+		return m.PositionMeta
+	}
+	return nil
+}
+
 type TransactionPlannerRequest_PositionClose struct {
 	// The position to close.
-	PositionId *v12.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
+	PositionId *v15.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_PositionClose) Reset() {
@@ -1498,7 +1907,7 @@ func (m *TransactionPlannerRequest_PositionClose) Reset() {
 func (m *TransactionPlannerRequest_PositionClose) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_PositionClose) ProtoMessage()    {}
 func (*TransactionPlannerRequest_PositionClose) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 8}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 8}
 }
 func (m *TransactionPlannerRequest_PositionClose) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1527,7 +1936,7 @@ func (m *TransactionPlannerRequest_PositionClose) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_PositionClose proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_PositionClose) GetPositionId() *v12.PositionId {
+func (m *TransactionPlannerRequest_PositionClose) GetPositionId() *v15.PositionId {
 	if m != nil {
 		return m.PositionId
 	}
@@ -1536,11 +1945,11 @@ func (m *TransactionPlannerRequest_PositionClose) GetPositionId() *v12.PositionI
 
 type TransactionPlannerRequest_PositionWithdraw struct {
 	// The position to withdraw.
-	PositionId *v12.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
+	PositionId *v15.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
 	// The position's final reserves.
-	Reserves *v12.Reserves `protobuf:"bytes,2,opt,name=reserves,proto3" json:"reserves,omitempty"`
+	Reserves *v15.Reserves `protobuf:"bytes,2,opt,name=reserves,proto3" json:"reserves,omitempty"`
 	// The trading pair of the position.
-	TradingPair *v12.TradingPair `protobuf:"bytes,3,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	TradingPair *v15.TradingPair `protobuf:"bytes,3,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_PositionWithdraw) Reset() {
@@ -1551,7 +1960,7 @@ func (m *TransactionPlannerRequest_PositionWithdraw) String() string {
 }
 func (*TransactionPlannerRequest_PositionWithdraw) ProtoMessage() {}
 func (*TransactionPlannerRequest_PositionWithdraw) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 9}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 9}
 }
 func (m *TransactionPlannerRequest_PositionWithdraw) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1580,21 +1989,21 @@ func (m *TransactionPlannerRequest_PositionWithdraw) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_PositionWithdraw proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_PositionWithdraw) GetPositionId() *v12.PositionId {
+func (m *TransactionPlannerRequest_PositionWithdraw) GetPositionId() *v15.PositionId {
 	if m != nil {
 		return m.PositionId
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest_PositionWithdraw) GetReserves() *v12.Reserves {
+func (m *TransactionPlannerRequest_PositionWithdraw) GetReserves() *v15.Reserves {
 	if m != nil {
 		return m.Reserves
 	}
 	return nil
 }
 
-func (m *TransactionPlannerRequest_PositionWithdraw) GetTradingPair() *v12.TradingPair {
+func (m *TransactionPlannerRequest_PositionWithdraw) GetTradingPair() *v15.TradingPair {
 	if m != nil {
 		return m.TradingPair
 	}
@@ -1603,7 +2012,7 @@ func (m *TransactionPlannerRequest_PositionWithdraw) GetTradingPair() *v12.Tradi
 
 type TransactionPlannerRequest_ActionDutchAuctionSchedule struct {
 	// The description of the auction to schedule.
-	Description *v11.DutchAuctionDescription `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
+	Description *v14.DutchAuctionDescription `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) Reset() {
@@ -1614,7 +2023,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) String() string {
 }
 func (*TransactionPlannerRequest_ActionDutchAuctionSchedule) ProtoMessage() {}
 func (*TransactionPlannerRequest_ActionDutchAuctionSchedule) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 10}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 10}
 }
 func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1643,7 +2052,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) XXX_DiscardUnknow
 
 var xxx_messageInfo_TransactionPlannerRequest_ActionDutchAuctionSchedule proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) GetDescription() *v11.DutchAuctionDescription {
+func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) GetDescription() *v14.DutchAuctionDescription {
 	if m != nil {
 		return m.Description
 	}
@@ -1652,7 +2061,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) GetDescription() 
 
 type TransactionPlannerRequest_ActionDutchAuctionEnd struct {
 	// The unique id of the auction to close.
-	AuctionId *v11.AuctionId `protobuf:"bytes,1,opt,name=auction_id,json=auctionId,proto3" json:"auction_id,omitempty"`
+	AuctionId *v14.AuctionId `protobuf:"bytes,1,opt,name=auction_id,json=auctionId,proto3" json:"auction_id,omitempty"`
 }
 
 func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) Reset() {
@@ -1663,7 +2072,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) String() string {
 }
 func (*TransactionPlannerRequest_ActionDutchAuctionEnd) ProtoMessage() {}
 func (*TransactionPlannerRequest_ActionDutchAuctionEnd) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 11}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 11}
 }
 func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1692,7 +2101,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerRequest_ActionDutchAuctionEnd proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) GetAuctionId() *v11.AuctionId {
+func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) GetAuctionId() *v14.AuctionId {
 	if m != nil {
 		return m.AuctionId
 	}
@@ -1701,7 +2110,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) GetAuctionId() *v11.Au
 
 type TransactionPlannerRequest_ActionDutchAuctionWithdraw struct {
 	// The auction to withdraw funds from.
-	AuctionId *v11.AuctionId `protobuf:"bytes,1,opt,name=auction_id,json=auctionId,proto3" json:"auction_id,omitempty"`
+	AuctionId *v14.AuctionId `protobuf:"bytes,1,opt,name=auction_id,json=auctionId,proto3" json:"auction_id,omitempty"`
 	// The sequence number of the withdrawal.
 	Seq uint64 `protobuf:"varint,2,opt,name=seq,proto3" json:"seq,omitempty"`
 }
@@ -1714,7 +2123,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) String() string {
 }
 func (*TransactionPlannerRequest_ActionDutchAuctionWithdraw) ProtoMessage() {}
 func (*TransactionPlannerRequest_ActionDutchAuctionWithdraw) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 12}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 12}
 }
 func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1743,7 +2152,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) XXX_DiscardUnknow
 
 var xxx_messageInfo_TransactionPlannerRequest_ActionDutchAuctionWithdraw proto.InternalMessageInfo
 
-func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) GetAuctionId() *v11.AuctionId {
+func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) GetAuctionId() *v14.AuctionId {
 	if m != nil {
 		return m.AuctionId
 	}
@@ -1776,7 +2185,7 @@ func (m *TransactionPlannerRequest_DelegatorVote) Reset() {
 func (m *TransactionPlannerRequest_DelegatorVote) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerRequest_DelegatorVote) ProtoMessage()    {}
 func (*TransactionPlannerRequest_DelegatorVote) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{6, 13}
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 13}
 }
 func (m *TransactionPlannerRequest_DelegatorVote) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1840,15 +2249,91 @@ func (m *TransactionPlannerRequest_DelegatorVote) GetRateData() []*v111.RateData
 	return nil
 }
 
+type TransactionPlannerRequest_ActionLiquidityTournamentVote struct {
+	// The asset the user wants to vote for.
+	Incentivized *v11.Denom `protobuf:"bytes,1,opt,name=incentivized,proto3" json:"incentivized,omitempty"`
+	// The address the user wants potential rewards to go to.
+	RewardsRecipient *v1.Address `protobuf:"bytes,2,opt,name=rewards_recipient,json=rewardsRecipient,proto3" json:"rewards_recipient,omitempty"`
+	// The note containing the staked note used for voting.
+	StakedNotes []*SpendableNoteRecord `protobuf:"bytes,3,rep,name=staked_notes,json=stakedNotes,proto3" json:"staked_notes,omitempty"`
+	// The epoch index of the tournament.
+	EpochIndex uint64 `protobuf:"varint,4,opt,name=epoch_index,json=epochIndex,proto3" json:"epoch_index,omitempty"`
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) Reset() {
+	*m = TransactionPlannerRequest_ActionLiquidityTournamentVote{}
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) String() string {
+	return proto.CompactTextString(m)
+}
+func (*TransactionPlannerRequest_ActionLiquidityTournamentVote) ProtoMessage() {}
+func (*TransactionPlannerRequest_ActionLiquidityTournamentVote) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{12, 14}
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TransactionPlannerRequest_ActionLiquidityTournamentVote.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TransactionPlannerRequest_ActionLiquidityTournamentVote.Merge(m, src)
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) XXX_Size() int {
+	return m.Size()
+}
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) XXX_DiscardUnknown() {
+	xxx_messageInfo_TransactionPlannerRequest_ActionLiquidityTournamentVote.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TransactionPlannerRequest_ActionLiquidityTournamentVote proto.InternalMessageInfo
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) GetIncentivized() *v11.Denom {
+	if m != nil {
+		return m.Incentivized
+	}
+	return nil
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) GetRewardsRecipient() *v1.Address {
+	if m != nil {
+		return m.RewardsRecipient
+	}
+	return nil
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) GetStakedNotes() []*SpendableNoteRecord {
+	if m != nil {
+		return m.StakedNotes
+	}
+	return nil
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) GetEpochIndex() uint64 {
+	if m != nil {
+		return m.EpochIndex
+	}
+	return 0
+}
+
 type TransactionPlannerResponse struct {
-	Plan *v13.TransactionPlan `protobuf:"bytes,1,opt,name=plan,proto3" json:"plan,omitempty"`
+	Plan *v16.TransactionPlan `protobuf:"bytes,1,opt,name=plan,proto3" json:"plan,omitempty"`
 }
 
 func (m *TransactionPlannerResponse) Reset()         { *m = TransactionPlannerResponse{} }
 func (m *TransactionPlannerResponse) String() string { return proto.CompactTextString(m) }
 func (*TransactionPlannerResponse) ProtoMessage()    {}
 func (*TransactionPlannerResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{7}
+	return fileDescriptor_dba93d04e42ddfc3, []int{13}
 }
 func (m *TransactionPlannerResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1877,7 +2362,7 @@ func (m *TransactionPlannerResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionPlannerResponse proto.InternalMessageInfo
 
-func (m *TransactionPlannerResponse) GetPlan() *v13.TransactionPlan {
+func (m *TransactionPlannerResponse) GetPlan() *v16.TransactionPlan {
 	if m != nil {
 		return m.Plan
 	}
@@ -1892,7 +2377,7 @@ func (m *AddressByIndexRequest) Reset()         { *m = AddressByIndexRequest{} }
 func (m *AddressByIndexRequest) String() string { return proto.CompactTextString(m) }
 func (*AddressByIndexRequest) ProtoMessage()    {}
 func (*AddressByIndexRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{8}
+	return fileDescriptor_dba93d04e42ddfc3, []int{14}
 }
 func (m *AddressByIndexRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1936,7 +2421,7 @@ func (m *AddressByIndexResponse) Reset()         { *m = AddressByIndexResponse{}
 func (m *AddressByIndexResponse) String() string { return proto.CompactTextString(m) }
 func (*AddressByIndexResponse) ProtoMessage()    {}
 func (*AddressByIndexResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{9}
+	return fileDescriptor_dba93d04e42ddfc3, []int{15}
 }
 func (m *AddressByIndexResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1979,7 +2464,7 @@ func (m *WalletIdRequest) Reset()         { *m = WalletIdRequest{} }
 func (m *WalletIdRequest) String() string { return proto.CompactTextString(m) }
 func (*WalletIdRequest) ProtoMessage()    {}
 func (*WalletIdRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{10}
+	return fileDescriptor_dba93d04e42ddfc3, []int{16}
 }
 func (m *WalletIdRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2016,7 +2501,7 @@ func (m *WalletIdResponse) Reset()         { *m = WalletIdResponse{} }
 func (m *WalletIdResponse) String() string { return proto.CompactTextString(m) }
 func (*WalletIdResponse) ProtoMessage()    {}
 func (*WalletIdResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{11}
+	return fileDescriptor_dba93d04e42ddfc3, []int{17}
 }
 func (m *WalletIdResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2060,7 +2545,7 @@ func (m *IndexByAddressRequest) Reset()         { *m = IndexByAddressRequest{} }
 func (m *IndexByAddressRequest) String() string { return proto.CompactTextString(m) }
 func (*IndexByAddressRequest) ProtoMessage()    {}
 func (*IndexByAddressRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{12}
+	return fileDescriptor_dba93d04e42ddfc3, []int{18}
 }
 func (m *IndexByAddressRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2105,7 +2590,7 @@ func (m *IndexByAddressResponse) Reset()         { *m = IndexByAddressResponse{}
 func (m *IndexByAddressResponse) String() string { return proto.CompactTextString(m) }
 func (*IndexByAddressResponse) ProtoMessage()    {}
 func (*IndexByAddressResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{13}
+	return fileDescriptor_dba93d04e42ddfc3, []int{19}
 }
 func (m *IndexByAddressResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2149,7 +2634,7 @@ func (m *EphemeralAddressRequest) Reset()         { *m = EphemeralAddressRequest
 func (m *EphemeralAddressRequest) String() string { return proto.CompactTextString(m) }
 func (*EphemeralAddressRequest) ProtoMessage()    {}
 func (*EphemeralAddressRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{14}
+	return fileDescriptor_dba93d04e42ddfc3, []int{20}
 }
 func (m *EphemeralAddressRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2193,7 +2678,7 @@ func (m *EphemeralAddressResponse) Reset()         { *m = EphemeralAddressRespon
 func (m *EphemeralAddressResponse) String() string { return proto.CompactTextString(m) }
 func (*EphemeralAddressResponse) ProtoMessage()    {}
 func (*EphemeralAddressResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{15}
+	return fileDescriptor_dba93d04e42ddfc3, []int{21}
 }
 func (m *EphemeralAddressResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2233,14 +2718,14 @@ type BalancesRequest struct {
 	// If present, filter balances to only include the account specified by the `AddressIndex`.
 	AccountFilter *v1.AddressIndex `protobuf:"bytes,1,opt,name=account_filter,json=accountFilter,proto3" json:"account_filter,omitempty"`
 	// If present, filter balances to only include the specified asset ID.
-	AssetIdFilter *v18.AssetId `protobuf:"bytes,2,opt,name=asset_id_filter,json=assetIdFilter,proto3" json:"asset_id_filter,omitempty"`
+	AssetIdFilter *v11.AssetId `protobuf:"bytes,2,opt,name=asset_id_filter,json=assetIdFilter,proto3" json:"asset_id_filter,omitempty"`
 }
 
 func (m *BalancesRequest) Reset()         { *m = BalancesRequest{} }
 func (m *BalancesRequest) String() string { return proto.CompactTextString(m) }
 func (*BalancesRequest) ProtoMessage()    {}
 func (*BalancesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{16}
+	return fileDescriptor_dba93d04e42ddfc3, []int{22}
 }
 func (m *BalancesRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2276,7 +2761,7 @@ func (m *BalancesRequest) GetAccountFilter() *v1.AddressIndex {
 	return nil
 }
 
-func (m *BalancesRequest) GetAssetIdFilter() *v18.AssetId {
+func (m *BalancesRequest) GetAssetIdFilter() *v11.AssetId {
 	if m != nil {
 		return m.AssetIdFilter
 	}
@@ -2287,21 +2772,21 @@ type BalancesResponse struct {
 	// Deprecated: use `account_address` instead.
 	Account *v1.AddressIndex `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"` // Deprecated: Do not use.
 	// Deprecated: use `balance_view` instead.
-	Balance *v18.Value `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"` // Deprecated: Do not use.
+	Balance *v11.Value `protobuf:"bytes,2,opt,name=balance,proto3" json:"balance,omitempty"` // Deprecated: Do not use.
 	// The default address for the account.
 	//
 	// Note that the returned balance is for all funds sent to the account,
 	// not just funds sent to its default address.
 	AccountAddress *v1.AddressView `protobuf:"bytes,3,opt,name=account_address,json=accountAddress,proto3" json:"account_address,omitempty"`
 	// The account's balance, with metadata.
-	BalanceView *v18.ValueView `protobuf:"bytes,4,opt,name=balance_view,json=balanceView,proto3" json:"balance_view,omitempty"`
+	BalanceView *v11.ValueView `protobuf:"bytes,4,opt,name=balance_view,json=balanceView,proto3" json:"balance_view,omitempty"`
 }
 
 func (m *BalancesResponse) Reset()         { *m = BalancesResponse{} }
 func (m *BalancesResponse) String() string { return proto.CompactTextString(m) }
 func (*BalancesResponse) ProtoMessage()    {}
 func (*BalancesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{17}
+	return fileDescriptor_dba93d04e42ddfc3, []int{23}
 }
 func (m *BalancesResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2339,7 +2824,7 @@ func (m *BalancesResponse) GetAccount() *v1.AddressIndex {
 }
 
 // Deprecated: Do not use.
-func (m *BalancesResponse) GetBalance() *v18.Value {
+func (m *BalancesResponse) GetBalance() *v11.Value {
 	if m != nil {
 		return m.Balance
 	}
@@ -2353,7 +2838,7 @@ func (m *BalancesResponse) GetAccountAddress() *v1.AddressView {
 	return nil
 }
 
-func (m *BalancesResponse) GetBalanceView() *v18.ValueView {
+func (m *BalancesResponse) GetBalanceView() *v11.ValueView {
 	if m != nil {
 		return m.BalanceView
 	}
@@ -2368,7 +2853,7 @@ func (m *StatusRequest) Reset()         { *m = StatusRequest{} }
 func (m *StatusRequest) String() string { return proto.CompactTextString(m) }
 func (*StatusRequest) ProtoMessage()    {}
 func (*StatusRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{18}
+	return fileDescriptor_dba93d04e42ddfc3, []int{24}
 }
 func (m *StatusRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2411,7 +2896,7 @@ func (m *StatusResponse) Reset()         { *m = StatusResponse{} }
 func (m *StatusResponse) String() string { return proto.CompactTextString(m) }
 func (*StatusResponse) ProtoMessage()    {}
 func (*StatusResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{19}
+	return fileDescriptor_dba93d04e42ddfc3, []int{25}
 }
 func (m *StatusResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2469,7 +2954,7 @@ func (m *StatusStreamRequest) Reset()         { *m = StatusStreamRequest{} }
 func (m *StatusStreamRequest) String() string { return proto.CompactTextString(m) }
 func (*StatusStreamRequest) ProtoMessage()    {}
 func (*StatusStreamRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{20}
+	return fileDescriptor_dba93d04e42ddfc3, []int{26}
 }
 func (m *StatusStreamRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2512,7 +2997,7 @@ func (m *StatusStreamResponse) Reset()         { *m = StatusStreamResponse{} }
 func (m *StatusStreamResponse) String() string { return proto.CompactTextString(m) }
 func (*StatusStreamResponse) ProtoMessage()    {}
 func (*StatusStreamResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{21}
+	return fileDescriptor_dba93d04e42ddfc3, []int{27}
 }
 func (m *StatusStreamResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2570,20 +3055,20 @@ type NotesRequest struct {
 	// If set, return spent notes as well as unspent notes.
 	IncludeSpent bool `protobuf:"varint,2,opt,name=include_spent,json=includeSpent,proto3" json:"include_spent,omitempty"`
 	// If set, only return notes with the specified asset id.
-	AssetId *v18.AssetId `protobuf:"bytes,3,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
+	AssetId *v11.AssetId `protobuf:"bytes,3,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
 	// If set, only return notes with the specified address incore.component.dex.v1.
 	AddressIndex *v1.AddressIndex `protobuf:"bytes,4,opt,name=address_index,json=addressIndex,proto3" json:"address_index,omitempty"`
 	// If set, stop returning notes once the total exceeds this amount.
 	//
 	// Ignored if `asset_id` is unset or if `include_spent` is set.
-	AmountToSpend *v110.Amount `protobuf:"bytes,6,opt,name=amount_to_spend,json=amountToSpend,proto3" json:"amount_to_spend,omitempty"`
+	AmountToSpend *v12.Amount `protobuf:"bytes,6,opt,name=amount_to_spend,json=amountToSpend,proto3" json:"amount_to_spend,omitempty"`
 }
 
 func (m *NotesRequest) Reset()         { *m = NotesRequest{} }
 func (m *NotesRequest) String() string { return proto.CompactTextString(m) }
 func (*NotesRequest) ProtoMessage()    {}
 func (*NotesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{22}
+	return fileDescriptor_dba93d04e42ddfc3, []int{28}
 }
 func (m *NotesRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2619,7 +3104,7 @@ func (m *NotesRequest) GetIncludeSpent() bool {
 	return false
 }
 
-func (m *NotesRequest) GetAssetId() *v18.AssetId {
+func (m *NotesRequest) GetAssetId() *v11.AssetId {
 	if m != nil {
 		return m.AssetId
 	}
@@ -2633,7 +3118,7 @@ func (m *NotesRequest) GetAddressIndex() *v1.AddressIndex {
 	return nil
 }
 
-func (m *NotesRequest) GetAmountToSpend() *v110.Amount {
+func (m *NotesRequest) GetAmountToSpend() *v12.Amount {
 	if m != nil {
 		return m.AmountToSpend
 	}
@@ -2652,7 +3137,7 @@ func (m *NotesForVotingRequest) Reset()         { *m = NotesForVotingRequest{} }
 func (m *NotesForVotingRequest) String() string { return proto.CompactTextString(m) }
 func (*NotesForVotingRequest) ProtoMessage()    {}
 func (*NotesForVotingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{23}
+	return fileDescriptor_dba93d04e42ddfc3, []int{29}
 }
 func (m *NotesForVotingRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2697,14 +3182,14 @@ func (m *NotesForVotingRequest) GetAddressIndex() *v1.AddressIndex {
 
 type WitnessRequest struct {
 	// The transaction plan to witness
-	TransactionPlan *v13.TransactionPlan `protobuf:"bytes,3,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
+	TransactionPlan *v16.TransactionPlan `protobuf:"bytes,3,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
 }
 
 func (m *WitnessRequest) Reset()         { *m = WitnessRequest{} }
 func (m *WitnessRequest) String() string { return proto.CompactTextString(m) }
 func (*WitnessRequest) ProtoMessage()    {}
 func (*WitnessRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{24}
+	return fileDescriptor_dba93d04e42ddfc3, []int{30}
 }
 func (m *WitnessRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2733,7 +3218,7 @@ func (m *WitnessRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WitnessRequest proto.InternalMessageInfo
 
-func (m *WitnessRequest) GetTransactionPlan() *v13.TransactionPlan {
+func (m *WitnessRequest) GetTransactionPlan() *v16.TransactionPlan {
 	if m != nil {
 		return m.TransactionPlan
 	}
@@ -2741,14 +3226,14 @@ func (m *WitnessRequest) GetTransactionPlan() *v13.TransactionPlan {
 }
 
 type WitnessResponse struct {
-	WitnessData *v13.WitnessData `protobuf:"bytes,1,opt,name=witness_data,json=witnessData,proto3" json:"witness_data,omitempty"`
+	WitnessData *v16.WitnessData `protobuf:"bytes,1,opt,name=witness_data,json=witnessData,proto3" json:"witness_data,omitempty"`
 }
 
 func (m *WitnessResponse) Reset()         { *m = WitnessResponse{} }
 func (m *WitnessResponse) String() string { return proto.CompactTextString(m) }
 func (*WitnessResponse) ProtoMessage()    {}
 func (*WitnessResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{25}
+	return fileDescriptor_dba93d04e42ddfc3, []int{31}
 }
 func (m *WitnessResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2777,7 +3262,7 @@ func (m *WitnessResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WitnessResponse proto.InternalMessageInfo
 
-func (m *WitnessResponse) GetWitnessData() *v13.WitnessData {
+func (m *WitnessResponse) GetWitnessData() *v16.WitnessData {
 	if m != nil {
 		return m.WitnessData
 	}
@@ -2785,15 +3270,15 @@ func (m *WitnessResponse) GetWitnessData() *v13.WitnessData {
 }
 
 type WitnessAndBuildRequest struct {
-	TransactionPlan   *v13.TransactionPlan   `protobuf:"bytes,1,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
-	AuthorizationData *v13.AuthorizationData `protobuf:"bytes,2,opt,name=authorization_data,json=authorizationData,proto3" json:"authorization_data,omitempty"`
+	TransactionPlan   *v16.TransactionPlan   `protobuf:"bytes,1,opt,name=transaction_plan,json=transactionPlan,proto3" json:"transaction_plan,omitempty"`
+	AuthorizationData *v16.AuthorizationData `protobuf:"bytes,2,opt,name=authorization_data,json=authorizationData,proto3" json:"authorization_data,omitempty"`
 }
 
 func (m *WitnessAndBuildRequest) Reset()         { *m = WitnessAndBuildRequest{} }
 func (m *WitnessAndBuildRequest) String() string { return proto.CompactTextString(m) }
 func (*WitnessAndBuildRequest) ProtoMessage()    {}
 func (*WitnessAndBuildRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{26}
+	return fileDescriptor_dba93d04e42ddfc3, []int{32}
 }
 func (m *WitnessAndBuildRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2822,14 +3307,14 @@ func (m *WitnessAndBuildRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WitnessAndBuildRequest proto.InternalMessageInfo
 
-func (m *WitnessAndBuildRequest) GetTransactionPlan() *v13.TransactionPlan {
+func (m *WitnessAndBuildRequest) GetTransactionPlan() *v16.TransactionPlan {
 	if m != nil {
 		return m.TransactionPlan
 	}
 	return nil
 }
 
-func (m *WitnessAndBuildRequest) GetAuthorizationData() *v13.AuthorizationData {
+func (m *WitnessAndBuildRequest) GetAuthorizationData() *v16.AuthorizationData {
 	if m != nil {
 		return m.AuthorizationData
 	}
@@ -2848,7 +3333,7 @@ func (m *WitnessAndBuildResponse) Reset()         { *m = WitnessAndBuildResponse
 func (m *WitnessAndBuildResponse) String() string { return proto.CompactTextString(m) }
 func (*WitnessAndBuildResponse) ProtoMessage()    {}
 func (*WitnessAndBuildResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{27}
+	return fileDescriptor_dba93d04e42ddfc3, []int{33}
 }
 func (m *WitnessAndBuildResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2932,7 +3417,7 @@ func (m *WitnessAndBuildResponse_BuildProgress) Reset()         { *m = WitnessAn
 func (m *WitnessAndBuildResponse_BuildProgress) String() string { return proto.CompactTextString(m) }
 func (*WitnessAndBuildResponse_BuildProgress) ProtoMessage()    {}
 func (*WitnessAndBuildResponse_BuildProgress) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{27, 0}
+	return fileDescriptor_dba93d04e42ddfc3, []int{33, 0}
 }
 func (m *WitnessAndBuildResponse_BuildProgress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2971,14 +3456,14 @@ func (m *WitnessAndBuildResponse_BuildProgress) GetProgress() float32 {
 // Signals that the transaction is complete.
 type WitnessAndBuildResponse_Complete struct {
 	// The finished transaction.
-	Transaction *v13.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Transaction *v16.Transaction `protobuf:"bytes,1,opt,name=transaction,proto3" json:"transaction,omitempty"`
 }
 
 func (m *WitnessAndBuildResponse_Complete) Reset()         { *m = WitnessAndBuildResponse_Complete{} }
 func (m *WitnessAndBuildResponse_Complete) String() string { return proto.CompactTextString(m) }
 func (*WitnessAndBuildResponse_Complete) ProtoMessage()    {}
 func (*WitnessAndBuildResponse_Complete) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{27, 1}
+	return fileDescriptor_dba93d04e42ddfc3, []int{33, 1}
 }
 func (m *WitnessAndBuildResponse_Complete) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3007,7 +3492,7 @@ func (m *WitnessAndBuildResponse_Complete) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_WitnessAndBuildResponse_Complete proto.InternalMessageInfo
 
-func (m *WitnessAndBuildResponse_Complete) GetTransaction() *v13.Transaction {
+func (m *WitnessAndBuildResponse_Complete) GetTransaction() *v16.Transaction {
 	if m != nil {
 		return m.Transaction
 	}
@@ -3020,7 +3505,7 @@ type AssetsRequest struct {
 	// the request indicate a filter.
 	Filtered bool `protobuf:"varint,1,opt,name=filtered,proto3" json:"filtered,omitempty"`
 	// Include these specific denominations in the response.
-	IncludeSpecificDenominations []*v18.Denom `protobuf:"bytes,2,rep,name=include_specific_denominations,json=includeSpecificDenominations,proto3" json:"include_specific_denominations,omitempty"`
+	IncludeSpecificDenominations []*v11.Denom `protobuf:"bytes,2,rep,name=include_specific_denominations,json=includeSpecificDenominations,proto3" json:"include_specific_denominations,omitempty"`
 	// Include all delegation tokens, to any validator, in the response.
 	IncludeDelegationTokens bool `protobuf:"varint,3,opt,name=include_delegation_tokens,json=includeDelegationTokens,proto3" json:"include_delegation_tokens,omitempty"`
 	// Include all unbonding tokens, from any validator, in the response.
@@ -3037,7 +3522,7 @@ func (m *AssetsRequest) Reset()         { *m = AssetsRequest{} }
 func (m *AssetsRequest) String() string { return proto.CompactTextString(m) }
 func (*AssetsRequest) ProtoMessage()    {}
 func (*AssetsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{28}
+	return fileDescriptor_dba93d04e42ddfc3, []int{34}
 }
 func (m *AssetsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3073,7 +3558,7 @@ func (m *AssetsRequest) GetFiltered() bool {
 	return false
 }
 
-func (m *AssetsRequest) GetIncludeSpecificDenominations() []*v18.Denom {
+func (m *AssetsRequest) GetIncludeSpecificDenominations() []*v11.Denom {
 	if m != nil {
 		return m.IncludeSpecificDenominations
 	}
@@ -3117,14 +3602,14 @@ func (m *AssetsRequest) GetIncludeVotingReceiptTokens() bool {
 
 // Requests all assets known to the view service.
 type AssetsResponse struct {
-	DenomMetadata *v18.Metadata `protobuf:"bytes,2,opt,name=denom_metadata,json=denomMetadata,proto3" json:"denom_metadata,omitempty"`
+	DenomMetadata *v11.Metadata `protobuf:"bytes,2,opt,name=denom_metadata,json=denomMetadata,proto3" json:"denom_metadata,omitempty"`
 }
 
 func (m *AssetsResponse) Reset()         { *m = AssetsResponse{} }
 func (m *AssetsResponse) String() string { return proto.CompactTextString(m) }
 func (*AssetsResponse) ProtoMessage()    {}
 func (*AssetsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{29}
+	return fileDescriptor_dba93d04e42ddfc3, []int{35}
 }
 func (m *AssetsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3153,7 +3638,7 @@ func (m *AssetsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AssetsResponse proto.InternalMessageInfo
 
-func (m *AssetsResponse) GetDenomMetadata() *v18.Metadata {
+func (m *AssetsResponse) GetDenomMetadata() *v11.Metadata {
 	if m != nil {
 		return m.DenomMetadata
 	}
@@ -3168,7 +3653,7 @@ func (m *AppParametersRequest) Reset()         { *m = AppParametersRequest{} }
 func (m *AppParametersRequest) String() string { return proto.CompactTextString(m) }
 func (*AppParametersRequest) ProtoMessage()    {}
 func (*AppParametersRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{30}
+	return fileDescriptor_dba93d04e42ddfc3, []int{36}
 }
 func (m *AppParametersRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3205,7 +3690,7 @@ func (m *AppParametersResponse) Reset()         { *m = AppParametersResponse{} }
 func (m *AppParametersResponse) String() string { return proto.CompactTextString(m) }
 func (*AppParametersResponse) ProtoMessage()    {}
 func (*AppParametersResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{31}
+	return fileDescriptor_dba93d04e42ddfc3, []int{37}
 }
 func (m *AppParametersResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3249,7 +3734,7 @@ func (m *GasPricesRequest) Reset()         { *m = GasPricesRequest{} }
 func (m *GasPricesRequest) String() string { return proto.CompactTextString(m) }
 func (*GasPricesRequest) ProtoMessage()    {}
 func (*GasPricesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{32}
+	return fileDescriptor_dba93d04e42ddfc3, []int{38}
 }
 func (m *GasPricesRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3280,16 +3765,16 @@ var xxx_messageInfo_GasPricesRequest proto.InternalMessageInfo
 
 type GasPricesResponse struct {
 	// The current gas prices, in the preferred (native) token.
-	GasPrices *v16.GasPrices `protobuf:"bytes,1,opt,name=gas_prices,json=gasPrices,proto3" json:"gas_prices,omitempty"`
+	GasPrices *v18.GasPrices `protobuf:"bytes,1,opt,name=gas_prices,json=gasPrices,proto3" json:"gas_prices,omitempty"`
 	// Other gas prices for other accepted tokens.
-	AltGasPrices []*v16.GasPrices `protobuf:"bytes,2,rep,name=alt_gas_prices,json=altGasPrices,proto3" json:"alt_gas_prices,omitempty"`
+	AltGasPrices []*v18.GasPrices `protobuf:"bytes,2,rep,name=alt_gas_prices,json=altGasPrices,proto3" json:"alt_gas_prices,omitempty"`
 }
 
 func (m *GasPricesResponse) Reset()         { *m = GasPricesResponse{} }
 func (m *GasPricesResponse) String() string { return proto.CompactTextString(m) }
 func (*GasPricesResponse) ProtoMessage()    {}
 func (*GasPricesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{33}
+	return fileDescriptor_dba93d04e42ddfc3, []int{39}
 }
 func (m *GasPricesResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3318,14 +3803,14 @@ func (m *GasPricesResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GasPricesResponse proto.InternalMessageInfo
 
-func (m *GasPricesResponse) GetGasPrices() *v16.GasPrices {
+func (m *GasPricesResponse) GetGasPrices() *v18.GasPrices {
 	if m != nil {
 		return m.GasPrices
 	}
 	return nil
 }
 
-func (m *GasPricesResponse) GetAltGasPrices() []*v16.GasPrices {
+func (m *GasPricesResponse) GetAltGasPrices() []*v18.GasPrices {
 	if m != nil {
 		return m.AltGasPrices
 	}
@@ -3340,7 +3825,7 @@ func (m *FMDParametersRequest) Reset()         { *m = FMDParametersRequest{} }
 func (m *FMDParametersRequest) String() string { return proto.CompactTextString(m) }
 func (*FMDParametersRequest) ProtoMessage()    {}
 func (*FMDParametersRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{34}
+	return fileDescriptor_dba93d04e42ddfc3, []int{40}
 }
 func (m *FMDParametersRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3377,7 +3862,7 @@ func (m *FMDParametersResponse) Reset()         { *m = FMDParametersResponse{} }
 func (m *FMDParametersResponse) String() string { return proto.CompactTextString(m) }
 func (*FMDParametersResponse) ProtoMessage()    {}
 func (*FMDParametersResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{35}
+	return fileDescriptor_dba93d04e42ddfc3, []int{41}
 }
 func (m *FMDParametersResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3414,7 +3899,7 @@ func (m *FMDParametersResponse) GetParameters() *v114.FmdParameters {
 }
 
 type NoteByCommitmentRequest struct {
-	NoteCommitment *v19.StateCommitment `protobuf:"bytes,2,opt,name=note_commitment,json=noteCommitment,proto3" json:"note_commitment,omitempty"`
+	NoteCommitment *v110.StateCommitment `protobuf:"bytes,2,opt,name=note_commitment,json=noteCommitment,proto3" json:"note_commitment,omitempty"`
 	// If set to true, waits to return until the requested note is detected.
 	AwaitDetection bool `protobuf:"varint,3,opt,name=await_detection,json=awaitDetection,proto3" json:"await_detection,omitempty"`
 }
@@ -3423,7 +3908,7 @@ func (m *NoteByCommitmentRequest) Reset()         { *m = NoteByCommitmentRequest
 func (m *NoteByCommitmentRequest) String() string { return proto.CompactTextString(m) }
 func (*NoteByCommitmentRequest) ProtoMessage()    {}
 func (*NoteByCommitmentRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{36}
+	return fileDescriptor_dba93d04e42ddfc3, []int{42}
 }
 func (m *NoteByCommitmentRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3452,7 +3937,7 @@ func (m *NoteByCommitmentRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_NoteByCommitmentRequest proto.InternalMessageInfo
 
-func (m *NoteByCommitmentRequest) GetNoteCommitment() *v19.StateCommitment {
+func (m *NoteByCommitmentRequest) GetNoteCommitment() *v110.StateCommitment {
 	if m != nil {
 		return m.NoteCommitment
 	}
@@ -3474,7 +3959,7 @@ func (m *NoteByCommitmentResponse) Reset()         { *m = NoteByCommitmentRespon
 func (m *NoteByCommitmentResponse) String() string { return proto.CompactTextString(m) }
 func (*NoteByCommitmentResponse) ProtoMessage()    {}
 func (*NoteByCommitmentResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{37}
+	return fileDescriptor_dba93d04e42ddfc3, []int{43}
 }
 func (m *NoteByCommitmentResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3511,7 +3996,7 @@ func (m *NoteByCommitmentResponse) GetSpendableNote() *SpendableNoteRecord {
 }
 
 type SwapByCommitmentRequest struct {
-	SwapCommitment *v19.StateCommitment `protobuf:"bytes,2,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
+	SwapCommitment *v110.StateCommitment `protobuf:"bytes,2,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
 	// If set to true, waits to return until the requested swap is detected.
 	AwaitDetection bool `protobuf:"varint,3,opt,name=await_detection,json=awaitDetection,proto3" json:"await_detection,omitempty"`
 }
@@ -3520,7 +4005,7 @@ func (m *SwapByCommitmentRequest) Reset()         { *m = SwapByCommitmentRequest
 func (m *SwapByCommitmentRequest) String() string { return proto.CompactTextString(m) }
 func (*SwapByCommitmentRequest) ProtoMessage()    {}
 func (*SwapByCommitmentRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{38}
+	return fileDescriptor_dba93d04e42ddfc3, []int{44}
 }
 func (m *SwapByCommitmentRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3549,7 +4034,7 @@ func (m *SwapByCommitmentRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SwapByCommitmentRequest proto.InternalMessageInfo
 
-func (m *SwapByCommitmentRequest) GetSwapCommitment() *v19.StateCommitment {
+func (m *SwapByCommitmentRequest) GetSwapCommitment() *v110.StateCommitment {
 	if m != nil {
 		return m.SwapCommitment
 	}
@@ -3571,7 +4056,7 @@ func (m *SwapByCommitmentResponse) Reset()         { *m = SwapByCommitmentRespon
 func (m *SwapByCommitmentResponse) String() string { return proto.CompactTextString(m) }
 func (*SwapByCommitmentResponse) ProtoMessage()    {}
 func (*SwapByCommitmentResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{39}
+	return fileDescriptor_dba93d04e42ddfc3, []int{45}
 }
 func (m *SwapByCommitmentResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3614,7 +4099,7 @@ func (m *UnclaimedSwapsRequest) Reset()         { *m = UnclaimedSwapsRequest{} }
 func (m *UnclaimedSwapsRequest) String() string { return proto.CompactTextString(m) }
 func (*UnclaimedSwapsRequest) ProtoMessage()    {}
 func (*UnclaimedSwapsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{40}
+	return fileDescriptor_dba93d04e42ddfc3, []int{46}
 }
 func (m *UnclaimedSwapsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3651,7 +4136,7 @@ func (m *UnclaimedSwapsResponse) Reset()         { *m = UnclaimedSwapsResponse{}
 func (m *UnclaimedSwapsResponse) String() string { return proto.CompactTextString(m) }
 func (*UnclaimedSwapsResponse) ProtoMessage()    {}
 func (*UnclaimedSwapsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{41}
+	return fileDescriptor_dba93d04e42ddfc3, []int{47}
 }
 func (m *UnclaimedSwapsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3688,7 +4173,7 @@ func (m *UnclaimedSwapsResponse) GetSwap() *SwapRecord {
 }
 
 type NullifierStatusRequest struct {
-	Nullifier      *v17.Nullifier `protobuf:"bytes,2,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
+	Nullifier      *v19.Nullifier `protobuf:"bytes,2,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
 	AwaitDetection bool           `protobuf:"varint,3,opt,name=await_detection,json=awaitDetection,proto3" json:"await_detection,omitempty"`
 }
 
@@ -3696,7 +4181,7 @@ func (m *NullifierStatusRequest) Reset()         { *m = NullifierStatusRequest{}
 func (m *NullifierStatusRequest) String() string { return proto.CompactTextString(m) }
 func (*NullifierStatusRequest) ProtoMessage()    {}
 func (*NullifierStatusRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{42}
+	return fileDescriptor_dba93d04e42ddfc3, []int{48}
 }
 func (m *NullifierStatusRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3725,7 +4210,7 @@ func (m *NullifierStatusRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_NullifierStatusRequest proto.InternalMessageInfo
 
-func (m *NullifierStatusRequest) GetNullifier() *v17.Nullifier {
+func (m *NullifierStatusRequest) GetNullifier() *v19.Nullifier {
 	if m != nil {
 		return m.Nullifier
 	}
@@ -3747,7 +4232,7 @@ func (m *NullifierStatusResponse) Reset()         { *m = NullifierStatusResponse
 func (m *NullifierStatusResponse) String() string { return proto.CompactTextString(m) }
 func (*NullifierStatusResponse) ProtoMessage()    {}
 func (*NullifierStatusResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{43}
+	return fileDescriptor_dba93d04e42ddfc3, []int{49}
 }
 func (m *NullifierStatusResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3785,14 +4270,14 @@ func (m *NullifierStatusResponse) GetSpent() bool {
 
 type TransactionInfoByHashRequest struct {
 	// The transaction hash to query for.
-	Id *v14.TransactionId `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Id *v13.TransactionId `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (m *TransactionInfoByHashRequest) Reset()         { *m = TransactionInfoByHashRequest{} }
 func (m *TransactionInfoByHashRequest) String() string { return proto.CompactTextString(m) }
 func (*TransactionInfoByHashRequest) ProtoMessage()    {}
 func (*TransactionInfoByHashRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{44}
+	return fileDescriptor_dba93d04e42ddfc3, []int{50}
 }
 func (m *TransactionInfoByHashRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3821,7 +4306,7 @@ func (m *TransactionInfoByHashRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_TransactionInfoByHashRequest proto.InternalMessageInfo
 
-func (m *TransactionInfoByHashRequest) GetId() *v14.TransactionId {
+func (m *TransactionInfoByHashRequest) GetId() *v13.TransactionId {
 	if m != nil {
 		return m.Id
 	}
@@ -3839,7 +4324,7 @@ func (m *TransactionInfoRequest) Reset()         { *m = TransactionInfoRequest{}
 func (m *TransactionInfoRequest) String() string { return proto.CompactTextString(m) }
 func (*TransactionInfoRequest) ProtoMessage()    {}
 func (*TransactionInfoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{45}
+	return fileDescriptor_dba93d04e42ddfc3, []int{51}
 }
 func (m *TransactionInfoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3886,20 +4371,22 @@ type TransactionInfo struct {
 	// The height the transaction was included in a block, if known.
 	Height uint64 `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"`
 	// The hash of the transaction.
-	Id *v14.TransactionId `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Id *v13.TransactionId `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	// The transaction data itself.
-	Transaction *v13.Transaction `protobuf:"bytes,3,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Transaction *v16.Transaction `protobuf:"bytes,3,opt,name=transaction,proto3" json:"transaction,omitempty"`
 	// The transaction perspective, as seen by this view server.
-	Perspective *v13.TransactionPerspective `protobuf:"bytes,4,opt,name=perspective,proto3" json:"perspective,omitempty"`
+	Perspective *v16.TransactionPerspective `protobuf:"bytes,4,opt,name=perspective,proto3" json:"perspective,omitempty"`
 	// A precomputed transaction view of `transaction` from `perspective`, included for convenience of clients that don't have support for viewing transactions on their own.
-	View *v13.TransactionView `protobuf:"bytes,5,opt,name=view,proto3" json:"view,omitempty"`
+	View *v16.TransactionView `protobuf:"bytes,5,opt,name=view,proto3" json:"view,omitempty"`
+	// A short view of balances leaving and entering accounts, computed from transaction actions.
+	Summary *v16.TransactionSummary `protobuf:"bytes,6,opt,name=summary,proto3" json:"summary,omitempty"`
 }
 
 func (m *TransactionInfo) Reset()         { *m = TransactionInfo{} }
 func (m *TransactionInfo) String() string { return proto.CompactTextString(m) }
 func (*TransactionInfo) ProtoMessage()    {}
 func (*TransactionInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{46}
+	return fileDescriptor_dba93d04e42ddfc3, []int{52}
 }
 func (m *TransactionInfo) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -3935,30 +4422,37 @@ func (m *TransactionInfo) GetHeight() uint64 {
 	return 0
 }
 
-func (m *TransactionInfo) GetId() *v14.TransactionId {
+func (m *TransactionInfo) GetId() *v13.TransactionId {
 	if m != nil {
 		return m.Id
 	}
 	return nil
 }
 
-func (m *TransactionInfo) GetTransaction() *v13.Transaction {
+func (m *TransactionInfo) GetTransaction() *v16.Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
 
-func (m *TransactionInfo) GetPerspective() *v13.TransactionPerspective {
+func (m *TransactionInfo) GetPerspective() *v16.TransactionPerspective {
 	if m != nil {
 		return m.Perspective
 	}
 	return nil
 }
 
-func (m *TransactionInfo) GetView() *v13.TransactionView {
+func (m *TransactionInfo) GetView() *v16.TransactionView {
 	if m != nil {
 		return m.View
+	}
+	return nil
+}
+
+func (m *TransactionInfo) GetSummary() *v16.TransactionSummary {
+	if m != nil {
+		return m.Summary
 	}
 	return nil
 }
@@ -3971,7 +4465,7 @@ func (m *TransactionInfoResponse) Reset()         { *m = TransactionInfoResponse
 func (m *TransactionInfoResponse) String() string { return proto.CompactTextString(m) }
 func (*TransactionInfoResponse) ProtoMessage()    {}
 func (*TransactionInfoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{47}
+	return fileDescriptor_dba93d04e42ddfc3, []int{53}
 }
 func (m *TransactionInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4015,7 +4509,7 @@ func (m *TransactionInfoByHashResponse) Reset()         { *m = TransactionInfoBy
 func (m *TransactionInfoByHashResponse) String() string { return proto.CompactTextString(m) }
 func (*TransactionInfoByHashResponse) ProtoMessage()    {}
 func (*TransactionInfoByHashResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{48}
+	return fileDescriptor_dba93d04e42ddfc3, []int{54}
 }
 func (m *TransactionInfoByHashResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4059,7 +4553,7 @@ func (m *NotesResponse) Reset()         { *m = NotesResponse{} }
 func (m *NotesResponse) String() string { return proto.CompactTextString(m) }
 func (*NotesResponse) ProtoMessage()    {}
 func (*NotesResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{49}
+	return fileDescriptor_dba93d04e42ddfc3, []int{55}
 }
 func (m *NotesResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4104,7 +4598,7 @@ func (m *NotesForVotingResponse) Reset()         { *m = NotesForVotingResponse{}
 func (m *NotesForVotingResponse) String() string { return proto.CompactTextString(m) }
 func (*NotesForVotingResponse) ProtoMessage()    {}
 func (*NotesForVotingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{50}
+	return fileDescriptor_dba93d04e42ddfc3, []int{56}
 }
 func (m *NotesForVotingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4150,13 +4644,13 @@ func (m *NotesForVotingResponse) GetIdentityKey() *v1.IdentityKey {
 // A note plaintext with associated metadata about its status.
 type SpendableNoteRecord struct {
 	// The note commitment, identifying the note.
-	NoteCommitment *v19.StateCommitment `protobuf:"bytes,1,opt,name=note_commitment,json=noteCommitment,proto3" json:"note_commitment,omitempty"`
+	NoteCommitment *v110.StateCommitment `protobuf:"bytes,1,opt,name=note_commitment,json=noteCommitment,proto3" json:"note_commitment,omitempty"`
 	// The note plaintext itself.
 	Note *v114.Note `protobuf:"bytes,2,opt,name=note,proto3" json:"note,omitempty"`
 	// A precomputed decryption of the note's address incore.component.dex.v1.
 	AddressIndex *v1.AddressIndex `protobuf:"bytes,3,opt,name=address_index,json=addressIndex,proto3" json:"address_index,omitempty"`
 	// The note's nullifier.
-	Nullifier *v17.Nullifier `protobuf:"bytes,4,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
+	Nullifier *v19.Nullifier `protobuf:"bytes,4,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
 	// The height at which the note was created.
 	HeightCreated uint64 `protobuf:"varint,5,opt,name=height_created,json=heightCreated,proto3" json:"height_created,omitempty"`
 	// Records whether the note was spent (and if so, at what height).
@@ -4164,7 +4658,7 @@ type SpendableNoteRecord struct {
 	// The note position.
 	Position uint64 `protobuf:"varint,7,opt,name=position,proto3" json:"position,omitempty"`
 	// The source of the note
-	Source *v17.CommitmentSource `protobuf:"bytes,8,opt,name=source,proto3" json:"source,omitempty"`
+	Source *v19.CommitmentSource `protobuf:"bytes,8,opt,name=source,proto3" json:"source,omitempty"`
 	// The sender's return address, if known.
 	ReturnAddress *v1.AddressView `protobuf:"bytes,9,opt,name=return_address,json=returnAddress,proto3" json:"return_address,omitempty"`
 }
@@ -4173,7 +4667,7 @@ func (m *SpendableNoteRecord) Reset()         { *m = SpendableNoteRecord{} }
 func (m *SpendableNoteRecord) String() string { return proto.CompactTextString(m) }
 func (*SpendableNoteRecord) ProtoMessage()    {}
 func (*SpendableNoteRecord) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{51}
+	return fileDescriptor_dba93d04e42ddfc3, []int{57}
 }
 func (m *SpendableNoteRecord) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4202,7 +4696,7 @@ func (m *SpendableNoteRecord) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SpendableNoteRecord proto.InternalMessageInfo
 
-func (m *SpendableNoteRecord) GetNoteCommitment() *v19.StateCommitment {
+func (m *SpendableNoteRecord) GetNoteCommitment() *v110.StateCommitment {
 	if m != nil {
 		return m.NoteCommitment
 	}
@@ -4223,7 +4717,7 @@ func (m *SpendableNoteRecord) GetAddressIndex() *v1.AddressIndex {
 	return nil
 }
 
-func (m *SpendableNoteRecord) GetNullifier() *v17.Nullifier {
+func (m *SpendableNoteRecord) GetNullifier() *v19.Nullifier {
 	if m != nil {
 		return m.Nullifier
 	}
@@ -4251,7 +4745,7 @@ func (m *SpendableNoteRecord) GetPosition() uint64 {
 	return 0
 }
 
-func (m *SpendableNoteRecord) GetSource() *v17.CommitmentSource {
+func (m *SpendableNoteRecord) GetSource() *v19.CommitmentSource {
 	if m != nil {
 		return m.Source
 	}
@@ -4266,20 +4760,20 @@ func (m *SpendableNoteRecord) GetReturnAddress() *v1.AddressView {
 }
 
 type SwapRecord struct {
-	SwapCommitment *v19.StateCommitment     `protobuf:"bytes,1,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
-	Swap           *v12.SwapPlaintext       `protobuf:"bytes,2,opt,name=swap,proto3" json:"swap,omitempty"`
+	SwapCommitment *v110.StateCommitment    `protobuf:"bytes,1,opt,name=swap_commitment,json=swapCommitment,proto3" json:"swap_commitment,omitempty"`
+	Swap           *v15.SwapPlaintext       `protobuf:"bytes,2,opt,name=swap,proto3" json:"swap,omitempty"`
 	Position       uint64                   `protobuf:"varint,3,opt,name=position,proto3" json:"position,omitempty"`
-	Nullifier      *v17.Nullifier           `protobuf:"bytes,4,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
-	OutputData     *v12.BatchSwapOutputData `protobuf:"bytes,5,opt,name=output_data,json=outputData,proto3" json:"output_data,omitempty"`
+	Nullifier      *v19.Nullifier           `protobuf:"bytes,4,opt,name=nullifier,proto3" json:"nullifier,omitempty"`
+	OutputData     *v15.BatchSwapOutputData `protobuf:"bytes,5,opt,name=output_data,json=outputData,proto3" json:"output_data,omitempty"`
 	HeightClaimed  uint64                   `protobuf:"varint,6,opt,name=height_claimed,json=heightClaimed,proto3" json:"height_claimed,omitempty"`
-	Source         *v17.CommitmentSource    `protobuf:"bytes,7,opt,name=source,proto3" json:"source,omitempty"`
+	Source         *v19.CommitmentSource    `protobuf:"bytes,7,opt,name=source,proto3" json:"source,omitempty"`
 }
 
 func (m *SwapRecord) Reset()         { *m = SwapRecord{} }
 func (m *SwapRecord) String() string { return proto.CompactTextString(m) }
 func (*SwapRecord) ProtoMessage()    {}
 func (*SwapRecord) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{52}
+	return fileDescriptor_dba93d04e42ddfc3, []int{58}
 }
 func (m *SwapRecord) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4308,14 +4802,14 @@ func (m *SwapRecord) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_SwapRecord proto.InternalMessageInfo
 
-func (m *SwapRecord) GetSwapCommitment() *v19.StateCommitment {
+func (m *SwapRecord) GetSwapCommitment() *v110.StateCommitment {
 	if m != nil {
 		return m.SwapCommitment
 	}
 	return nil
 }
 
-func (m *SwapRecord) GetSwap() *v12.SwapPlaintext {
+func (m *SwapRecord) GetSwap() *v15.SwapPlaintext {
 	if m != nil {
 		return m.Swap
 	}
@@ -4329,14 +4823,14 @@ func (m *SwapRecord) GetPosition() uint64 {
 	return 0
 }
 
-func (m *SwapRecord) GetNullifier() *v17.Nullifier {
+func (m *SwapRecord) GetNullifier() *v19.Nullifier {
 	if m != nil {
 		return m.Nullifier
 	}
 	return nil
 }
 
-func (m *SwapRecord) GetOutputData() *v12.BatchSwapOutputData {
+func (m *SwapRecord) GetOutputData() *v15.BatchSwapOutputData {
 	if m != nil {
 		return m.OutputData
 	}
@@ -4350,7 +4844,7 @@ func (m *SwapRecord) GetHeightClaimed() uint64 {
 	return 0
 }
 
-func (m *SwapRecord) GetSource() *v17.CommitmentSource {
+func (m *SwapRecord) GetSource() *v19.CommitmentSource {
 	if m != nil {
 		return m.Source
 	}
@@ -4359,16 +4853,18 @@ func (m *SwapRecord) GetSource() *v17.CommitmentSource {
 
 type OwnedPositionIdsRequest struct {
 	// If present, return only positions with this position state.
-	PositionState *v12.PositionState `protobuf:"bytes,1,opt,name=position_state,json=positionState,proto3" json:"position_state,omitempty"`
+	PositionState *v15.PositionState `protobuf:"bytes,1,opt,name=position_state,json=positionState,proto3" json:"position_state,omitempty"`
 	// If present, return only positions for this trading pair.
-	TradingPair *v12.TradingPair `protobuf:"bytes,2,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	TradingPair *v15.TradingPair `protobuf:"bytes,2,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	// If present, return only positions for this subaccount index.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,3,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
 }
 
 func (m *OwnedPositionIdsRequest) Reset()         { *m = OwnedPositionIdsRequest{} }
 func (m *OwnedPositionIdsRequest) String() string { return proto.CompactTextString(m) }
 func (*OwnedPositionIdsRequest) ProtoMessage()    {}
 func (*OwnedPositionIdsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{53}
+	return fileDescriptor_dba93d04e42ddfc3, []int{59}
 }
 func (m *OwnedPositionIdsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4397,29 +4893,38 @@ func (m *OwnedPositionIdsRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_OwnedPositionIdsRequest proto.InternalMessageInfo
 
-func (m *OwnedPositionIdsRequest) GetPositionState() *v12.PositionState {
+func (m *OwnedPositionIdsRequest) GetPositionState() *v15.PositionState {
 	if m != nil {
 		return m.PositionState
 	}
 	return nil
 }
 
-func (m *OwnedPositionIdsRequest) GetTradingPair() *v12.TradingPair {
+func (m *OwnedPositionIdsRequest) GetTradingPair() *v15.TradingPair {
 	if m != nil {
 		return m.TradingPair
 	}
 	return nil
 }
 
+func (m *OwnedPositionIdsRequest) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
+	}
+	return nil
+}
+
 type OwnedPositionIdsResponse struct {
-	PositionId *v12.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
+	PositionId *v15.PositionId `protobuf:"bytes,1,opt,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
+	// The subaccount this position belongs to.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,2,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
 }
 
 func (m *OwnedPositionIdsResponse) Reset()         { *m = OwnedPositionIdsResponse{} }
 func (m *OwnedPositionIdsResponse) String() string { return proto.CompactTextString(m) }
 func (*OwnedPositionIdsResponse) ProtoMessage()    {}
 func (*OwnedPositionIdsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{54}
+	return fileDescriptor_dba93d04e42ddfc3, []int{60}
 }
 func (m *OwnedPositionIdsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4448,9 +4953,16 @@ func (m *OwnedPositionIdsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_OwnedPositionIdsResponse proto.InternalMessageInfo
 
-func (m *OwnedPositionIdsResponse) GetPositionId() *v12.PositionId {
+func (m *OwnedPositionIdsResponse) GetPositionId() *v15.PositionId {
 	if m != nil {
 		return m.PositionId
+	}
+	return nil
+}
+
+func (m *OwnedPositionIdsResponse) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
 	}
 	return nil
 }
@@ -4458,14 +4970,14 @@ func (m *OwnedPositionIdsResponse) GetPositionId() *v12.PositionId {
 // Requests information on an asset by asset id
 type AssetMetadataByIdRequest struct {
 	// The asset id to request information on.
-	AssetId *v18.AssetId `protobuf:"bytes,2,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
+	AssetId *v11.AssetId `protobuf:"bytes,2,opt,name=asset_id,json=assetId,proto3" json:"asset_id,omitempty"`
 }
 
 func (m *AssetMetadataByIdRequest) Reset()         { *m = AssetMetadataByIdRequest{} }
 func (m *AssetMetadataByIdRequest) String() string { return proto.CompactTextString(m) }
 func (*AssetMetadataByIdRequest) ProtoMessage()    {}
 func (*AssetMetadataByIdRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{55}
+	return fileDescriptor_dba93d04e42ddfc3, []int{61}
 }
 func (m *AssetMetadataByIdRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4494,7 +5006,7 @@ func (m *AssetMetadataByIdRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AssetMetadataByIdRequest proto.InternalMessageInfo
 
-func (m *AssetMetadataByIdRequest) GetAssetId() *v18.AssetId {
+func (m *AssetMetadataByIdRequest) GetAssetId() *v11.AssetId {
 	if m != nil {
 		return m.AssetId
 	}
@@ -4505,14 +5017,14 @@ type AssetMetadataByIdResponse struct {
 	// If present, information on the requested asset.
 	//
 	// If the requested asset was unknown, this field will not be present.
-	DenomMetadata *v18.Metadata `protobuf:"bytes,1,opt,name=denom_metadata,json=denomMetadata,proto3" json:"denom_metadata,omitempty"`
+	DenomMetadata *v11.Metadata `protobuf:"bytes,1,opt,name=denom_metadata,json=denomMetadata,proto3" json:"denom_metadata,omitempty"`
 }
 
 func (m *AssetMetadataByIdResponse) Reset()         { *m = AssetMetadataByIdResponse{} }
 func (m *AssetMetadataByIdResponse) String() string { return proto.CompactTextString(m) }
 func (*AssetMetadataByIdResponse) ProtoMessage()    {}
 func (*AssetMetadataByIdResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{56}
+	return fileDescriptor_dba93d04e42ddfc3, []int{62}
 }
 func (m *AssetMetadataByIdResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4541,7 +5053,7 @@ func (m *AssetMetadataByIdResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AssetMetadataByIdResponse proto.InternalMessageInfo
 
-func (m *AssetMetadataByIdResponse) GetDenomMetadata() *v18.Metadata {
+func (m *AssetMetadataByIdResponse) GetDenomMetadata() *v11.Metadata {
 	if m != nil {
 		return m.DenomMetadata
 	}
@@ -4561,7 +5073,7 @@ func (m *DelegationsByAddressIndexRequest) Reset()         { *m = DelegationsByA
 func (m *DelegationsByAddressIndexRequest) String() string { return proto.CompactTextString(m) }
 func (*DelegationsByAddressIndexRequest) ProtoMessage()    {}
 func (*DelegationsByAddressIndexRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{57}
+	return fileDescriptor_dba93d04e42ddfc3, []int{63}
 }
 func (m *DelegationsByAddressIndexRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4608,14 +5120,14 @@ func (m *DelegationsByAddressIndexRequest) GetFilter() DelegationsByAddressIndex
 // The `ValueView` includes the `ValidatorInfo` for the delegated validator in
 // cits `extended_metadata` field.
 type DelegationsByAddressIndexResponse struct {
-	ValueView *v18.ValueView `protobuf:"bytes,1,opt,name=value_view,json=valueView,proto3" json:"value_view,omitempty"`
+	ValueView *v11.ValueView `protobuf:"bytes,1,opt,name=value_view,json=valueView,proto3" json:"value_view,omitempty"`
 }
 
 func (m *DelegationsByAddressIndexResponse) Reset()         { *m = DelegationsByAddressIndexResponse{} }
 func (m *DelegationsByAddressIndexResponse) String() string { return proto.CompactTextString(m) }
 func (*DelegationsByAddressIndexResponse) ProtoMessage()    {}
 func (*DelegationsByAddressIndexResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{58}
+	return fileDescriptor_dba93d04e42ddfc3, []int{64}
 }
 func (m *DelegationsByAddressIndexResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4644,7 +5156,7 @@ func (m *DelegationsByAddressIndexResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DelegationsByAddressIndexResponse proto.InternalMessageInfo
 
-func (m *DelegationsByAddressIndexResponse) GetValueView() *v18.ValueView {
+func (m *DelegationsByAddressIndexResponse) GetValueView() *v11.ValueView {
 	if m != nil {
 		return m.ValueView
 	}
@@ -4663,7 +5175,7 @@ func (m *UnbondingTokensByAddressIndexRequest) Reset()         { *m = UnbondingT
 func (m *UnbondingTokensByAddressIndexRequest) String() string { return proto.CompactTextString(m) }
 func (*UnbondingTokensByAddressIndexRequest) ProtoMessage()    {}
 func (*UnbondingTokensByAddressIndexRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{59}
+	return fileDescriptor_dba93d04e42ddfc3, []int{65}
 }
 func (m *UnbondingTokensByAddressIndexRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4710,7 +5222,7 @@ func (m *UnbondingTokensByAddressIndexRequest) GetAddressIndex() *v1.AddressInde
 // whether the tokens are currently claimable.
 type UnbondingTokensByAddressIndexResponse struct {
 	// A `ValueView` representing the amount of the given unbonding token.
-	ValueView *v18.ValueView `protobuf:"bytes,1,opt,name=value_view,json=valueView,proto3" json:"value_view,omitempty"`
+	ValueView *v11.ValueView `protobuf:"bytes,1,opt,name=value_view,json=valueView,proto3" json:"value_view,omitempty"`
 	// Whether the unbonding token is currently claimable. This will only be
 	// `true` if the `unbonding_delay` (from `StakeParameters`) has passed or the
 	// validator has unbonded.
@@ -4721,7 +5233,7 @@ func (m *UnbondingTokensByAddressIndexResponse) Reset()         { *m = Unbonding
 func (m *UnbondingTokensByAddressIndexResponse) String() string { return proto.CompactTextString(m) }
 func (*UnbondingTokensByAddressIndexResponse) ProtoMessage()    {}
 func (*UnbondingTokensByAddressIndexResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_dba93d04e42ddfc3, []int{60}
+	return fileDescriptor_dba93d04e42ddfc3, []int{66}
 }
 func (m *UnbondingTokensByAddressIndexResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -4750,7 +5262,7 @@ func (m *UnbondingTokensByAddressIndexResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UnbondingTokensByAddressIndexResponse proto.InternalMessageInfo
 
-func (m *UnbondingTokensByAddressIndexResponse) GetValueView() *v18.ValueView {
+func (m *UnbondingTokensByAddressIndexResponse) GetValueView() *v11.ValueView {
 	if m != nil {
 		return m.ValueView
 	}
@@ -4764,9 +5276,541 @@ func (m *UnbondingTokensByAddressIndexResponse) GetClaimable() bool {
 	return false
 }
 
+// Requests the latest swaps controlled by the user's wallet.
+type LatestSwapsRequest struct {
+	// If present, filter balances to only include the account specified by the `AddressIndex`.
+	AccountFilter *v1.AddressIndex `protobuf:"bytes,1,opt,name=account_filter,json=accountFilter,proto3" json:"account_filter,omitempty"`
+	// If present, filter balances to only include trading activity on the specified pair.
+	Pair *v15.DirectedTradingPair `protobuf:"bytes,2,opt,name=pair,proto3" json:"pair,omitempty"`
+	// If present, limit the responses to activity that occurred after this block height.
+	AfterHeight uint64 `protobuf:"varint,3,opt,name=after_height,json=afterHeight,proto3" json:"after_height,omitempty"`
+	// Limit the response to the last entries within `response_limit`.
+	ResponseLimit uint64 `protobuf:"varint,4,opt,name=response_limit,json=responseLimit,proto3" json:"response_limit,omitempty"`
+}
+
+func (m *LatestSwapsRequest) Reset()         { *m = LatestSwapsRequest{} }
+func (m *LatestSwapsRequest) String() string { return proto.CompactTextString(m) }
+func (*LatestSwapsRequest) ProtoMessage()    {}
+func (*LatestSwapsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{67}
+}
+func (m *LatestSwapsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LatestSwapsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LatestSwapsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LatestSwapsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LatestSwapsRequest.Merge(m, src)
+}
+func (m *LatestSwapsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LatestSwapsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LatestSwapsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LatestSwapsRequest proto.InternalMessageInfo
+
+func (m *LatestSwapsRequest) GetAccountFilter() *v1.AddressIndex {
+	if m != nil {
+		return m.AccountFilter
+	}
+	return nil
+}
+
+func (m *LatestSwapsRequest) GetPair() *v15.DirectedTradingPair {
+	if m != nil {
+		return m.Pair
+	}
+	return nil
+}
+
+func (m *LatestSwapsRequest) GetAfterHeight() uint64 {
+	if m != nil {
+		return m.AfterHeight
+	}
+	return 0
+}
+
+func (m *LatestSwapsRequest) GetResponseLimit() uint64 {
+	if m != nil {
+		return m.ResponseLimit
+	}
+	return 0
+}
+
+type LatestSwapsResponse struct {
+	// The trading pair involved in this swap.
+	Pair *v15.DirectedTradingPair `protobuf:"bytes,1,opt,name=pair,proto3" json:"pair,omitempty"`
+	// The input value for the swap.
+	Input *v11.Value `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
+	// The output value received from the swap.
+	Output *v11.Value `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"`
+	// The block height at which this swap occurred.
+	BlockHeight uint64 `protobuf:"varint,4,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
+	// The hash of the transaction that was broadcast.
+	Id *v13.TransactionId `protobuf:"bytes,5,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *LatestSwapsResponse) Reset()         { *m = LatestSwapsResponse{} }
+func (m *LatestSwapsResponse) String() string { return proto.CompactTextString(m) }
+func (*LatestSwapsResponse) ProtoMessage()    {}
+func (*LatestSwapsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{68}
+}
+func (m *LatestSwapsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LatestSwapsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LatestSwapsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LatestSwapsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LatestSwapsResponse.Merge(m, src)
+}
+func (m *LatestSwapsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LatestSwapsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LatestSwapsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LatestSwapsResponse proto.InternalMessageInfo
+
+func (m *LatestSwapsResponse) GetPair() *v15.DirectedTradingPair {
+	if m != nil {
+		return m.Pair
+	}
+	return nil
+}
+
+func (m *LatestSwapsResponse) GetInput() *v11.Value {
+	if m != nil {
+		return m.Input
+	}
+	return nil
+}
+
+func (m *LatestSwapsResponse) GetOutput() *v11.Value {
+	if m != nil {
+		return m.Output
+	}
+	return nil
+}
+
+func (m *LatestSwapsResponse) GetBlockHeight() uint64 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *LatestSwapsResponse) GetId() *v13.TransactionId {
+	if m != nil {
+		return m.Id
+	}
+	return nil
+}
+
+// Request bundles of liquidity positions by trading pair / subaccount / strategy.
+type LpPositionBundleRequest struct {
+	// Filter by subaccount index.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,1,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
+	// Filter by trading pair.
+	TradingPair *v15.TradingPair `protobuf:"bytes,2,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	// Filter by strategy, and also identifier if present.
+	PositionMetadata *v15.PositionMetadata `protobuf:"bytes,3,opt,name=position_metadata,json=positionMetadata,proto3" json:"position_metadata,omitempty"`
+	// Filter by strategy state.
+	PositionState *v15.PositionState `protobuf:"bytes,4,opt,name=position_state,json=positionState,proto3" json:"position_state,omitempty"`
+}
+
+func (m *LpPositionBundleRequest) Reset()         { *m = LpPositionBundleRequest{} }
+func (m *LpPositionBundleRequest) String() string { return proto.CompactTextString(m) }
+func (*LpPositionBundleRequest) ProtoMessage()    {}
+func (*LpPositionBundleRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{69}
+}
+func (m *LpPositionBundleRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpPositionBundleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpPositionBundleRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpPositionBundleRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpPositionBundleRequest.Merge(m, src)
+}
+func (m *LpPositionBundleRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpPositionBundleRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpPositionBundleRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpPositionBundleRequest proto.InternalMessageInfo
+
+func (m *LpPositionBundleRequest) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
+	}
+	return nil
+}
+
+func (m *LpPositionBundleRequest) GetTradingPair() *v15.TradingPair {
+	if m != nil {
+		return m.TradingPair
+	}
+	return nil
+}
+
+func (m *LpPositionBundleRequest) GetPositionMetadata() *v15.PositionMetadata {
+	if m != nil {
+		return m.PositionMetadata
+	}
+	return nil
+}
+
+func (m *LpPositionBundleRequest) GetPositionState() *v15.PositionState {
+	if m != nil {
+		return m.PositionState
+	}
+	return nil
+}
+
+type LpPositionBundleResponse struct {
+	Entries []*LpPositionBundleResponse_Entry `protobuf:"bytes,1,rep,name=entries,proto3" json:"entries,omitempty"`
+}
+
+func (m *LpPositionBundleResponse) Reset()         { *m = LpPositionBundleResponse{} }
+func (m *LpPositionBundleResponse) String() string { return proto.CompactTextString(m) }
+func (*LpPositionBundleResponse) ProtoMessage()    {}
+func (*LpPositionBundleResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{70}
+}
+func (m *LpPositionBundleResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpPositionBundleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpPositionBundleResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpPositionBundleResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpPositionBundleResponse.Merge(m, src)
+}
+func (m *LpPositionBundleResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpPositionBundleResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpPositionBundleResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpPositionBundleResponse proto.InternalMessageInfo
+
+func (m *LpPositionBundleResponse) GetEntries() []*LpPositionBundleResponse_Entry {
+	if m != nil {
+		return m.Entries
+	}
+	return nil
+}
+
+type LpPositionBundleResponse_Entry struct {
+	// The trading pair for which this strategy is defined.
+	TradingPair *v15.TradingPair `protobuf:"bytes,1,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	// The subaccount index for which this strategy is defined.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,2,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
+	// The LP strategy metadata.
+	PositionMetadata *v15.PositionMetadata `protobuf:"bytes,3,opt,name=position_metadata,json=positionMetadata,proto3" json:"position_metadata,omitempty"`
+	// The strategy state (e.g., open, closed, etc.).
+	PositionState *v15.PositionState `protobuf:"bytes,4,opt,name=position_state,json=positionState,proto3" json:"position_state,omitempty"`
+	// The position id for the LP strategy.
+	PositionId []*v15.PositionId `protobuf:"bytes,5,rep,name=position_id,json=positionId,proto3" json:"position_id,omitempty"`
+}
+
+func (m *LpPositionBundleResponse_Entry) Reset()         { *m = LpPositionBundleResponse_Entry{} }
+func (m *LpPositionBundleResponse_Entry) String() string { return proto.CompactTextString(m) }
+func (*LpPositionBundleResponse_Entry) ProtoMessage()    {}
+func (*LpPositionBundleResponse_Entry) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{70, 0}
+}
+func (m *LpPositionBundleResponse_Entry) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpPositionBundleResponse_Entry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpPositionBundleResponse_Entry.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpPositionBundleResponse_Entry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpPositionBundleResponse_Entry.Merge(m, src)
+}
+func (m *LpPositionBundleResponse_Entry) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpPositionBundleResponse_Entry) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpPositionBundleResponse_Entry.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpPositionBundleResponse_Entry proto.InternalMessageInfo
+
+func (m *LpPositionBundleResponse_Entry) GetTradingPair() *v15.TradingPair {
+	if m != nil {
+		return m.TradingPair
+	}
+	return nil
+}
+
+func (m *LpPositionBundleResponse_Entry) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
+	}
+	return nil
+}
+
+func (m *LpPositionBundleResponse_Entry) GetPositionMetadata() *v15.PositionMetadata {
+	if m != nil {
+		return m.PositionMetadata
+	}
+	return nil
+}
+
+func (m *LpPositionBundleResponse_Entry) GetPositionState() *v15.PositionState {
+	if m != nil {
+		return m.PositionState
+	}
+	return nil
+}
+
+func (m *LpPositionBundleResponse_Entry) GetPositionId() []*v15.PositionId {
+	if m != nil {
+		return m.PositionId
+	}
+	return nil
+}
+
+// Request a list of LP strategies (e.g, for a UI to display a catalogue of strategies).
+type LpStrategyCatalogRequest struct {
+	// Filter by subaccount index.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,1,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
+	// Filter by trading pair.
+	TradingPair *v15.TradingPair `protobuf:"bytes,2,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	// Filter by strategy.
+	PositionMetadata *v15.PositionMetadata `protobuf:"bytes,3,opt,name=position_metadata,json=positionMetadata,proto3" json:"position_metadata,omitempty"`
+}
+
+func (m *LpStrategyCatalogRequest) Reset()         { *m = LpStrategyCatalogRequest{} }
+func (m *LpStrategyCatalogRequest) String() string { return proto.CompactTextString(m) }
+func (*LpStrategyCatalogRequest) ProtoMessage()    {}
+func (*LpStrategyCatalogRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{71}
+}
+func (m *LpStrategyCatalogRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpStrategyCatalogRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpStrategyCatalogRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpStrategyCatalogRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpStrategyCatalogRequest.Merge(m, src)
+}
+func (m *LpStrategyCatalogRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpStrategyCatalogRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpStrategyCatalogRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpStrategyCatalogRequest proto.InternalMessageInfo
+
+func (m *LpStrategyCatalogRequest) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
+	}
+	return nil
+}
+
+func (m *LpStrategyCatalogRequest) GetTradingPair() *v15.TradingPair {
+	if m != nil {
+		return m.TradingPair
+	}
+	return nil
+}
+
+func (m *LpStrategyCatalogRequest) GetPositionMetadata() *v15.PositionMetadata {
+	if m != nil {
+		return m.PositionMetadata
+	}
+	return nil
+}
+
+type LpStrategyCatalogResponse struct {
+	Strategies []*LpStrategyCatalogResponse_StrategyEntry `protobuf:"bytes,1,rep,name=strategies,proto3" json:"strategies,omitempty"`
+}
+
+func (m *LpStrategyCatalogResponse) Reset()         { *m = LpStrategyCatalogResponse{} }
+func (m *LpStrategyCatalogResponse) String() string { return proto.CompactTextString(m) }
+func (*LpStrategyCatalogResponse) ProtoMessage()    {}
+func (*LpStrategyCatalogResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{72}
+}
+func (m *LpStrategyCatalogResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpStrategyCatalogResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpStrategyCatalogResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpStrategyCatalogResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpStrategyCatalogResponse.Merge(m, src)
+}
+func (m *LpStrategyCatalogResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpStrategyCatalogResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpStrategyCatalogResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpStrategyCatalogResponse proto.InternalMessageInfo
+
+func (m *LpStrategyCatalogResponse) GetStrategies() []*LpStrategyCatalogResponse_StrategyEntry {
+	if m != nil {
+		return m.Strategies
+	}
+	return nil
+}
+
+type LpStrategyCatalogResponse_StrategyEntry struct {
+	// The trading pair for which this strategy is defined.
+	TradingPair *v15.TradingPair `protobuf:"bytes,1,opt,name=trading_pair,json=tradingPair,proto3" json:"trading_pair,omitempty"`
+	// The subaccount index for which this strategy is defined.
+	Subaccount *v1.AddressIndex `protobuf:"bytes,2,opt,name=subaccount,proto3" json:"subaccount,omitempty"`
+	// The LP strategy metadata.
+	PositionMetadata *v15.PositionMetadata `protobuf:"bytes,3,opt,name=position_metadata,json=positionMetadata,proto3" json:"position_metadata,omitempty"`
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) Reset() {
+	*m = LpStrategyCatalogResponse_StrategyEntry{}
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) String() string { return proto.CompactTextString(m) }
+func (*LpStrategyCatalogResponse_StrategyEntry) ProtoMessage()    {}
+func (*LpStrategyCatalogResponse_StrategyEntry) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dba93d04e42ddfc3, []int{72, 0}
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_LpStrategyCatalogResponse_StrategyEntry.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LpStrategyCatalogResponse_StrategyEntry.Merge(m, src)
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) XXX_Size() int {
+	return m.Size()
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) XXX_DiscardUnknown() {
+	xxx_messageInfo_LpStrategyCatalogResponse_StrategyEntry.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LpStrategyCatalogResponse_StrategyEntry proto.InternalMessageInfo
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) GetTradingPair() *v15.TradingPair {
+	if m != nil {
+		return m.TradingPair
+	}
+	return nil
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) GetSubaccount() *v1.AddressIndex {
+	if m != nil {
+		return m.Subaccount
+	}
+	return nil
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) GetPositionMetadata() *v15.PositionMetadata {
+	if m != nil {
+		return m.PositionMetadata
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterEnum("penumbra.view.v1.DelegationsByAddressIndexRequest_Filter", DelegationsByAddressIndexRequest_Filter_name, DelegationsByAddressIndexRequest_Filter_value)
 	proto.RegisterEnum("penumbra.view.v1.UnbondingTokensByAddressIndexRequest_Filter", UnbondingTokensByAddressIndexRequest_Filter_name, UnbondingTokensByAddressIndexRequest_Filter_value)
+	proto.RegisterType((*LqtVotingNotesRequest)(nil), "penumbra.view.v1.LqtVotingNotesRequest")
+	proto.RegisterType((*LqtVotingNotesResponse)(nil), "penumbra.view.v1.LqtVotingNotesResponse")
+	proto.RegisterType((*TournamentVotesRequest)(nil), "penumbra.view.v1.TournamentVotesRequest")
+	proto.RegisterType((*TournamentVotesResponse)(nil), "penumbra.view.v1.TournamentVotesResponse")
+	proto.RegisterType((*TournamentVotesResponse_Vote)(nil), "penumbra.view.v1.TournamentVotesResponse.Vote")
+	proto.RegisterType((*TransparentAddressRequest)(nil), "penumbra.view.v1.TransparentAddressRequest")
+	proto.RegisterType((*TransparentAddressResponse)(nil), "penumbra.view.v1.TransparentAddressResponse")
 	proto.RegisterType((*AuctionsRequest)(nil), "penumbra.view.v1.AuctionsRequest")
 	proto.RegisterType((*AuctionsResponse)(nil), "penumbra.view.v1.AuctionsResponse")
 	proto.RegisterType((*AuthorizeAndBuildRequest)(nil), "penumbra.view.v1.AuthorizeAndBuildRequest")
@@ -4792,6 +5836,7 @@ func init() {
 	proto.RegisterType((*TransactionPlannerRequest_ActionDutchAuctionEnd)(nil), "penumbra.view.v1.TransactionPlannerRequest.ActionDutchAuctionEnd")
 	proto.RegisterType((*TransactionPlannerRequest_ActionDutchAuctionWithdraw)(nil), "penumbra.view.v1.TransactionPlannerRequest.ActionDutchAuctionWithdraw")
 	proto.RegisterType((*TransactionPlannerRequest_DelegatorVote)(nil), "penumbra.view.v1.TransactionPlannerRequest.DelegatorVote")
+	proto.RegisterType((*TransactionPlannerRequest_ActionLiquidityTournamentVote)(nil), "penumbra.view.v1.TransactionPlannerRequest.ActionLiquidityTournamentVote")
 	proto.RegisterType((*TransactionPlannerResponse)(nil), "penumbra.view.v1.TransactionPlannerResponse")
 	proto.RegisterType((*AddressByIndexRequest)(nil), "penumbra.view.v1.AddressByIndexRequest")
 	proto.RegisterType((*AddressByIndexResponse)(nil), "penumbra.view.v1.AddressByIndexResponse")
@@ -4848,293 +5893,350 @@ func init() {
 	proto.RegisterType((*DelegationsByAddressIndexResponse)(nil), "penumbra.view.v1.DelegationsByAddressIndexResponse")
 	proto.RegisterType((*UnbondingTokensByAddressIndexRequest)(nil), "penumbra.view.v1.UnbondingTokensByAddressIndexRequest")
 	proto.RegisterType((*UnbondingTokensByAddressIndexResponse)(nil), "penumbra.view.v1.UnbondingTokensByAddressIndexResponse")
+	proto.RegisterType((*LatestSwapsRequest)(nil), "penumbra.view.v1.LatestSwapsRequest")
+	proto.RegisterType((*LatestSwapsResponse)(nil), "penumbra.view.v1.LatestSwapsResponse")
+	proto.RegisterType((*LpPositionBundleRequest)(nil), "penumbra.view.v1.LpPositionBundleRequest")
+	proto.RegisterType((*LpPositionBundleResponse)(nil), "penumbra.view.v1.LpPositionBundleResponse")
+	proto.RegisterType((*LpPositionBundleResponse_Entry)(nil), "penumbra.view.v1.LpPositionBundleResponse.Entry")
+	proto.RegisterType((*LpStrategyCatalogRequest)(nil), "penumbra.view.v1.LpStrategyCatalogRequest")
+	proto.RegisterType((*LpStrategyCatalogResponse)(nil), "penumbra.view.v1.LpStrategyCatalogResponse")
+	proto.RegisterType((*LpStrategyCatalogResponse_StrategyEntry)(nil), "penumbra.view.v1.LpStrategyCatalogResponse.StrategyEntry")
 }
 
 func init() { proto.RegisterFile("penumbra/view/v1/view.proto", fileDescriptor_dba93d04e42ddfc3) }
 
 var fileDescriptor_dba93d04e42ddfc3 = []byte{
-	// 4490 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x3c, 0x49, 0x6c, 0xdc, 0x58,
-	0x76, 0x66, 0x49, 0x96, 0x4a, 0x4f, 0xaa, 0x45, 0xbf, 0x2d, 0xb9, 0x5c, 0xed, 0x96, 0x6d, 0xf6,
-	0x26, 0xdb, 0x3d, 0xa5, 0xc5, 0x3d, 0xbd, 0xd8, 0x6e, 0x4c, 0xaa, 0xb4, 0x58, 0xb2, 0x65, 0x59,
-	0x4d, 0xc9, 0x72, 0x4f, 0x8f, 0x3b, 0x0c, 0x8b, 0xfc, 0x92, 0x18, 0xb3, 0x48, 0x9a, 0x64, 0x95,
-	0xac, 0x64, 0xce, 0x09, 0xd2, 0x83, 0x00, 0x41, 0x26, 0xd7, 0x24, 0x40, 0x80, 0x49, 0x80, 0x04,
-	0xe8, 0x7b, 0x4e, 0xb9, 0xce, 0x04, 0x08, 0x30, 0xc8, 0xa9, 0x2f, 0x01, 0x06, 0xdd, 0xb7, 0xdc,
-	0x73, 0xca, 0x21, 0xc1, 0xdf, 0x58, 0x24, 0x8b, 0x54, 0x55, 0xc9, 0x9a, 0x01, 0xe6, 0x24, 0xfe,
-	0xf7, 0xdf, 0xf6, 0xdf, 0xdf, 0xde, 0xf2, 0x4b, 0xf0, 0xa6, 0x8b, 0xed, 0x76, 0xab, 0xe9, 0x69,
-	0x0b, 0x1d, 0x13, 0x1f, 0x2f, 0x74, 0x96, 0xe8, 0xdf, 0x9a, 0xeb, 0x39, 0x81, 0x83, 0xca, 0xa2,
-	0xb3, 0x46, 0x81, 0x9d, 0xa5, 0xea, 0x95, 0x43, 0xc7, 0x39, 0xb4, 0xf0, 0x02, 0xed, 0x6f, 0xb6,
-	0x0f, 0x16, 0x34, 0xfb, 0x84, 0x21, 0x57, 0xe7, 0x42, 0x4e, 0xba, 0xe3, 0xe1, 0x05, 0xcd, 0x75,
-	0x09, 0x37, 0xcd, 0x75, 0x79, 0xbf, 0x9c, 0xe8, 0xf7, 0x7d, 0x1c, 0x50, 0x0c, 0xf2, 0xc1, 0x71,
-	0x16, 0xe3, 0x38, 0xba, 0xd3, 0x72, 0x1d, 0x1b, 0xdb, 0xc1, 0x82, 0xd6, 0xd6, 0x03, 0xd3, 0xb1,
-	0x29, 0x3e, 0xfb, 0xe4, 0x14, 0xf3, 0x59, 0x14, 0x06, 0x7e, 0x45, 0xb0, 0x0d, 0xfc, 0xaa, 0x1f,
-	0xe6, 0x01, 0xc6, 0x04, 0xf3, 0x00, 0x63, 0x8e, 0xf9, 0x51, 0x16, 0xe6, 0xa1, 0xd3, 0xc1, 0x9e,
-	0xad, 0xd9, 0x3a, 0x25, 0xe8, 0xb6, 0xfa, 0x49, 0x30, 0x9b, 0x3a, 0x21, 0x30, 0x9b, 0x7a, 0x3f,
-	0x4c, 0x5f, 0xa7, 0x36, 0xf1, 0x75, 0x61, 0x91, 0xfb, 0x99, 0x98, 0x47, 0x26, 0xb6, 0x0c, 0x6c,
-	0xa8, 0xae, 0xe3, 0x58, 0x94, 0x26, 0x0a, 0xe0, 0xd4, 0x1f, 0x64, 0x52, 0x07, 0xda, 0x0b, 0x3a,
-	0x08, 0xfa, 0xc1, 0xb1, 0xaf, 0xc7, 0xb1, 0x5f, 0xe0, 0x13, 0x9f, 0xa0, 0x90, 0xbf, 0xe9, 0x73,
-	0x6c, 0xb7, 0x5b, 0x04, 0xc1, 0x6e, 0xb7, 0x78, 0x7f, 0x2d, 0xde, 0x1f, 0x78, 0x9a, 0xed, 0x6b,
-	0xe1, 0xcc, 0x45, 0x9a, 0x1c, 0xff, 0x9d, 0x04, 0xfe, 0xab, 0x23, 0xcd, 0x3f, 0xa2, 0xa8, 0xf4,
-	0xab, 0x57, 0x2f, 0xef, 0xc4, 0x0d, 0x9c, 0x85, 0x80, 0x59, 0x29, 0x10, 0x56, 0x92, 0x7f, 0x9e,
-	0x83, 0x52, 0x9d, 0xad, 0x0b, 0x5f, 0xc1, 0x2f, 0xdb, 0xd8, 0x0f, 0xd0, 0x43, 0x28, 0x6a, 0xba,
-	0xee, 0xb4, 0xed, 0x40, 0x3d, 0x30, 0xad, 0x00, 0x7b, 0x15, 0xe9, 0xba, 0x34, 0x3f, 0xb9, 0xfc,
-	0x76, 0xa8, 0x64, 0x8d, 0x08, 0xad, 0xd1, 0xe1, 0x75, 0x96, 0x6a, 0x75, 0xc3, 0xf0, 0xb0, 0xef,
-	0x6f, 0xda, 0x06, 0x7e, 0xa5, 0x14, 0x38, 0xe9, 0x3a, 0xa5, 0x44, 0x37, 0xa1, 0x6c, 0xda, 0xba,
-	0xd5, 0x36, 0xb0, 0x6a, 0xda, 0x64, 0x04, 0x1d, 0x5c, 0xc9, 0x5d, 0x97, 0xe6, 0xf3, 0x4a, 0x89,
-	0xc3, 0x37, 0x39, 0x18, 0x7d, 0x00, 0xe8, 0x65, 0x1b, 0x7b, 0x27, 0xaa, 0xa5, 0x05, 0xd8, 0x0f,
-	0x54, 0x3f, 0xd0, 0x02, 0x5c, 0x19, 0xa1, 0xc8, 0x65, 0xda, 0xb3, 0x45, 0x3b, 0x76, 0x09, 0x1c,
-	0xfd, 0x04, 0x10, 0x5f, 0xcf, 0xaa, 0x69, 0xf8, 0x42, 0xd1, 0xd1, 0xeb, 0x23, 0xf3, 0x93, 0xcb,
-	0x3f, 0x48, 0x28, 0x1a, 0xce, 0x5e, 0x4d, 0x6c, 0x01, 0xa2, 0x35, 0xfb, 0xdc, 0x34, 0x94, 0xb2,
-	0x26, 0x3e, 0x7d, 0xa6, 0xb5, 0xfc, 0x4d, 0x0e, 0xca, 0x5d, 0xab, 0xf8, 0xae, 0x63, 0xfb, 0x18,
-	0x7d, 0x06, 0x39, 0xd3, 0xe0, 0xa6, 0x18, 0x52, 0x42, 0xce, 0x34, 0x50, 0x0d, 0xc6, 0x79, 0x1f,
-	0x35, 0xc0, 0xe4, 0xf2, 0xa5, 0x1a, 0x3b, 0x12, 0x6a, 0xe2, 0x48, 0xa8, 0xd5, 0xed, 0x13, 0x45,
-	0x20, 0xa1, 0x75, 0x98, 0x70, 0x1d, 0xdf, 0xa4, 0x3a, 0x54, 0x46, 0xe8, 0xb8, 0xe6, 0x33, 0xa5,
-	0x92, 0xcd, 0xda, 0x59, 0xaa, 0xed, 0x70, 0x02, 0xa5, 0x4b, 0x8a, 0xd6, 0x61, 0xd2, 0x76, 0x02,
-	0xac, 0x7a, 0x58, 0x77, 0x3c, 0xa3, 0x32, 0x4a, 0x65, 0xbf, 0x5b, 0x4b, 0x1e, 0x50, 0xb5, 0x5d,
-	0x17, 0xdb, 0x86, 0xd6, 0xb4, 0xf0, 0xb6, 0x13, 0x60, 0x85, 0x22, 0x2b, 0x60, 0x87, 0xdf, 0xe8,
-	0x4d, 0x98, 0xb0, 0x1c, 0x5d, 0xb3, 0x54, 0x1f, 0xbf, 0xac, 0x5c, 0xbc, 0x2e, 0xcd, 0x8f, 0x2a,
-	0x79, 0x0a, 0xd8, 0xc5, 0x2f, 0xe5, 0x00, 0x2a, 0xf5, 0x76, 0x70, 0xe4, 0x78, 0xe6, 0x9f, 0xe0,
-	0xba, 0x6d, 0x34, 0xda, 0xa6, 0x65, 0x88, 0xe5, 0xf4, 0x05, 0x94, 0x23, 0xeb, 0x57, 0x75, 0x2d,
-	0xcd, 0xce, 0xb0, 0x62, 0x74, 0x99, 0x77, 0x96, 0x6a, 0x7b, 0xdd, 0xe6, 0x8e, 0xa5, 0xd9, 0x4a,
-	0x29, 0x88, 0x03, 0xe4, 0xef, 0x73, 0x70, 0x25, 0x45, 0x2c, 0x9f, 0xaf, 0x26, 0x14, 0x9b, 0x04,
-	0xa0, 0xba, 0x9e, 0x73, 0x48, 0x16, 0x28, 0x97, 0xfa, 0x69, 0xef, 0xd8, 0x33, 0x99, 0xd4, 0x68,
-	0x6b, 0x87, 0x33, 0xd8, 0xb8, 0xa0, 0x14, 0x9a, 0x51, 0x00, 0x52, 0x20, 0x4f, 0x26, 0xc1, 0xc2,
-	0x01, 0xe6, 0xb3, 0xfa, 0xe1, 0x30, 0xdc, 0x57, 0x38, 0xed, 0xc6, 0x05, 0x25, 0xe4, 0x53, 0xbd,
-	0x0d, 0x85, 0x98, 0x54, 0x54, 0x85, 0x7c, 0x6c, 0x08, 0x39, 0x25, 0x6c, 0x57, 0x9f, 0x41, 0x5e,
-	0x30, 0x41, 0x8f, 0x60, 0x32, 0x62, 0x21, 0x3e, 0xda, 0x9b, 0x03, 0xdb, 0x58, 0x89, 0x52, 0x37,
-	0xf2, 0x30, 0x46, 0x36, 0x60, 0xdb, 0x97, 0x7f, 0x2e, 0xc1, 0x9b, 0x0d, 0xcf, 0xd1, 0x0c, 0x5d,
-	0xf3, 0x83, 0x28, 0x3e, 0x9f, 0xdf, 0xf3, 0x14, 0x8b, 0xde, 0x87, 0x92, 0x76, 0xac, 0x99, 0x81,
-	0x6a, 0xe0, 0x00, 0x77, 0x77, 0x4b, 0x5e, 0x29, 0x52, 0xf0, 0xaa, 0x80, 0xca, 0xdf, 0x8c, 0xc0,
-	0xd5, 0x74, 0xad, 0xf8, 0xf4, 0xdb, 0x30, 0xdd, 0x14, 0xfd, 0xaa, 0xdf, 0xd6, 0xf5, 0xee, 0x0a,
-	0xf8, 0x51, 0xef, 0x1c, 0x9d, 0xc6, 0xaa, 0xdb, 0xb9, 0xcb, 0xd8, 0x6c, 0x5c, 0x50, 0xca, 0xcd,
-	0x04, 0x0c, 0x7d, 0x01, 0x13, 0xba, 0x63, 0x1f, 0x98, 0x5e, 0x0b, 0x1b, 0x7c, 0x2d, 0x7c, 0x32,
-	0xa4, 0x9c, 0x15, 0x41, 0xbf, 0x71, 0x41, 0xe9, 0x32, 0xab, 0x3e, 0x84, 0x72, 0x52, 0x03, 0xf4,
-	0x51, 0xe4, 0x30, 0x7a, 0x2f, 0x69, 0x6b, 0x76, 0x05, 0xc4, 0xcd, 0xcc, 0x4e, 0xa1, 0xaa, 0x0d,
-	0x13, 0xa1, 0x94, 0xb3, 0x32, 0x21, 0x87, 0x7a, 0x38, 0x3d, 0xea, 0x11, 0x36, 0x0f, 0x8f, 0x02,
-	0x3a, 0xe2, 0x51, 0xa5, 0x14, 0xc2, 0x37, 0x28, 0x38, 0xb2, 0x8c, 0xbe, 0xbd, 0x01, 0x57, 0x12,
-	0x3b, 0xda, 0xc6, 0x9e, 0x58, 0x44, 0x6f, 0x43, 0x01, 0xbf, 0x72, 0x4d, 0xef, 0x44, 0xf0, 0x93,
-	0x28, 0xbf, 0x29, 0x06, 0x64, 0xcc, 0xd0, 0x8f, 0x60, 0xb4, 0x85, 0x5b, 0x0e, 0xbd, 0x13, 0x26,
-	0x97, 0x6f, 0x9f, 0xbe, 0xc4, 0x1e, 0xe3, 0x96, 0xb3, 0x63, 0x69, 0xa6, 0x1d, 0xe0, 0x57, 0x81,
-	0x42, 0x09, 0xd1, 0x3d, 0x18, 0xf3, 0x9d, 0xb6, 0xa7, 0x63, 0x7e, 0x0c, 0x0e, 0x74, 0xa3, 0x71,
-	0x12, 0xb4, 0x05, 0xe3, 0x4e, 0x3b, 0x70, 0xdb, 0x81, 0x5f, 0xb9, 0x44, 0x8f, 0xe3, 0xe5, 0xde,
-	0xe9, 0xcd, 0x1c, 0x60, 0xed, 0x09, 0x25, 0x55, 0x04, 0x0b, 0xb4, 0x09, 0x63, 0x3e, 0x39, 0x71,
-	0xfd, 0xca, 0x0c, 0x65, 0xb6, 0x34, 0x0c, 0x33, 0x7a, 0x56, 0x2b, 0x9c, 0x01, 0x5a, 0x87, 0x8b,
-	0xfe, 0xb1, 0xe6, 0xfa, 0x95, 0x39, 0xca, 0x69, 0x71, 0x28, 0x4e, 0xc7, 0x9a, 0xab, 0x30, 0x72,
-	0xb4, 0x0f, 0x93, 0xe4, 0x43, 0xd5, 0x2d, 0xcd, 0x6c, 0xf9, 0x95, 0x6b, 0x94, 0xdb, 0x0f, 0x87,
-	0xe5, 0xb6, 0x42, 0xa8, 0x15, 0xf0, 0xc5, 0x27, 0xe5, 0x6b, 0x60, 0x0b, 0x1f, 0x6a, 0xec, 0x2e,
-	0x9b, 0xa7, 0x7c, 0x3f, 0x1c, 0x86, 0xef, 0x2a, 0x23, 0xc7, 0x4a, 0x94, 0x11, 0x7a, 0x0e, 0x85,
-	0xb6, 0x1d, 0xe5, 0xbc, 0x4c, 0x39, 0x7f, 0x34, 0x0c, 0xe7, 0xa7, 0x82, 0x01, 0x56, 0xe2, 0xcc,
-	0x90, 0x05, 0x6f, 0x44, 0x01, 0xc2, 0x2a, 0x77, 0xa8, 0x8c, 0x7b, 0x67, 0x93, 0xc1, 0x6c, 0x83,
-	0xa2, 0x7c, 0xb9, 0x8d, 0xf6, 0x60, 0xda, 0x6c, 0xea, 0xaa, 0x87, 0x2d, 0xed, 0x44, 0x65, 0x5c,
-	0xfc, 0xca, 0xfd, 0x3e, 0xb7, 0x3e, 0x71, 0x8b, 0x3b, 0x4b, 0xb5, 0xcd, 0xa6, 0xae, 0x10, 0x3a,
-	0xa5, 0x64, 0xf2, 0xaf, 0xba, 0x2e, 0x2c, 0x34, 0x6d, 0xea, 0xfe, 0xf2, 0xa2, 0x7a, 0x6c, 0x06,
-	0x47, 0x86, 0xa7, 0x1d, 0x6b, 0x96, 0x5f, 0xf9, 0x8c, 0x72, 0x5d, 0xe8, 0xcb, 0x95, 0x10, 0x3e,
-	0x0b, 0xe9, 0x94, 0xb2, 0x19, 0x07, 0xf8, 0x48, 0x85, 0xa2, 0x70, 0x33, 0x54, 0xc7, 0xc5, 0xb6,
-	0x5f, 0x59, 0xa7, 0xac, 0x3f, 0x19, 0xc6, 0x38, 0xc2, 0x65, 0x79, 0xe2, 0x62, 0x5b, 0x29, 0xb8,
-	0x91, 0x96, 0x8f, 0x9a, 0x50, 0x0a, 0x05, 0xe8, 0x96, 0xe3, 0x63, 0xbf, 0xf2, 0x80, 0x4a, 0xf8,
-	0xf4, 0x2c, 0x12, 0x56, 0x08, 0x07, 0x25, 0x54, 0x99, 0x36, 0x7d, 0xf4, 0x02, 0x50, 0x28, 0x43,
-	0x58, 0xc9, 0xaf, 0x6c, 0x50, 0x31, 0xf7, 0xcf, 0x22, 0x46, 0x58, 0x48, 0x99, 0x76, 0x13, 0x10,
-	0x1f, 0xfd, 0x4c, 0x82, 0x39, 0xa3, 0x1d, 0xe8, 0x47, 0xaa, 0xf0, 0x5d, 0x7d, 0xfd, 0x08, 0x1b,
-	0x6d, 0x0b, 0x87, 0x73, 0xbe, 0x49, 0x25, 0xaf, 0x0f, 0x23, 0x99, 0xcd, 0xf6, 0x2a, 0xe1, 0xcb,
-	0x5d, 0xce, 0x5d, 0xce, 0x55, 0x79, 0xd3, 0x48, 0x81, 0x8a, 0xd5, 0xf1, 0x53, 0xb8, 0x12, 0x57,
-	0x06, 0xdb, 0x46, 0xa8, 0xc7, 0x43, 0xaa, 0x47, 0xfd, 0xf5, 0xf4, 0x58, 0xb3, 0x0d, 0x65, 0xd6,
-	0x88, 0x03, 0x84, 0xf4, 0x5e, 0x5b, 0x08, 0xf3, 0x87, 0x3a, 0x3c, 0x3a, 0x0f, 0x5b, 0x84, 0xf3,
-	0x11, 0xb3, 0x85, 0x80, 0x0a, 0x6d, 0x9a, 0x50, 0xe2, 0x7b, 0xd2, 0xf1, 0xd4, 0x8e, 0x13, 0x60,
-	0xbf, 0xb2, 0x35, 0xfc, 0x52, 0x5b, 0x15, 0x2c, 0xf6, 0x89, 0xdf, 0x5c, 0x34, 0xa2, 0x4d, 0x1f,
-	0xad, 0x42, 0x5e, 0x6b, 0x07, 0x8e, 0x7a, 0x80, 0x71, 0xc5, 0xa0, 0xf7, 0xcf, 0xfb, 0x99, 0x9b,
-	0x90, 0xc4, 0xd4, 0x9d, 0xa5, 0xda, 0x3a, 0xc6, 0x7b, 0x26, 0xf6, 0x36, 0x2e, 0x90, 0xb8, 0x20,
-	0x70, 0xd6, 0x31, 0x46, 0xab, 0x00, 0x2d, 0xcd, 0x6e, 0x6b, 0x16, 0xe5, 0x83, 0x53, 0xef, 0xb1,
-	0x34, 0x3e, 0xc4, 0xa7, 0x60, 0x84, 0x84, 0xcb, 0x3b, 0x30, 0x89, 0x5d, 0x47, 0x3f, 0x52, 0x4d,
-	0x72, 0xc7, 0x55, 0x7e, 0x49, 0xaf, 0xdb, 0x46, 0xae, 0x22, 0x29, 0x40, 0xe1, 0xf4, 0xea, 0x43,
-	0xf7, 0xe1, 0x22, 0x6d, 0x55, 0x7e, 0x25, 0x25, 0xc3, 0x86, 0x84, 0x1c, 0x12, 0x77, 0x77, 0x96,
-	0x6a, 0x6b, 0x04, 0x5b, 0x61, 0x44, 0xd5, 0x63, 0x18, 0x63, 0xb7, 0x1e, 0xba, 0x03, 0x17, 0x3b,
-	0x9a, 0xd5, 0xc6, 0xdc, 0xd7, 0x78, 0x2b, 0xc1, 0x86, 0x25, 0x32, 0x3a, 0x4b, 0xb5, 0x7d, 0x82,
-	0xa4, 0x30, 0x5c, 0xf4, 0x09, 0x8c, 0x6b, 0xec, 0x1e, 0xe6, 0xee, 0xd4, 0xdc, 0xe9, 0xb7, 0xb5,
-	0x22, 0xd0, 0xab, 0x1d, 0xb8, 0x48, 0x6f, 0xc8, 0xdf, 0xb5, 0xdc, 0xff, 0x95, 0x60, 0x94, 0x5c,
-	0x81, 0x67, 0x93, 0xdb, 0x80, 0xa9, 0x40, 0xf3, 0x0e, 0x71, 0xa0, 0xd2, 0x7e, 0x2e, 0xfc, 0x5a,
-	0x16, 0x6d, 0x9d, 0x7c, 0x6c, 0x1a, 0xca, 0x24, 0x23, 0xa2, 0x4d, 0xf4, 0x43, 0x18, 0x21, 0xab,
-	0x62, 0x64, 0xe0, 0x55, 0xa1, 0x10, 0x7c, 0xb4, 0x02, 0x05, 0x7a, 0xbd, 0xa9, 0x62, 0xe0, 0xa3,
-	0x03, 0x0d, 0x7c, 0x8a, 0x12, 0xf1, 0x56, 0xf5, 0x2b, 0x98, 0x08, 0xef, 0x7f, 0xb4, 0x03, 0x25,
-	0xe6, 0x4b, 0x38, 0xad, 0x96, 0x19, 0xb4, 0xb0, 0x1d, 0x70, 0x5b, 0x44, 0x97, 0x3c, 0xcd, 0x49,
-	0xd4, 0x02, 0xb6, 0x74, 0x68, 0x58, 0xbf, 0x12, 0xa2, 0x2b, 0x45, 0xea, 0x41, 0x84, 0xed, 0xea,
-	0x5f, 0x48, 0x90, 0x17, 0x7e, 0x00, 0xfa, 0x10, 0xc6, 0xb4, 0x96, 0xd3, 0x0e, 0xb9, 0x5e, 0x4d,
-	0x68, 0x6a, 0xb7, 0x5b, 0x54, 0x51, 0x8a, 0xa3, 0x70, 0x5c, 0xf4, 0x00, 0x26, 0x3c, 0x2d, 0xc0,
-	0xaa, 0xa1, 0x05, 0x1a, 0xb7, 0xd1, 0xad, 0xec, 0x15, 0x4d, 0xf3, 0x3b, 0x9d, 0xa5, 0x9a, 0xa2,
-	0x05, 0x78, 0x55, 0x0b, 0x34, 0x25, 0xef, 0xf1, 0xaf, 0xea, 0xd7, 0x12, 0x40, 0xf7, 0x56, 0x3f,
-	0xdb, 0x74, 0xc7, 0x94, 0xc9, 0xbd, 0x86, 0x32, 0xdf, 0xe6, 0xa0, 0x94, 0x70, 0x31, 0xd0, 0xe7,
-	0x80, 0x3a, 0x9a, 0x65, 0x1a, 0xf4, 0x38, 0x33, 0x0d, 0x6c, 0x07, 0x66, 0x70, 0xc2, 0xd5, 0x93,
-	0x33, 0x66, 0x75, 0x93, 0xa3, 0x3d, 0xc2, 0x27, 0xca, 0x74, 0x48, 0x2d, 0xa0, 0xa8, 0x06, 0xd3,
-	0x7e, 0xa0, 0x79, 0x81, 0x1a, 0x3d, 0x37, 0x72, 0xe1, 0xb1, 0x51, 0xa2, 0x9d, 0x6b, 0xdd, 0xb3,
-	0x63, 0x05, 0xc6, 0x5d, 0x6c, 0x6b, 0x56, 0x70, 0xc2, 0x4d, 0x7d, 0xb3, 0xff, 0xe8, 0x76, 0x18,
-	0x81, 0x22, 0x28, 0xd1, 0x03, 0x28, 0xb7, 0xed, 0xa6, 0x63, 0x1b, 0xa6, 0x7d, 0xa8, 0xf2, 0x19,
-	0x1f, 0x1d, 0x60, 0xc6, 0x4b, 0x21, 0x15, 0x03, 0xa0, 0x0f, 0x61, 0xb6, 0xcb, 0x88, 0x8d, 0x83,
-	0x07, 0x1a, 0x2c, 0x95, 0x71, 0x29, 0xec, 0xdd, 0x25, 0x9d, 0x2c, 0xe0, 0xa8, 0xee, 0xc1, 0x54,
-	0xd4, 0x3f, 0x21, 0x27, 0xb8, 0xb8, 0xd4, 0xb9, 0x31, 0x07, 0x4f, 0xc9, 0x84, 0x94, 0xd5, 0xe7,
-	0x50, 0x88, 0xf9, 0x24, 0x24, 0x82, 0x0e, 0x7d, 0x90, 0x30, 0x20, 0xbb, 0x35, 0x28, 0xe7, 0x4d,
-	0x43, 0x01, 0x37, 0xfc, 0xae, 0xfe, 0x8f, 0x04, 0xe5, 0xa4, 0x2f, 0x72, 0xae, 0x12, 0x88, 0x15,
-	0x3c, 0xec, 0x63, 0xaf, 0x83, 0xc5, 0x09, 0xd9, 0xd7, 0x0a, 0x0a, 0xc7, 0x57, 0x42, 0x4a, 0xb4,
-	0x0d, 0x53, 0x81, 0xa7, 0xd1, 0xf9, 0x70, 0x35, 0xd3, 0xcb, 0x08, 0xea, 0x7a, 0x38, 0xed, 0x31,
-	0x9a, 0x1d, 0xcd, 0xf4, 0x68, 0xe6, 0x40, 0x34, 0xaa, 0x7f, 0x0a, 0xd5, 0x6c, 0x47, 0x08, 0x7d,
-	0x45, 0x62, 0x10, 0x5f, 0xf7, 0x4c, 0x37, 0x32, 0x79, 0xf7, 0x06, 0xc9, 0xe2, 0x45, 0xd9, 0xad,
-	0x76, 0x59, 0x28, 0x51, 0x7e, 0x55, 0x0c, 0x33, 0xa9, 0xde, 0x0f, 0xda, 0x02, 0xe8, 0xa6, 0x29,
-	0xcf, 0x96, 0x3c, 0x9c, 0x08, 0xd3, 0x93, 0xd5, 0x9f, 0xa6, 0x8d, 0x31, 0x9c, 0xe4, 0x73, 0x95,
-	0x85, 0xca, 0x30, 0xe2, 0xe3, 0x97, 0x3c, 0xae, 0x27, 0x9f, 0xd5, 0xaf, 0x73, 0x50, 0x88, 0x79,
-	0x38, 0x3c, 0x33, 0xe5, 0x3a, 0xbe, 0x66, 0xf1, 0x80, 0x3d, 0x6c, 0x93, 0x60, 0x9d, 0xf8, 0x51,
-	0x7c, 0x85, 0x64, 0xcf, 0x6b, 0xa4, 0x18, 0x40, 0x8e, 0x48, 0xe2, 0x38, 0x51, 0x42, 0xf4, 0x01,
-	0x20, 0xb6, 0x51, 0x9b, 0x96, 0xa3, 0xbf, 0x10, 0xdb, 0x75, 0x84, 0x8a, 0x29, 0xd3, 0x9e, 0x06,
-	0xe9, 0xe0, 0xb9, 0x81, 0x77, 0xa1, 0xc8, 0xb0, 0xc3, 0x0d, 0x3a, 0x4a, 0x31, 0x0b, 0x14, 0x2a,
-	0x56, 0x72, 0xfc, 0xd4, 0xbd, 0x48, 0x3d, 0xbc, 0x33, 0x9d, 0xba, 0x0d, 0x80, 0xfc, 0x01, 0xc6,
-	0x6a, 0xcb, 0x31, 0xb0, 0xac, 0x42, 0x35, 0xcd, 0x27, 0xe4, 0x89, 0xa8, 0x3a, 0x8c, 0x9e, 0x3d,
-	0xe7, 0x49, 0x49, 0x65, 0x0d, 0x66, 0xf8, 0x2d, 0xdb, 0x38, 0x61, 0x49, 0x09, 0x9e, 0x36, 0xd9,
-	0x80, 0x02, 0xbf, 0xb2, 0xf9, 0x81, 0x3c, 0x44, 0xa6, 0x7e, 0x4a, 0x8b, 0xb4, 0x64, 0x05, 0x66,
-	0x93, 0x22, 0xb8, 0xfe, 0x11, 0x7f, 0x48, 0x1a, 0xca, 0x1f, 0x92, 0xa7, 0xa1, 0xf4, 0x4c, 0xb3,
-	0x2c, 0xea, 0xa6, 0x30, 0x85, 0xe5, 0x1d, 0x28, 0x77, 0x41, 0x5c, 0xc0, 0x7d, 0x98, 0x38, 0xa6,
-	0xb0, 0xee, 0xb2, 0xbd, 0x96, 0x21, 0x22, 0xa4, 0xcd, 0x1f, 0xf3, 0x2f, 0xf9, 0x73, 0x98, 0xa1,
-	0xfa, 0x36, 0x4e, 0x84, 0x7c, 0x6e, 0x9b, 0xb3, 0xeb, 0xdd, 0x84, 0xd9, 0x24, 0x4b, 0xae, 0xea,
-	0xf9, 0xd9, 0x5b, 0x87, 0xcb, 0x6b, 0xee, 0x11, 0x6e, 0x61, 0x4f, 0xb3, 0x12, 0x8a, 0x9f, 0x9f,
-	0x90, 0x3d, 0xa8, 0xf4, 0x0a, 0x79, 0xed, 0x69, 0xfd, 0x47, 0x09, 0x4a, 0x0d, 0xcd, 0x22, 0x5b,
-	0xf6, 0xb7, 0x52, 0x33, 0x7a, 0x00, 0x25, 0xea, 0x32, 0xa9, 0xa6, 0x21, 0x98, 0x0d, 0xe8, 0x0b,
-	0x17, 0x34, 0xf6, 0xc1, 0xcb, 0x38, 0xbf, 0xc8, 0x41, 0xb9, 0xab, 0x68, 0xb8, 0x1d, 0xc7, 0xb9,
-	0xb8, 0x21, 0x54, 0xa4, 0x2e, 0x8e, 0xa0, 0x43, 0xf7, 0x60, 0xbc, 0xc9, 0xd8, 0x72, 0xc5, 0x4e,
-	0xf7, 0xf8, 0x18, 0x31, 0xa7, 0x40, 0x8f, 0xa0, 0x24, 0x2c, 0x25, 0xec, 0x3f, 0x72, 0xaa, 0x5f,
-	0xc6, 0xf5, 0xd8, 0x37, 0xf1, 0xb1, 0x22, 0x8c, 0xcc, 0x61, 0x68, 0x15, 0xa6, 0x38, 0x5f, 0x95,
-	0x44, 0xa7, 0xdc, 0x37, 0xba, 0x71, 0xaa, 0x3a, 0x94, 0xd1, 0x24, 0x27, 0x23, 0x0d, 0xb9, 0x04,
-	0x85, 0x5d, 0x9a, 0xa4, 0x15, 0xbb, 0xf4, 0x67, 0x12, 0x14, 0x05, 0x84, 0x9b, 0x6d, 0x1e, 0xca,
-	0x07, 0x6d, 0xcb, 0x52, 0xfd, 0x13, 0x5b, 0x8f, 0xe7, 0x68, 0x8b, 0x04, 0xbe, 0x7b, 0x62, 0xeb,
-	0xfc, 0x24, 0xae, 0xc1, 0x1b, 0xae, 0xe6, 0x05, 0xa6, 0x16, 0x47, 0x66, 0x17, 0xc9, 0x34, 0xef,
-	0x8a, 0xe0, 0x5f, 0x83, 0x49, 0x5d, 0x0b, 0xf4, 0x23, 0xe2, 0x09, 0xb4, 0x5d, 0x5e, 0xf0, 0x03,
-	0x01, 0x7a, 0xea, 0xca, 0x33, 0xf0, 0x06, 0x53, 0x66, 0x37, 0xf0, 0xb0, 0xd6, 0x12, 0x4a, 0xfe,
-	0x8b, 0x04, 0x97, 0xe2, 0x70, 0xae, 0xea, 0xa7, 0x70, 0x85, 0x97, 0x10, 0x5f, 0xd8, 0xce, 0xb1,
-	0x1d, 0xbf, 0x3f, 0x98, 0xce, 0xb3, 0x0c, 0xe1, 0x11, 0xe9, 0x8f, 0xde, 0x22, 0x69, 0xa3, 0xcc,
-	0x0d, 0x33, 0xca, 0x91, 0x8c, 0x51, 0xca, 0xff, 0x27, 0xc1, 0xd4, 0xb6, 0x13, 0x74, 0x77, 0xcc,
-	0xdb, 0x50, 0x10, 0x95, 0x51, 0xdf, 0x25, 0xf1, 0x11, 0xab, 0x73, 0x4c, 0x71, 0x20, 0x09, 0x60,
-	0x03, 0x74, 0x17, 0xf2, 0x62, 0x2b, 0xf0, 0x55, 0xd2, 0x77, 0x0f, 0x8c, 0xf3, 0x3d, 0xd0, 0x7b,
-	0x8c, 0x8c, 0x9e, 0xf1, 0x18, 0x41, 0xab, 0x50, 0x62, 0xbe, 0xb7, 0x1a, 0x38, 0x54, 0x59, 0xa3,
-	0x32, 0x36, 0x80, 0x13, 0x5e, 0x60, 0x44, 0x7b, 0x0e, 0x0d, 0xc6, 0xe5, 0xbf, 0x94, 0x60, 0x86,
-	0x5a, 0x60, 0x9d, 0x7a, 0x0f, 0xa6, 0x7d, 0x28, 0x4c, 0x71, 0x0b, 0xa6, 0x3b, 0x4e, 0xa0, 0x35,
-	0x2d, 0xac, 0x6a, 0x41, 0x7c, 0xa2, 0x4a, 0xbc, 0xa3, 0xce, 0x5d, 0xf2, 0xde, 0x51, 0x8d, 0x9c,
-	0xf5, 0x70, 0xfc, 0x63, 0x28, 0x3e, 0x33, 0x03, 0x3b, 0x72, 0xf0, 0xa6, 0x55, 0x2a, 0x47, 0xce,
-	0xa5, 0x52, 0xa9, 0x42, 0x29, 0x94, 0xc5, 0x57, 0xe9, 0x16, 0x4c, 0x1d, 0x33, 0x10, 0x73, 0x46,
-	0x06, 0xaa, 0x9b, 0x71, 0x26, 0xd4, 0x17, 0x99, 0x3c, 0xee, 0x36, 0xe4, 0xff, 0x94, 0x60, 0x96,
-	0x77, 0xfe, 0xce, 0xea, 0xaf, 0xe8, 0x0f, 0x01, 0x69, 0xbc, 0xb6, 0xc9, 0x72, 0xe4, 0x91, 0x58,
-	0x76, 0xe1, 0x74, 0xde, 0xf5, 0x28, 0x1d, 0x1d, 0xce, 0xb4, 0x96, 0x04, 0xc9, 0xff, 0x95, 0x83,
-	0xcb, 0x3d, 0x83, 0xe2, 0xe6, 0xfb, 0xa3, 0x8c, 0xea, 0xee, 0xc7, 0xbd, 0xf9, 0xba, 0x0c, 0x16,
-	0xfd, 0x6a, 0xbb, 0x3b, 0x3d, 0xb5, 0xdd, 0xe5, 0xc1, 0x79, 0xff, 0x5e, 0x54, 0x76, 0x7f, 0x31,
-	0x02, 0x05, 0x7a, 0x6c, 0x84, 0x3b, 0xa0, 0x0a, 0x79, 0x76, 0xe3, 0x62, 0xe6, 0x89, 0xe5, 0x95,
-	0xb0, 0x8d, 0x74, 0x98, 0x8b, 0x1c, 0x58, 0xba, 0x79, 0x60, 0xea, 0xaa, 0x81, 0x6d, 0xa7, 0x65,
-	0xda, 0xbc, 0xfe, 0x92, 0xa3, 0xfe, 0x74, 0xe6, 0x65, 0xb8, 0x4a, 0x90, 0x95, 0xab, 0xdd, 0x03,
-	0x8e, 0xf2, 0x58, 0x8d, 0xb2, 0x40, 0x77, 0xe1, 0x8a, 0x10, 0x12, 0xa9, 0xbd, 0x04, 0xce, 0x0b,
-	0x6c, 0xfb, 0xfc, 0x6a, 0xb8, 0xcc, 0x11, 0x56, 0xc3, 0xfe, 0x3d, 0xda, 0x8d, 0x3e, 0x81, 0x8a,
-	0xa0, 0xed, 0xc6, 0xfa, 0x9c, 0x74, 0x94, 0x92, 0xce, 0xf2, 0xfe, 0xa7, 0xa2, 0x9b, 0x53, 0xbe,
-	0x07, 0xe2, 0x35, 0x8a, 0x6a, 0xb9, 0xaa, 0x7d, 0x10, 0xf8, 0x34, 0x2d, 0x90, 0x57, 0xc4, 0x11,
-	0xbd, 0xe5, 0x6e, 0x1f, 0x04, 0x3e, 0x5a, 0x86, 0x19, 0x81, 0x27, 0xe2, 0x1c, 0x86, 0x3d, 0x46,
-	0xb1, 0xdf, 0xe0, 0x9d, 0x3b, 0xbc, 0x8f, 0xd2, 0xd4, 0xe1, 0x2d, 0x41, 0xd3, 0xa1, 0xa7, 0x9e,
-	0xea, 0x61, 0x1d, 0x9b, 0x6e, 0x20, 0x54, 0x1b, 0xa7, 0xb4, 0x55, 0x8e, 0x24, 0x4e, 0x46, 0x8a,
-	0xc2, 0xd4, 0x93, 0x7f, 0x0c, 0x45, 0x31, 0x4d, 0x7c, 0xf5, 0x3f, 0x80, 0x22, 0x35, 0xbd, 0xda,
-	0xc2, 0x81, 0x16, 0xd9, 0x75, 0xd7, 0xb3, 0x6c, 0xff, 0x98, 0xe3, 0x29, 0x05, 0x4a, 0x27, 0x9a,
-	0xf2, 0x2c, 0x5c, 0xaa, 0xbb, 0xee, 0x8e, 0xe6, 0x69, 0x2d, 0x1c, 0x60, 0x2f, 0xf4, 0x00, 0x9e,
-	0xc3, 0x4c, 0x02, 0xce, 0x25, 0xaf, 0x00, 0xb8, 0x21, 0x34, 0xc3, 0x83, 0xd2, 0x5c, 0x97, 0xee,
-	0xf1, 0x18, 0x83, 0x08, 0x99, 0x8c, 0xa0, 0xfc, 0x40, 0xf3, 0x77, 0x3c, 0xb3, 0xeb, 0x41, 0xca,
-	0xdf, 0x48, 0x30, 0x1d, 0x01, 0x86, 0x0e, 0x37, 0x1c, 0x6a, 0xbe, 0xea, 0x52, 0x68, 0xc6, 0xc2,
-	0xef, 0xc9, 0x6b, 0x76, 0xd9, 0x4c, 0x1c, 0x8a, 0x4f, 0xf4, 0x04, 0x8a, 0x9a, 0x15, 0xa8, 0x11,
-	0x6e, 0x6c, 0xb9, 0x0e, 0xc1, 0x6d, 0x4a, 0xb3, 0x82, 0xb0, 0x45, 0x4c, 0xb7, 0xfe, 0x78, 0xb5,
-	0xd7, 0x74, 0x2e, 0xcc, 0x24, 0xe0, 0x7c, 0x2c, 0xcf, 0x52, 0x4c, 0xf7, 0x71, 0x76, 0xf0, 0x19,
-	0x7b, 0x95, 0xd6, 0x59, 0xaa, 0xad, 0xb7, 0x8c, 0x0c, 0x73, 0xfe, 0x8d, 0x04, 0x97, 0xc9, 0xcd,
-	0xda, 0x38, 0x89, 0xe4, 0x4f, 0xf9, 0x8e, 0xde, 0x81, 0x12, 0x7d, 0xfe, 0x13, 0x49, 0xc4, 0xe6,
-	0x86, 0x4c, 0xc4, 0x12, 0xfa, 0x6e, 0x3b, 0xed, 0x89, 0xc6, 0x48, 0xea, 0x13, 0x8d, 0x23, 0xa8,
-	0xf4, 0x6a, 0x15, 0xde, 0x7e, 0x45, 0x5f, 0x3c, 0x38, 0x52, 0x89, 0x80, 0x8a, 0x34, 0xcc, 0xc3,
-	0xa4, 0x82, 0x1f, 0x05, 0x52, 0x03, 0xec, 0x1e, 0x6b, 0x6e, 0x86, 0x01, 0x92, 0x99, 0xe8, 0xdc,
-	0x6b, 0x65, 0xa2, 0x07, 0x37, 0xc0, 0x16, 0x54, 0x7a, 0xb5, 0xe2, 0x06, 0x58, 0x84, 0x51, 0xc2,
-	0xb6, 0x37, 0x7f, 0x1d, 0x0e, 0xfb, 0x58, 0x73, 0xf9, 0x68, 0x29, 0xa6, 0x7c, 0x19, 0x66, 0x9e,
-	0xda, 0x34, 0xe3, 0x8e, 0x0d, 0xd2, 0x19, 0x2e, 0xb8, 0x87, 0x30, 0x9b, 0xec, 0x38, 0xb3, 0x90,
-	0xaf, 0x25, 0x98, 0xdd, 0x6e, 0x5b, 0x96, 0x79, 0x60, 0x62, 0x2f, 0x16, 0x14, 0xa0, 0x07, 0x30,
-	0x61, 0x8b, 0x1e, 0x6e, 0xc2, 0x9b, 0xfd, 0xea, 0x41, 0x21, 0x2b, 0xa5, 0x4b, 0x3b, 0xb8, 0xfd,
-	0x16, 0xe0, 0x72, 0x8f, 0x2e, 0x7c, 0x64, 0x97, 0xe0, 0x22, 0xf3, 0x9a, 0xd9, 0x2d, 0xc5, 0x1a,
-	0xf2, 0x3e, 0x5c, 0x8d, 0xbe, 0x56, 0xb1, 0x0f, 0x9c, 0xc6, 0xc9, 0x86, 0xe6, 0x1f, 0x89, 0x21,
-	0xb0, 0x07, 0x2f, 0xb9, 0x61, 0x1f, 0xbc, 0xc8, 0x5f, 0xc2, 0x6c, 0x82, 0xaf, 0xe0, 0x78, 0x03,
-	0xa6, 0x62, 0xd9, 0x64, 0xe6, 0xb5, 0x4e, 0xfa, 0xdd, 0x24, 0x32, 0x7a, 0x0b, 0x00, 0xdb, 0x46,
-	0x3c, 0x9a, 0x98, 0xc0, 0xb6, 0xc1, 0x03, 0x83, 0x5f, 0xe5, 0xa0, 0x94, 0x60, 0x8e, 0x66, 0x61,
-	0x2c, 0xc6, 0x8f, 0xb7, 0xce, 0xaa, 0x7f, 0xd2, 0x7f, 0x18, 0x79, 0xad, 0x27, 0x5a, 0xfb, 0x30,
-	0xe9, 0x62, 0x8f, 0xb8, 0x00, 0xf4, 0x35, 0xe7, 0x68, 0xf2, 0xd9, 0x5b, 0x3f, 0x57, 0xb2, 0x4b,
-	0xab, 0x44, 0x19, 0xa1, 0x3a, 0x8c, 0xd2, 0x18, 0xf6, 0xe2, 0x90, 0xbe, 0x29, 0x8d, 0x67, 0x29,
-	0xa9, 0xfc, 0x14, 0x2e, 0xf7, 0xcc, 0x13, 0x5f, 0x30, 0x77, 0x61, 0x3c, 0x78, 0xa5, 0x9a, 0xf6,
-	0x81, 0xc3, 0x77, 0xc3, 0x8d, 0x53, 0x0b, 0xbb, 0x94, 0x76, 0x2c, 0x78, 0x45, 0xfe, 0xca, 0x3f,
-	0x81, 0xb7, 0x32, 0x96, 0xd5, 0x39, 0x30, 0x7f, 0x06, 0x05, 0x1e, 0x17, 0x72, 0x66, 0x89, 0x07,
-	0x9b, 0xd2, 0x19, 0x1f, 0x6c, 0xca, 0xff, 0x44, 0xb6, 0x72, 0x22, 0xde, 0x3a, 0x5f, 0x11, 0x68,
-	0x0d, 0xa6, 0x44, 0x71, 0x49, 0x7d, 0x81, 0x4f, 0xf8, 0xca, 0x1c, 0xa4, 0xc0, 0x34, 0x69, 0x76,
-	0x1b, 0xf2, 0xbf, 0x8e, 0xc2, 0x1b, 0x29, 0xa2, 0xd2, 0xee, 0x2e, 0xe9, 0xf5, 0xee, 0xae, 0x06,
-	0x8c, 0xda, 0xdd, 0xa4, 0x74, 0x6d, 0xf0, 0xcb, 0x97, 0x6a, 0x45, 0x69, 0xcf, 0x2f, 0x02, 0x8d,
-	0x9f, 0xa8, 0xa3, 0xaf, 0x71, 0xa2, 0xbe, 0x0b, 0x45, 0x76, 0x42, 0xa8, 0xba, 0x87, 0xb5, 0x00,
-	0x1b, 0xbc, 0xaa, 0x55, 0x60, 0xd0, 0x15, 0x06, 0x24, 0x87, 0x15, 0x47, 0x63, 0x67, 0xe7, 0x18,
-	0x3b, 0xac, 0x18, 0x8c, 0x25, 0x1c, 0xaa, 0x91, 0x0a, 0xd7, 0x38, 0xcf, 0xe8, 0x8b, 0xdc, 0xf9,
-	0x46, 0xf8, 0x7a, 0x2e, 0x4f, 0x75, 0x5d, 0xec, 0xa7, 0x6b, 0xd7, 0xf0, 0xbb, 0x94, 0x2e, 0x7c,
-	0x4a, 0xb7, 0x09, 0x45, 0x0f, 0x07, 0x6d, 0xcf, 0x0e, 0x53, 0x60, 0x13, 0x03, 0xa7, 0xc0, 0x0a,
-	0x8c, 0x92, 0x83, 0xe4, 0xff, 0x18, 0x01, 0xe8, 0xde, 0x62, 0xe7, 0x5f, 0x77, 0x26, 0xc7, 0x12,
-	0xbd, 0x43, 0x73, 0x7d, 0xea, 0x29, 0xbc, 0x3e, 0x45, 0x74, 0x89, 0x3c, 0x3b, 0x24, 0xa4, 0x31,
-	0xa3, 0x8e, 0x24, 0x8c, 0x7a, 0x6e, 0x6b, 0x60, 0x0f, 0x26, 0xd9, 0xdb, 0x42, 0x51, 0xdb, 0x20,
-	0xac, 0xee, 0xf4, 0x53, 0xb7, 0xa1, 0x05, 0xfa, 0x11, 0xd1, 0x99, 0xbd, 0xd4, 0xa0, 0x91, 0x38,
-	0x38, 0xe1, 0x77, 0x74, 0x65, 0x31, 0x07, 0x83, 0x2f, 0x1a, 0xb1, 0xb2, 0x18, 0x30, 0xb2, 0x34,
-	0xc6, 0x5f, 0x6f, 0x69, 0xc8, 0xff, 0x26, 0xc1, 0xe5, 0x27, 0xc7, 0x36, 0x36, 0xba, 0xc5, 0xc7,
-	0xd0, 0x03, 0xd9, 0x8b, 0x3c, 0x38, 0x63, 0xbf, 0x0e, 0x90, 0x06, 0x9b, 0x14, 0xc1, 0x8b, 0xce,
-	0x75, 0xf7, 0x95, 0x19, 0xfb, 0x25, 0x41, 0xb2, 0x10, 0x99, 0x7b, 0xbd, 0x42, 0xa4, 0x7c, 0x08,
-	0x95, 0xde, 0x01, 0xf0, 0x83, 0xf7, 0x3c, 0xeb, 0xb0, 0xf2, 0x3e, 0x54, 0x68, 0x58, 0x28, 0x82,
-	0xb9, 0xc6, 0x49, 0x58, 0x67, 0x89, 0x25, 0x0e, 0x73, 0xc3, 0x25, 0x0e, 0x65, 0x03, 0xae, 0xa4,
-	0xf0, 0xcd, 0x8c, 0x3c, 0xa5, 0xb3, 0x45, 0x9e, 0x7f, 0x97, 0x83, 0xeb, 0xdd, 0x10, 0xde, 0x0f,
-	0x6b, 0x2d, 0xbf, 0x9d, 0xfa, 0x16, 0xfa, 0x1c, 0xc6, 0x22, 0xb5, 0x84, 0x62, 0xda, 0xbb, 0xae,
-	0x7e, 0xda, 0xd4, 0x58, 0x59, 0x41, 0xe1, 0x8c, 0xe4, 0xaf, 0x60, 0x8c, 0x57, 0x2c, 0x66, 0x01,
-	0xad, 0x6f, 0x6e, 0xed, 0xad, 0x29, 0xea, 0xd3, 0xed, 0xdd, 0x9d, 0xb5, 0x95, 0xcd, 0xf5, 0xcd,
-	0xb5, 0xd5, 0xf2, 0x05, 0x74, 0x1b, 0xde, 0xe7, 0xf0, 0xfa, 0xd6, 0x96, 0x5a, 0x5f, 0xd9, 0xdb,
-	0xdc, 0x5f, 0x53, 0x9f, 0x6d, 0xee, 0x6d, 0xa8, 0xdb, 0x4f, 0xb6, 0xbf, 0x5c, 0x53, 0x9e, 0xa8,
-	0x8d, 0xfa, 0x56, 0x7d, 0x7b, 0x65, 0x6d, 0xb7, 0x2c, 0xa1, 0x22, 0x40, 0x17, 0xb9, 0x9c, 0x93,
-	0x31, 0xdc, 0x38, 0x45, 0x23, 0x3e, 0x1d, 0x7f, 0x00, 0x40, 0x9f, 0x93, 0xb0, 0xf4, 0xbf, 0x34,
-	0x68, 0xfa, 0x7f, 0xa2, 0x23, 0x3e, 0xe5, 0xbf, 0xcd, 0xc1, 0x3b, 0x89, 0x7c, 0x48, 0xfa, 0x5c,
-	0x3c, 0x0d, 0x2d, 0x28, 0x51, 0x0b, 0x7e, 0xd6, 0x6b, 0xc1, 0x41, 0xf8, 0x24, 0xac, 0xd8, 0x3b,
-	0xc5, 0xb9, 0xb3, 0x57, 0xbb, 0xfa, 0xcd, 0xc7, 0x25, 0x28, 0x73, 0xf8, 0xca, 0x56, 0x7d, 0xf3,
-	0x71, 0xbd, 0xb1, 0xb5, 0x56, 0x96, 0xd0, 0x55, 0xa8, 0x70, 0xe8, 0xf6, 0x93, 0x3d, 0xf5, 0xc7,
-	0x6b, 0x7b, 0x91, 0xde, 0x9c, 0xfc, 0xe7, 0x12, 0xbc, 0xdb, 0x67, 0x5c, 0xe7, 0x35, 0x17, 0xe8,
-	0x2a, 0x4c, 0xd0, 0x63, 0x96, 0xf8, 0x41, 0xbc, 0x1e, 0xd0, 0x05, 0x2c, 0xff, 0xfd, 0x65, 0x98,
-	0x24, 0x68, 0xbb, 0xd8, 0xeb, 0x98, 0xb4, 0x92, 0x34, 0xc6, 0xa2, 0x22, 0x74, 0x2d, 0xc5, 0x75,
-	0x8b, 0xc6, 0x6e, 0xd5, 0xeb, 0xd9, 0x08, 0x5c, 0x79, 0x15, 0xa6, 0xa2, 0xc5, 0x14, 0xf4, 0x6e,
-	0x16, 0x45, 0xac, 0x08, 0x53, 0x7d, 0xaf, 0x1f, 0x1a, 0x63, 0xbf, 0x28, 0xa1, 0x87, 0x70, 0x91,
-	0x7a, 0xa3, 0x68, 0xae, 0x97, 0x24, 0x5a, 0x18, 0xa9, 0x5e, 0xcb, 0xec, 0x0f, 0x79, 0x61, 0x28,
-	0xc6, 0x3d, 0x5b, 0xf4, 0x7e, 0x06, 0x51, 0xb2, 0xd6, 0x50, 0x9d, 0xef, 0x8f, 0x18, 0x8a, 0x79,
-	0x0c, 0x63, 0x2c, 0xef, 0x96, 0x66, 0xe0, 0x58, 0xe2, 0x34, 0xcd, 0xc0, 0xf1, 0x94, 0xdd, 0xa2,
-	0x84, 0x2c, 0x98, 0xee, 0x39, 0x57, 0xd1, 0xad, 0x0c, 0xc2, 0x94, 0x43, 0xbd, 0x7a, 0x7b, 0x20,
-	0xdc, 0x30, 0x41, 0x5e, 0x88, 0x25, 0xe0, 0x50, 0xca, 0x54, 0xa5, 0xa5, 0xfe, 0xaa, 0xef, 0xf7,
-	0xc5, 0xe3, 0x12, 0xf6, 0x60, 0x22, 0xcc, 0x86, 0x21, 0xb9, 0x97, 0x2a, 0x99, 0xe2, 0xab, 0xbe,
-	0x7d, 0x2a, 0x4e, 0x57, 0xef, 0x58, 0xfa, 0x2c, 0x4d, 0xef, 0xb4, 0xbc, 0x5b, 0x9a, 0xde, 0xe9,
-	0x79, 0x38, 0x1d, 0x8a, 0xf1, 0xa7, 0x0e, 0x69, 0xab, 0x27, 0xf5, 0xbd, 0x45, 0xda, 0xea, 0xc9,
-	0x78, 0x35, 0xf1, 0x39, 0xe4, 0xc5, 0x63, 0x05, 0x94, 0x12, 0x0d, 0x26, 0xde, 0x45, 0x54, 0xe5,
-	0xd3, 0x50, 0xba, 0x7a, 0xc7, 0x9f, 0x25, 0xa4, 0xe9, 0x9d, 0xfa, 0x16, 0x22, 0x4d, 0xef, 0x8c,
-	0x17, 0x0e, 0x26, 0x94, 0x93, 0x4f, 0x06, 0xd0, 0xcd, 0x5e, 0xea, 0x8c, 0xb7, 0x0b, 0xd5, 0x5b,
-	0x83, 0xa0, 0x72, 0x51, 0xbb, 0x90, 0x17, 0xd5, 0xf9, 0x34, 0x13, 0x25, 0x9e, 0x18, 0xa4, 0x99,
-	0x28, 0x59, 0xdc, 0x5f, 0x94, 0x88, 0xfe, 0xc9, 0xa4, 0x63, 0x9a, 0xfe, 0x19, 0xe9, 0xd2, 0x34,
-	0xfd, 0x33, 0x73, 0x98, 0x26, 0x94, 0x93, 0xe9, 0xbd, 0x34, 0x51, 0x19, 0x89, 0xc9, 0x34, 0x51,
-	0x99, 0xd9, 0x42, 0x0c, 0xc5, 0x78, 0x8a, 0x2f, 0x6d, 0xea, 0x53, 0xb3, 0x83, 0x69, 0x53, 0x9f,
-	0x9e, 0x2d, 0x5c, 0x94, 0xd0, 0x01, 0x94, 0x12, 0x09, 0x37, 0x94, 0x76, 0x5e, 0xa6, 0xe6, 0x07,
-	0xab, 0x37, 0x07, 0xc0, 0xe4, 0xc3, 0x79, 0x05, 0x33, 0xa9, 0x09, 0x15, 0x54, 0xeb, 0x9b, 0x37,
-	0x89, 0x25, 0xf4, 0xaa, 0x0b, 0x03, 0xe3, 0x73, 0xc9, 0x47, 0xbd, 0xc9, 0xb6, 0xf9, 0xfe, 0xb9,
-	0x9a, 0xec, 0x11, 0x66, 0xa4, 0x9b, 0x16, 0x25, 0xf4, 0x02, 0xca, 0xc9, 0x30, 0x20, 0x6d, 0x75,
-	0x64, 0xc4, 0x3a, 0x69, 0xab, 0x23, 0x2b, 0xaa, 0x58, 0x94, 0x90, 0x03, 0xa8, 0xf7, 0x05, 0x1a,
-	0xba, 0x3d, 0xc4, 0x6f, 0x17, 0xaa, 0x1f, 0x0c, 0x86, 0xcc, 0xed, 0xb8, 0x0d, 0xe3, 0xbc, 0xf4,
-	0x89, 0xae, 0x67, 0x56, 0x45, 0x05, 0xeb, 0x1b, 0xa7, 0x60, 0x74, 0xe7, 0x25, 0x51, 0x4a, 0x4d,
-	0x9b, 0x97, 0xf4, 0x0a, 0x77, 0xda, 0xbc, 0x64, 0xd4, 0x65, 0x17, 0x25, 0x64, 0xc3, 0x74, 0xcf,
-	0x0f, 0x72, 0x53, 0x6f, 0xe1, 0x8c, 0xdf, 0x33, 0xa7, 0xde, 0xc2, 0x59, 0xbf, 0xf0, 0x5d, 0x94,
-	0xd0, 0x31, 0x5c, 0x4a, 0xfb, 0xd1, 0x27, 0xfa, 0xc1, 0xa0, 0x3f, 0x0e, 0x65, 0x52, 0x6b, 0xc3,
-	0xfd, 0x96, 0x74, 0x51, 0x42, 0x7f, 0x26, 0xc1, 0x95, 0xcc, 0x00, 0x02, 0x2d, 0x0f, 0x1f, 0xff,
-	0x54, 0xef, 0x0c, 0x45, 0x13, 0x2a, 0xf2, 0xd7, 0x12, 0xbc, 0x75, 0xaa, 0x07, 0x8d, 0x3e, 0x3a,
-	0x5b, 0x28, 0x51, 0xfd, 0x78, 0x68, 0xba, 0x50, 0xa9, 0x5d, 0xc8, 0x8b, 0x5f, 0xf8, 0xa7, 0x5d,
-	0x3e, 0x89, 0xff, 0x89, 0x90, 0x76, 0xf9, 0x24, 0xff, 0x41, 0xc0, 0xa2, 0xd4, 0xf8, 0x8d, 0xf4,
-	0xcb, 0xef, 0xe6, 0xa4, 0x5f, 0x7f, 0x37, 0x27, 0xfd, 0xe6, 0xbb, 0x39, 0xe9, 0xaf, 0xbe, 0x9f,
-	0xbb, 0xf0, 0xeb, 0xef, 0xe7, 0x2e, 0x7c, 0xfb, 0xfd, 0xdc, 0x05, 0xb8, 0xa4, 0x3b, 0xad, 0x1e,
-	0x1e, 0x8d, 0x09, 0xe2, 0xcf, 0xef, 0x78, 0x4e, 0xe0, 0xec, 0x48, 0x5f, 0xae, 0x1c, 0x9a, 0xc1,
-	0x51, 0xbb, 0x49, 0xe2, 0xff, 0x05, 0xdd, 0xf1, 0x5b, 0x8e, 0xbf, 0x40, 0x7f, 0x0f, 0x88, 0xbd,
-	0x85, 0xce, 0x72, 0xf8, 0xa9, 0x1f, 0x69, 0xa6, 0xed, 0x2f, 0x24, 0xff, 0xfb, 0xc8, 0x3d, 0xf2,
-	0xb7, 0xb3, 0xf4, 0x0f, 0xb9, 0x91, 0x9d, 0xfd, 0x2f, 0xfe, 0x39, 0x57, 0xde, 0x11, 0xa2, 0x88,
-	0x84, 0xda, 0xfe, 0xd2, 0xbf, 0x77, 0x41, 0xcf, 0x09, 0xe8, 0xf9, 0xfe, 0xd2, 0x77, 0xb9, 0xab,
-	0x49, 0xd0, 0xf3, 0x07, 0x3b, 0x0d, 0xe1, 0x4d, 0xfe, 0x77, 0x0e, 0x89, 0xee, 0xbb, 0x77, 0x49,
-	0xff, 0xdd, 0xbb, 0xfb, 0x4b, 0xcd, 0x31, 0xfa, 0xdf, 0x0a, 0xee, 0xfc, 0x7f, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0xb7, 0x2e, 0xd7, 0x00, 0xff, 0x44, 0x00, 0x00,
+	// 5271 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x3c, 0x5d, 0x6f, 0xdc, 0x48,
+	0x72, 0xe6, 0x68, 0xf4, 0x55, 0xd2, 0x68, 0x46, 0x6d, 0x4b, 0x1e, 0xcf, 0xda, 0xb2, 0xcd, 0x5d,
+	0xdf, 0xda, 0xde, 0xbd, 0xd1, 0x87, 0x77, 0xf7, 0x76, 0xed, 0x3d, 0x5c, 0xf4, 0x69, 0xc9, 0x96,
+	0x6d, 0x2d, 0x25, 0xcb, 0xf7, 0xe1, 0x0d, 0xd3, 0x22, 0x5b, 0x12, 0x63, 0x0e, 0x49, 0x93, 0x1c,
+	0xc9, 0xba, 0xdc, 0x5b, 0x2e, 0x39, 0x64, 0x0f, 0x09, 0x82, 0xbb, 0x04, 0x01, 0x82, 0xe4, 0x1e,
+	0x02, 0x6c, 0x12, 0xe4, 0x82, 0x7d, 0xcb, 0x43, 0xfe, 0xc1, 0x25, 0x40, 0x80, 0x43, 0x9e, 0xee,
+	0x25, 0xc0, 0x61, 0xf7, 0x2d, 0xaf, 0x41, 0x9e, 0x12, 0x20, 0x41, 0x7f, 0x71, 0x48, 0x0e, 0xa9,
+	0x99, 0x91, 0xb4, 0x07, 0x1c, 0xee, 0x69, 0xc8, 0xea, 0xaa, 0xea, 0xea, 0xea, 0xee, 0xea, 0xea,
+	0xaa, 0x1a, 0xc2, 0x6b, 0x1e, 0x71, 0x9a, 0x8d, 0x1d, 0x1f, 0x4f, 0x1f, 0x58, 0xe4, 0x70, 0xfa,
+	0x60, 0x96, 0xfd, 0xd6, 0x3d, 0xdf, 0x0d, 0x5d, 0x54, 0x91, 0x8d, 0x75, 0x06, 0x3c, 0x98, 0xad,
+	0x5d, 0xda, 0x73, 0xdd, 0x3d, 0x9b, 0x4c, 0xb3, 0xf6, 0x9d, 0xe6, 0xee, 0x34, 0x76, 0x8e, 0x38,
+	0x72, 0x6d, 0x2a, 0xe2, 0x64, 0xb8, 0x3e, 0x99, 0xc6, 0x9e, 0x47, 0xb9, 0x61, 0xcf, 0x13, 0xed,
+	0x6a, 0xaa, 0x3d, 0x08, 0x48, 0xc8, 0x30, 0xe8, 0x83, 0xc0, 0x99, 0x49, 0xe2, 0x18, 0x6e, 0xc3,
+	0x73, 0x1d, 0xe2, 0x84, 0xd3, 0xb8, 0x69, 0x84, 0x96, 0xeb, 0x30, 0x7c, 0xfe, 0x28, 0x28, 0x6e,
+	0xe6, 0x51, 0x98, 0xe4, 0x15, 0xc5, 0x36, 0xc9, 0xab, 0x4e, 0x98, 0xbb, 0x84, 0x50, 0xcc, 0x5d,
+	0x42, 0x04, 0xe6, 0x7b, 0x79, 0x98, 0x7b, 0xee, 0x01, 0xf1, 0x1d, 0xec, 0x18, 0x8c, 0xa0, 0xf5,
+	0xd6, 0xa9, 0x07, 0x6b, 0xc7, 0xa0, 0x04, 0xd6, 0x8e, 0xd1, 0x09, 0x33, 0x30, 0x98, 0x4e, 0x02,
+	0x43, 0x6a, 0xe4, 0xc3, 0x5c, 0xcc, 0x7d, 0x8b, 0xd8, 0x26, 0x31, 0x75, 0xcf, 0x75, 0x6d, 0x46,
+	0x13, 0x07, 0x08, 0xea, 0xb7, 0x73, 0xa9, 0x43, 0xfc, 0x82, 0x0d, 0x82, 0x3d, 0x08, 0xec, 0x6b,
+	0x49, 0xec, 0x17, 0xe4, 0x28, 0xa0, 0x28, 0xf4, 0x37, 0x7b, 0x8e, 0x9d, 0x66, 0x83, 0x22, 0x38,
+	0xcd, 0x86, 0x68, 0xaf, 0x27, 0xdb, 0x43, 0x1f, 0x3b, 0x01, 0x8e, 0x66, 0x2e, 0xf6, 0x2a, 0xf0,
+	0xdf, 0x48, 0xe1, 0xbf, 0xda, 0xc7, 0xc1, 0x3e, 0x43, 0x65, 0x4f, 0xed, 0x72, 0xf9, 0x47, 0x5e,
+	0xe8, 0x4e, 0x87, 0x5c, 0x4b, 0xa1, 0xd4, 0x92, 0xfa, 0x7d, 0x05, 0x26, 0xd6, 0x5f, 0x86, 0xdb,
+	0x6e, 0x68, 0x39, 0x7b, 0x8f, 0xdd, 0x90, 0x04, 0x1a, 0x79, 0xd9, 0x24, 0x41, 0x88, 0xae, 0xc2,
+	0x08, 0xf1, 0x5c, 0x63, 0x5f, 0xb7, 0x1c, 0x93, 0xbc, 0xaa, 0x2a, 0xd7, 0x94, 0x9b, 0x45, 0x0d,
+	0x18, 0x68, 0x8d, 0x42, 0xd0, 0x03, 0x18, 0xc3, 0x86, 0xe1, 0x36, 0x9d, 0x50, 0xdf, 0xb5, 0xec,
+	0x90, 0xf8, 0xd5, 0xc2, 0x35, 0xe5, 0xe6, 0xc8, 0xdc, 0xeb, 0xd1, 0x58, 0xea, 0x54, 0xb6, 0x3a,
+	0xd3, 0xc2, 0xc1, 0x6c, 0x7d, 0xde, 0x34, 0x7d, 0x12, 0x04, 0x8c, 0x58, 0x2b, 0x09, 0xd2, 0x15,
+	0x46, 0xa9, 0xfe, 0x81, 0x02, 0x93, 0x69, 0x31, 0x02, 0xcf, 0x75, 0x02, 0x82, 0x56, 0x60, 0xc4,
+	0x71, 0x43, 0xa2, 0xfb, 0xc4, 0x70, 0x7d, 0x93, 0xc9, 0x31, 0x32, 0x77, 0xa3, 0x9e, 0xde, 0x60,
+	0xf5, 0x4d, 0x8f, 0x38, 0x26, 0xde, 0xb1, 0x09, 0x25, 0xd7, 0x18, 0xb2, 0x06, 0x4e, 0xf4, 0x8c,
+	0x5e, 0x87, 0x12, 0xb6, 0x7d, 0x82, 0xcd, 0x23, 0xfd, 0xc0, 0x0d, 0x89, 0xc9, 0xa4, 0x1d, 0xd2,
+	0x46, 0x05, 0x70, 0x9b, 0xc2, 0xd4, 0xbf, 0x57, 0x60, 0x72, 0xcb, 0x6d, 0xfa, 0x0e, 0x6e, 0x10,
+	0x87, 0x8a, 0xd3, 0x83, 0x3e, 0xae, 0xc3, 0xe8, 0x8e, 0xed, 0x1a, 0x2f, 0xf4, 0x7d, 0x62, 0xed,
+	0xed, 0x87, 0x8c, 0x7f, 0x51, 0x1b, 0x61, 0xb0, 0x55, 0x06, 0xca, 0x50, 0x59, 0xdf, 0x89, 0x55,
+	0xf6, 0x17, 0x7d, 0x70, 0xb1, 0x4d, 0x54, 0xa1, 0xb3, 0x25, 0xe8, 0xa7, 0x63, 0x0c, 0xaa, 0xca,
+	0xb5, 0xbe, 0x9b, 0x23, 0x73, 0xf5, 0x76, 0x6d, 0xe5, 0x50, 0xd6, 0xe9, 0x9b, 0xc6, 0x89, 0x6b,
+	0xff, 0x54, 0x80, 0x22, 0x7d, 0x47, 0x8f, 0x01, 0x59, 0x8e, 0x41, 0x9c, 0xd0, 0x3a, 0xb0, 0xbe,
+	0x4b, 0x4c, 0x9d, 0x19, 0x1e, 0x31, 0x13, 0x57, 0x53, 0xa2, 0x73, 0xa3, 0x44, 0x65, 0xa7, 0x0f,
+	0x6b, 0xa6, 0x36, 0x1e, 0x27, 0x65, 0x40, 0x74, 0x0f, 0x80, 0xf6, 0xa0, 0x7b, 0xee, 0x61, 0xb4,
+	0x6a, 0x2e, 0xa7, 0xf8, 0xd0, 0xad, 0x41, 0xb9, 0x34, 0xe8, 0x90, 0xb5, 0x61, 0x8a, 0xbf, 0x41,
+	0xd1, 0xd1, 0xbb, 0x30, 0xe0, 0x93, 0x43, 0xec, 0x9b, 0x42, 0x77, 0x57, 0xf2, 0x04, 0xd8, 0xc6,
+	0x76, 0x93, 0x68, 0x02, 0x19, 0xad, 0xc2, 0x48, 0x6c, 0x17, 0x55, 0x8b, 0x8c, 0xf6, 0x2b, 0x29,
+	0x5a, 0xb1, 0x79, 0xa8, 0x7e, 0x5a, 0xb8, 0x6b, 0xa6, 0x16, 0x27, 0x4d, 0x2f, 0x84, 0xfe, 0xf4,
+	0x42, 0x50, 0x5f, 0x83, 0x4b, 0x8c, 0xdc, 0xc3, 0x3e, 0x71, 0x42, 0x31, 0x87, 0x62, 0x19, 0xa9,
+	0x3e, 0xd4, 0xb2, 0x1a, 0xc5, 0xc4, 0xbd, 0x0f, 0x83, 0x98, 0x83, 0x84, 0x7a, 0xa7, 0x8e, 0x5f,
+	0x19, 0x9a, 0x44, 0x47, 0x35, 0x18, 0x22, 0x8e, 0xe1, 0x9a, 0x96, 0xb3, 0xc7, 0x34, 0x3a, 0xac,
+	0x45, 0xef, 0xea, 0x8f, 0x0b, 0x50, 0x9e, 0xe7, 0xc6, 0x3f, 0x5a, 0xce, 0xed, 0x4b, 0x51, 0x39,
+	0xe9, 0x52, 0x44, 0xb7, 0xa0, 0x62, 0x39, 0x86, 0xdd, 0x34, 0x89, 0x6e, 0x39, 0x54, 0x4b, 0x07,
+	0x44, 0xec, 0xae, 0xb2, 0x80, 0xaf, 0x09, 0x30, 0x7a, 0x1b, 0xd0, 0xcb, 0x26, 0xf1, 0x8f, 0x74,
+	0x1b, 0x87, 0x24, 0x08, 0xf5, 0x20, 0xc4, 0x21, 0x61, 0x33, 0x39, 0xa4, 0x55, 0x58, 0xcb, 0x3a,
+	0x6b, 0xd8, 0xa4, 0x70, 0xf4, 0x1d, 0x40, 0xe2, 0xd0, 0xd2, 0x2d, 0x33, 0x90, 0x82, 0x16, 0xd9,
+	0xa2, 0xfe, 0x6a, 0x4a, 0xd0, 0xc8, 0x44, 0xd7, 0xe5, 0x39, 0x47, 0xa5, 0x6e, 0xca, 0x29, 0xac,
+	0x60, 0xf9, 0x18, 0x88, 0x0d, 0xf4, 0x59, 0x01, 0x2a, 0x2d, 0xad, 0x88, 0x09, 0xf8, 0x3a, 0x14,
+	0x2c, 0x69, 0x64, 0x7a, 0xec, 0xa1, 0x60, 0x99, 0xa8, 0x0e, 0x83, 0xa2, 0x4d, 0x2c, 0xeb, 0x0b,
+	0x75, 0x7e, 0xee, 0xd7, 0xe5, 0xb9, 0x5f, 0x9f, 0x77, 0x8e, 0x34, 0x89, 0x84, 0x56, 0x60, 0xd8,
+	0x73, 0x03, 0x8b, 0xc9, 0x50, 0xed, 0x63, 0xe3, 0xba, 0x99, 0xdb, 0x2b, 0x3d, 0x91, 0x0f, 0x66,
+	0xeb, 0x1b, 0x82, 0x40, 0x6b, 0x91, 0xa6, 0x8d, 0x64, 0xf1, 0xa4, 0x46, 0xf2, 0x35, 0x18, 0xb6,
+	0x5d, 0x03, 0xdb, 0x7a, 0x40, 0x5e, 0x8a, 0x95, 0x3d, 0xc4, 0x00, 0x9b, 0xe4, 0xa5, 0x1a, 0x42,
+	0x75, 0xbe, 0x19, 0xee, 0xbb, 0xbe, 0xf5, 0x5d, 0x32, 0xef, 0x98, 0x0b, 0x4d, 0xcb, 0x36, 0xe5,
+	0x72, 0xfa, 0x26, 0x54, 0x62, 0x7b, 0x44, 0xf7, 0x6c, 0xec, 0xe4, 0x68, 0x31, 0x7e, 0x96, 0x25,
+	0x37, 0xda, 0x86, 0x8d, 0x1d, 0xad, 0x1c, 0x26, 0x01, 0xea, 0x17, 0x05, 0xb8, 0x94, 0xd1, 0xad,
+	0x98, 0xaf, 0x1d, 0x18, 0xdb, 0xa1, 0x00, 0xdd, 0xf3, 0xdd, 0xbd, 0xd8, 0xbe, 0xf9, 0xa0, 0x7d,
+	0xec, 0xb9, 0x4c, 0xea, 0xec, 0x6d, 0x43, 0x30, 0x58, 0x3d, 0xa7, 0x95, 0x76, 0xe2, 0x00, 0xa4,
+	0xc1, 0x10, 0x9d, 0x04, 0x9b, 0x84, 0x44, 0xcc, 0xea, 0x3b, 0xbd, 0x70, 0x5f, 0x14, 0xb4, 0xab,
+	0xe7, 0xb4, 0x88, 0x4f, 0xed, 0x2d, 0x28, 0x25, 0x7a, 0xa5, 0xfb, 0x37, 0x31, 0x84, 0x82, 0x16,
+	0xbd, 0xd7, 0x9e, 0xc1, 0x90, 0x64, 0x82, 0x1e, 0x26, 0xed, 0x18, 0x1f, 0xed, 0xad, 0xae, 0x75,
+	0x9c, 0x30, 0x65, 0x0b, 0x43, 0x30, 0x40, 0x37, 0x60, 0x33, 0x50, 0x7f, 0xac, 0xc0, 0x6b, 0x0b,
+	0xbe, 0x8b, 0x4d, 0x03, 0x07, 0x61, 0x1c, 0x5f, 0xcc, 0xef, 0x59, 0x76, 0x8b, 0xde, 0x84, 0x32,
+	0x3e, 0xc4, 0x56, 0xa8, 0x9b, 0x24, 0x24, 0xad, 0xdd, 0x32, 0xa4, 0x8d, 0x31, 0xf0, 0x92, 0x84,
+	0xaa, 0x9f, 0xf5, 0xc1, 0xe5, 0x6c, 0xa9, 0xc4, 0xf4, 0x3b, 0x30, 0xbe, 0x23, 0xdb, 0xf5, 0xa0,
+	0x69, 0x18, 0xad, 0x15, 0xf0, 0x8d, 0xf6, 0x39, 0x3a, 0x8e, 0x55, 0xab, 0x71, 0x93, 0xb3, 0x59,
+	0x3d, 0xa7, 0x55, 0x76, 0x52, 0x30, 0xf4, 0x4d, 0x18, 0x36, 0x5c, 0x67, 0xd7, 0xf2, 0x1b, 0xc2,
+	0x81, 0x18, 0x99, 0x7b, 0xbf, 0xc7, 0x7e, 0x16, 0x25, 0xfd, 0xea, 0x39, 0xad, 0xc5, 0xac, 0xf6,
+	0x00, 0x2a, 0x69, 0x09, 0xd0, 0x7b, 0x31, 0x63, 0xd4, 0xed, 0x51, 0x55, 0xb0, 0xcc, 0x9a, 0x03,
+	0xc3, 0x51, 0x2f, 0x27, 0x65, 0x42, 0x8d, 0x7a, 0x34, 0x3d, 0x49, 0x97, 0xa6, 0x1c, 0xc1, 0xb9,
+	0x5b, 0x13, 0x5b, 0x46, 0x9f, 0xdf, 0x10, 0x67, 0x5f, 0x6b, 0x03, 0x3b, 0xc4, 0x97, 0x8b, 0xe8,
+	0x75, 0x28, 0x91, 0x57, 0x9e, 0xe5, 0x1f, 0x49, 0x7e, 0xdc, 0x89, 0x1a, 0xe5, 0x40, 0xe1, 0x23,
+	0x7d, 0x03, 0x8a, 0x0d, 0xd2, 0x70, 0xc5, 0xe9, 0xfe, 0xd6, 0xf1, 0x4b, 0xec, 0x11, 0x69, 0xb8,
+	0x1b, 0x36, 0xb6, 0x9c, 0x90, 0xbc, 0x0a, 0x35, 0x46, 0x88, 0xee, 0xc1, 0x40, 0xe0, 0x36, 0x7d,
+	0x83, 0x08, 0x33, 0xd8, 0xd5, 0x89, 0x26, 0x48, 0xd0, 0x3a, 0x0c, 0xba, 0xcd, 0xd0, 0x6b, 0x86,
+	0x41, 0xf5, 0x02, 0x33, 0xc7, 0x73, 0x19, 0xbe, 0x53, 0xde, 0x00, 0xeb, 0x4f, 0x18, 0xa9, 0x26,
+	0x59, 0xa0, 0x35, 0x18, 0x08, 0xa8, 0xc5, 0x0d, 0xaa, 0x13, 0x8c, 0xd9, 0x6c, 0x2f, 0xcc, 0x98,
+	0xad, 0xd6, 0x04, 0x03, 0xb4, 0x02, 0xfd, 0xc1, 0x21, 0xf6, 0x82, 0xea, 0x14, 0xe3, 0x34, 0xd3,
+	0x13, 0xa7, 0x43, 0xec, 0x69, 0x9c, 0x1c, 0x6d, 0xc3, 0x08, 0x7d, 0xd0, 0x0d, 0x1b, 0x5b, 0x8d,
+	0xa0, 0x7a, 0x95, 0x71, 0x7b, 0xb7, 0x57, 0x6e, 0x8b, 0x94, 0x5a, 0x83, 0x40, 0x3e, 0x32, 0xbe,
+	0x26, 0xb1, 0xc9, 0x1e, 0xe6, 0x67, 0xd9, 0x4d, 0xc6, 0xf7, 0x9d, 0x5e, 0xf8, 0x2e, 0x71, 0x72,
+	0xa2, 0xc5, 0x19, 0xa1, 0xe7, 0x50, 0x6a, 0x3a, 0x71, 0xce, 0x73, 0x8c, 0xf3, 0x7b, 0xbd, 0x70,
+	0x7e, 0x2a, 0x19, 0x10, 0x2d, 0xc9, 0x0c, 0xd9, 0x70, 0x3e, 0x0e, 0x90, 0x5a, 0xb9, 0xc3, 0xfa,
+	0xb8, 0x77, 0xb2, 0x3e, 0xb8, 0x6e, 0x50, 0x9c, 0xaf, 0xd0, 0xd1, 0x16, 0x8c, 0x5b, 0x3b, 0x86,
+	0xee, 0x13, 0x1b, 0x1f, 0xe9, 0x9c, 0x4b, 0x50, 0xfd, 0xb0, 0xc3, 0xa9, 0x4f, 0xef, 0xbe, 0x07,
+	0xb3, 0xf5, 0xb5, 0x1d, 0x43, 0xa3, 0x74, 0x5a, 0xd9, 0x12, 0x4f, 0xf3, 0x86, 0xd4, 0xd0, 0xb8,
+	0x65, 0x04, 0x73, 0x33, 0xfa, 0xa1, 0x15, 0xee, 0x9b, 0x3e, 0x3e, 0xc4, 0x76, 0x50, 0xfd, 0x3a,
+	0xe3, 0x3a, 0xdd, 0x91, 0x2b, 0x25, 0x7c, 0x16, 0xd1, 0x69, 0x15, 0x2b, 0x09, 0x08, 0x90, 0x0e,
+	0x63, 0xd2, 0xcd, 0xd0, 0x5d, 0x8f, 0x38, 0x41, 0x75, 0x85, 0xb1, 0x7e, 0xbf, 0x17, 0xe5, 0x48,
+	0x97, 0xe5, 0x89, 0x47, 0x1c, 0xad, 0xe4, 0xc5, 0xde, 0x02, 0xb4, 0x03, 0xe5, 0xa8, 0x03, 0xc3,
+	0x76, 0x03, 0x12, 0x54, 0xef, 0xb3, 0x1e, 0x3e, 0x38, 0x49, 0x0f, 0x8b, 0x94, 0x83, 0x16, 0x89,
+	0xcc, 0x5e, 0x03, 0xf4, 0x02, 0x50, 0xd4, 0x87, 0xd4, 0x52, 0x50, 0x5d, 0x65, 0xdd, 0x7c, 0x78,
+	0x92, 0x6e, 0xa4, 0x86, 0xb4, 0x71, 0x2f, 0x05, 0x09, 0xd0, 0x0f, 0x15, 0x98, 0x32, 0x9b, 0xa1,
+	0xb1, 0xaf, 0x4b, 0xdf, 0x35, 0x30, 0xf6, 0x89, 0xd9, 0xb4, 0x49, 0x34, 0xe7, 0x6b, 0xac, 0xe7,
+	0x95, 0x5e, 0x7a, 0xe6, 0xb3, 0xbd, 0x44, 0xf9, 0x0a, 0x97, 0x73, 0x53, 0x70, 0xd5, 0x5e, 0x33,
+	0x33, 0xa0, 0x72, 0x75, 0x7c, 0x0f, 0x2e, 0x25, 0x85, 0x21, 0x8e, 0x19, 0xc9, 0xf1, 0x80, 0xc9,
+	0x31, 0x7f, 0x3a, 0x39, 0x96, 0x1d, 0x53, 0x9b, 0x34, 0x93, 0x00, 0xd9, 0x7b, 0xbb, 0x2e, 0xa4,
+	0xfa, 0x23, 0x19, 0x1e, 0x9e, 0x85, 0x2e, 0xa2, 0xf9, 0x48, 0xe8, 0x42, 0x42, 0xa5, 0x34, 0x3b,
+	0x50, 0x16, 0x7b, 0xd2, 0xf5, 0x75, 0x7e, 0x41, 0x5e, 0xef, 0x7d, 0xa9, 0x2d, 0x49, 0x16, 0xec,
+	0xae, 0x3c, 0x66, 0xc6, 0x5f, 0x03, 0xf4, 0x23, 0x05, 0xae, 0x09, 0x27, 0xd8, 0xb6, 0x5e, 0x36,
+	0x2d, 0xd3, 0x0a, 0x8f, 0xf4, 0x30, 0xba, 0x6d, 0xb3, 0x6e, 0xab, 0x8f, 0x58, 0xaf, 0x6b, 0xbd,
+	0x8f, 0x79, 0x5d, 0xb2, 0x4c, 0xde, 0xdf, 0xb5, 0x2b, 0xf8, 0xb8, 0x66, 0xb4, 0x04, 0x43, 0xb8,
+	0x19, 0xba, 0xfa, 0x2e, 0x21, 0x55, 0x93, 0x1d, 0x8a, 0x6f, 0xe6, 0x5a, 0x86, 0x5d, 0x42, 0xa8,
+	0x24, 0x2b, 0x84, 0x6c, 0x59, 0xc4, 0x5f, 0x3d, 0x47, 0x2f, 0x2b, 0xa1, 0xbb, 0x42, 0x28, 0x17,
+	0x68, 0x60, 0xa7, 0x89, 0x6d, 0xc6, 0x87, 0x64, 0x1e, 0xae, 0x59, 0x7c, 0xa8, 0xa3, 0xc3, 0x09,
+	0x29, 0x97, 0x37, 0x92, 0xd7, 0xe7, 0x9f, 0x31, 0x1f, 0x60, 0xa1, 0x50, 0x55, 0x12, 0xc1, 0x94,
+	0x0f, 0xa1, 0x9f, 0xbd, 0x55, 0xff, 0xa5, 0x2d, 0xe0, 0x93, 0xea, 0x27, 0x30, 0xd8, 0x6d, 0x7f,
+	0x99, 0x62, 0x6b, 0x9c, 0xa8, 0x76, 0x08, 0x03, 0xfc, 0x28, 0x46, 0x77, 0xa0, 0xff, 0x00, 0xdb,
+	0x4d, 0x22, 0x1c, 0xa0, 0x0e, 0xc1, 0x02, 0x8e, 0x1b, 0xbf, 0x85, 0x17, 0x7a, 0xba, 0x85, 0xd7,
+	0x0e, 0xa0, 0x9f, 0x1d, 0xdb, 0xbf, 0xea, 0x7e, 0xff, 0x47, 0x81, 0x22, 0x3d, 0x97, 0x4f, 0xd6,
+	0xef, 0x02, 0x8c, 0x86, 0xd8, 0xdf, 0x23, 0xa1, 0x88, 0xec, 0x14, 0xba, 0x8b, 0xec, 0x8c, 0x70,
+	0x22, 0x1e, 0xd3, 0x79, 0x17, 0xfa, 0xe8, 0xaa, 0xe8, 0xeb, 0x7a, 0x55, 0x68, 0x14, 0x1f, 0x2d,
+	0x42, 0x89, 0x9d, 0xb9, 0xba, 0x1c, 0x78, 0xb1, 0xab, 0x81, 0x8f, 0x32, 0x22, 0xf1, 0x56, 0xfb,
+	0x18, 0x86, 0x23, 0xa7, 0x04, 0x6d, 0x40, 0x99, 0x3b, 0x38, 0x6e, 0xa3, 0x61, 0x85, 0x74, 0x0b,
+	0x08, 0x5d, 0xc4, 0x97, 0x3c, 0x8b, 0x86, 0xd6, 0x43, 0xbe, 0x74, 0x58, 0xac, 0x61, 0x31, 0x42,
+	0xd7, 0xc6, 0x98, 0x5b, 0x13, 0xbd, 0xd7, 0xfe, 0x48, 0x81, 0x21, 0xe9, 0x9c, 0xa0, 0x77, 0x60,
+	0x00, 0xb3, 0x98, 0x94, 0xe0, 0x7a, 0x7c, 0xdc, 0x4a, 0xe0, 0xa2, 0xfb, 0x30, 0xec, 0xe3, 0x90,
+	0xe8, 0x26, 0x0e, 0xb1, 0xd0, 0xd1, 0xed, 0xfc, 0x15, 0xcd, 0x22, 0xcb, 0x07, 0xb3, 0x75, 0x0d,
+	0x87, 0x64, 0x09, 0x87, 0x58, 0x1b, 0xf2, 0xc5, 0x53, 0xed, 0x13, 0x05, 0xa0, 0xe5, 0x6a, 0x9c,
+	0x6c, 0xba, 0x13, 0xc2, 0x14, 0x4e, 0x21, 0xcc, 0x2f, 0x0a, 0x50, 0x4e, 0xf9, 0x3d, 0xe8, 0x23,
+	0x40, 0x07, 0xd8, 0xb6, 0x4c, 0x66, 0x63, 0x2d, 0x93, 0x38, 0xa1, 0x15, 0x1e, 0x09, 0xf1, 0xd4,
+	0x9c, 0x59, 0x5d, 0x13, 0x68, 0x0f, 0xc9, 0x91, 0x36, 0x1e, 0x51, 0x4b, 0x28, 0xaa, 0xc3, 0x78,
+	0x10, 0x62, 0x3f, 0xd4, 0xe3, 0x76, 0xa3, 0x10, 0x99, 0x8d, 0x32, 0x6b, 0x5c, 0x6e, 0xd9, 0x8e,
+	0x45, 0x18, 0xf4, 0x88, 0x83, 0xed, 0xf0, 0x48, 0xa8, 0xfa, 0x56, 0xe7, 0xd1, 0x6d, 0x70, 0x02,
+	0x4d, 0x52, 0xa2, 0xfb, 0x50, 0x69, 0x3a, 0x3b, 0xae, 0x63, 0x5a, 0xce, 0x9e, 0x2e, 0x66, 0xbc,
+	0xd8, 0xc5, 0x8c, 0x97, 0x23, 0x2a, 0x0e, 0x40, 0xef, 0xc0, 0x64, 0x8b, 0x11, 0x1f, 0x87, 0xb8,
+	0xfd, 0xf0, 0xf8, 0xca, 0x85, 0xa8, 0x75, 0x93, 0x36, 0xf2, 0x5b, 0x50, 0xed, 0xa7, 0x0a, 0x8c,
+	0xc6, 0xbd, 0x26, 0x6a, 0xc2, 0xa5, 0xab, 0x21, 0xb4, 0xd9, 0x7d, 0xa0, 0x28, 0xa2, 0x44, 0x4f,
+	0x21, 0xf2, 0xbe, 0xf4, 0x06, 0x89, 0xa6, 0x7f, 0xa6, 0x5b, 0x56, 0x8f, 0x48, 0x88, 0xe9, 0xb2,
+	0xd1, 0x46, 0xbd, 0x18, 0xa4, 0xf6, 0x1c, 0x4a, 0x09, 0x07, 0x0c, 0x3d, 0x84, 0x91, 0xa8, 0x9f,
+	0xe8, 0xf6, 0x79, 0xbb, 0xdb, 0x5e, 0xd6, 0x4c, 0x0d, 0xbc, 0xe8, 0xb9, 0xf6, 0xdf, 0x0a, 0x54,
+	0xd2, 0x8e, 0xd7, 0x99, 0xf6, 0x40, 0x95, 0xeb, 0x93, 0x80, 0xf8, 0x07, 0x44, 0x5a, 0xde, 0x8e,
+	0xca, 0xd5, 0x04, 0xbe, 0x16, 0x51, 0xa2, 0xc7, 0x30, 0x1a, 0xfa, 0x98, 0xcd, 0xb3, 0x87, 0x2d,
+	0x3f, 0xe7, 0x06, 0xdb, 0xc6, 0x69, 0x8b, 0xd3, 0x6c, 0x60, 0xcb, 0x67, 0x61, 0x12, 0xf9, 0x52,
+	0xfb, 0x3d, 0xa8, 0xe5, 0x7b, 0x7d, 0xe8, 0x63, 0x7a, 0xe1, 0x0a, 0x0c, 0xdf, 0xf2, 0x62, 0x6b,
+	0xe2, 0x5e, 0x37, 0x21, 0xcb, 0x38, 0xbb, 0xa5, 0x16, 0x0b, 0x2d, 0xce, 0xaf, 0x46, 0x60, 0x22,
+	0xd3, 0xd5, 0x43, 0xeb, 0x00, 0xad, 0x98, 0xec, 0xc9, 0x22, 0xa5, 0xc3, 0x51, 0x2c, 0xb6, 0xf6,
+	0xbd, 0xac, 0x31, 0x46, 0x93, 0x7c, 0xa6, 0x7d, 0xa1, 0x0a, 0xf4, 0x05, 0xe4, 0xa5, 0x08, 0x62,
+	0xd0, 0xc7, 0xda, 0x27, 0x05, 0x28, 0x25, 0xdc, 0x39, 0x11, 0x86, 0xf3, 0xdc, 0x00, 0xdb, 0x22,
+	0x3a, 0x11, 0xbd, 0xa3, 0x6f, 0x40, 0x91, 0x79, 0x6f, 0x85, 0x0e, 0xf3, 0x1a, 0x4b, 0x6f, 0x52,
+	0xd3, 0x4b, 0xfd, 0x33, 0x46, 0x88, 0xde, 0x06, 0xc4, 0x0d, 0x40, 0x22, 0x4f, 0xd4, 0xc7, 0xba,
+	0xa9, 0xb0, 0x96, 0x85, 0x58, 0xb2, 0xe8, 0x06, 0x8c, 0x71, 0xec, 0x68, 0xdf, 0x17, 0x19, 0x66,
+	0x89, 0x41, 0xe5, 0x4a, 0x4e, 0x5a, 0xf3, 0x7e, 0xe6, 0x58, 0x9e, 0xcc, 0x9a, 0xff, 0x65, 0x01,
+	0xae, 0x1c, 0xeb, 0x65, 0xa2, 0x79, 0x18, 0x8d, 0x27, 0x73, 0x3a, 0x1d, 0x3a, 0x4b, 0xc4, 0x71,
+	0x1b, 0x5a, 0x82, 0x04, 0x3d, 0x84, 0x71, 0x9e, 0x90, 0x09, 0x74, 0x9f, 0x18, 0x96, 0x67, 0xd1,
+	0xf3, 0xb9, 0x3b, 0x67, 0xa7, 0x22, 0x08, 0x35, 0x49, 0x87, 0x56, 0x61, 0x94, 0x0d, 0xc8, 0xd4,
+	0x1d, 0xe6, 0xcc, 0xf3, 0x00, 0x7a, 0x97, 0x61, 0xef, 0x11, 0x4e, 0xca, 0x92, 0x8d, 0xe9, 0x9c,
+	0x4e, 0x31, 0x9d, 0xd3, 0x59, 0x00, 0x18, 0xda, 0x25, 0x44, 0x6f, 0xb8, 0x26, 0x51, 0x75, 0x91,
+	0xc2, 0x49, 0xf9, 0xe9, 0x22, 0x24, 0x39, 0x0f, 0xc5, 0x93, 0x47, 0xbf, 0x19, 0xa9, 0x8a, 0x61,
+	0x42, 0x0c, 0x7a, 0xe1, 0x88, 0x87, 0xa7, 0x44, 0x00, 0x6d, 0x15, 0x4a, 0xc2, 0x4f, 0x8a, 0x65,
+	0x21, 0xbb, 0x8c, 0x70, 0x8d, 0xe2, 0xd8, 0x9b, 0xaa, 0xc1, 0x64, 0xba, 0x8b, 0xd3, 0xa6, 0xa0,
+	0xd4, 0x71, 0x28, 0x3f, 0xc3, 0xb6, 0xcd, 0x7c, 0x43, 0x91, 0xed, 0xda, 0x80, 0x4a, 0x0b, 0x24,
+	0x3a, 0xf8, 0x10, 0x86, 0x0f, 0x19, 0xac, 0xb5, 0xa7, 0xaf, 0xe6, 0x74, 0x11, 0xd1, 0x0e, 0x1d,
+	0x8a, 0x27, 0xf5, 0x23, 0x98, 0xe0, 0x33, 0x72, 0x94, 0x4c, 0xac, 0x9d, 0x42, 0xee, 0x1d, 0x98,
+	0x4c, 0xb3, 0x14, 0xa2, 0x9e, 0x9d, 0xbe, 0x0d, 0xb8, 0xb8, 0xec, 0xed, 0x93, 0x06, 0xf1, 0xb1,
+	0x9d, 0x12, 0xfc, 0xec, 0x3a, 0xd9, 0x82, 0x6a, 0x7b, 0x27, 0xa7, 0x9e, 0xd6, 0xbf, 0x55, 0xa0,
+	0xbc, 0x80, 0x6d, 0x6a, 0xcf, 0xbe, 0x94, 0xec, 0xe1, 0x7d, 0x28, 0x33, 0x93, 0xa1, 0x5b, 0x66,
+	0xb2, 0x90, 0xa0, 0xe3, 0x05, 0xa4, 0x84, 0xf9, 0x83, 0x48, 0xe8, 0x7d, 0x5a, 0x80, 0x4a, 0x4b,
+	0xd0, 0x68, 0x3b, 0x0e, 0x8a, 0xee, 0x7a, 0x10, 0x91, 0xf9, 0x95, 0x92, 0x0e, 0xdd, 0x83, 0xc1,
+	0x1d, 0xce, 0x56, 0x08, 0x76, 0xbc, 0x9b, 0xcd, 0x89, 0x05, 0x05, 0x7a, 0x08, 0x65, 0xa9, 0x29,
+	0xa9, 0xff, 0xbe, 0x63, 0x9d, 0x61, 0x21, 0xc7, 0xb6, 0x45, 0x0e, 0x35, 0xa9, 0x64, 0x01, 0x43,
+	0x4b, 0x30, 0x2a, 0xf8, 0xea, 0xd4, 0xb4, 0x09, 0x87, 0xf4, 0xfa, 0xb1, 0xe2, 0x30, 0x46, 0x23,
+	0x82, 0x8c, 0xbe, 0xa8, 0x65, 0x28, 0x6d, 0xb2, 0x70, 0xbd, 0xdc, 0xa5, 0x3f, 0x54, 0x60, 0x4c,
+	0x42, 0x84, 0xda, 0x6e, 0x42, 0x65, 0xb7, 0x69, 0xdb, 0x7a, 0x70, 0xe4, 0x18, 0xc9, 0x68, 0xfd,
+	0x18, 0x85, 0x6f, 0x1e, 0x39, 0x86, 0x38, 0xa6, 0xea, 0x70, 0xde, 0xc3, 0x7e, 0x68, 0xe1, 0x24,
+	0x32, 0x3f, 0x65, 0xc7, 0x45, 0x53, 0x0c, 0xff, 0x2a, 0x8c, 0x18, 0x38, 0x34, 0xf6, 0xa9, 0x9b,
+	0xd4, 0xf4, 0x44, 0xea, 0x17, 0x24, 0xe8, 0xa9, 0xa7, 0x4e, 0xc0, 0x79, 0x2e, 0xcc, 0x66, 0xe8,
+	0x13, 0xdc, 0x90, 0x42, 0xfe, 0x54, 0x81, 0x0b, 0x49, 0xb8, 0x10, 0xf5, 0x03, 0xb8, 0x24, 0x92,
+	0xc9, 0x2f, 0x1c, 0xf7, 0xd0, 0x49, 0x1e, 0xae, 0x5c, 0xe6, 0x49, 0x8e, 0xf0, 0x90, 0xb6, 0xc7,
+	0x8f, 0xd8, 0xac, 0x51, 0x16, 0x7a, 0x19, 0x65, 0x5f, 0xce, 0x28, 0xd5, 0xff, 0x53, 0x60, 0x34,
+	0x51, 0x4e, 0xf3, 0x3a, 0x94, 0x64, 0x8e, 0x3c, 0xf0, 0xe4, 0xa1, 0x37, 0xc4, 0x4e, 0x47, 0x0a,
+	0xa4, 0x27, 0x54, 0x88, 0xee, 0xc2, 0x90, 0xdc, 0x0a, 0x62, 0x95, 0x74, 0xdc, 0x03, 0x83, 0x62,
+	0x0f, 0xb4, 0x9b, 0x91, 0xe2, 0x09, 0xcd, 0x08, 0x5a, 0x82, 0x32, 0xbf, 0xf0, 0xe8, 0xa1, 0xcb,
+	0x84, 0x35, 0xab, 0x03, 0x5d, 0xdc, 0x7c, 0x4a, 0x9c, 0x68, 0xcb, 0x65, 0xa7, 0xad, 0xfa, 0xc7,
+	0x0a, 0x4c, 0x30, 0x0d, 0xac, 0x30, 0xd7, 0xca, 0x72, 0xf6, 0xa4, 0x2a, 0x6e, 0xc3, 0xf8, 0x81,
+	0x1b, 0xd2, 0xe3, 0x58, 0xc7, 0x61, 0x72, 0xa2, 0xca, 0xa2, 0x61, 0x5e, 0xdc, 0x83, 0xda, 0x47,
+	0xd5, 0x77, 0x52, 0xe3, 0xf8, 0xbb, 0x30, 0xf6, 0xcc, 0x0a, 0x9d, 0x98, 0xe1, 0xcd, 0xca, 0x59,
+	0xf7, 0x9d, 0x49, 0xce, 0x5a, 0x87, 0x72, 0xd4, 0x97, 0x58, 0xa5, 0xeb, 0x30, 0x7a, 0xc8, 0x41,
+	0xdc, 0x53, 0xeb, 0x2a, 0x83, 0x2a, 0x98, 0x30, 0x47, 0x6d, 0xe4, 0xb0, 0xf5, 0xa2, 0xfe, 0xbb,
+	0x02, 0x93, 0xa2, 0xf1, 0x57, 0x96, 0x89, 0x47, 0xbf, 0x0d, 0x08, 0x8b, 0x2c, 0x37, 0xcf, 0x96,
+	0xc4, 0x02, 0x08, 0xd3, 0xc7, 0xf3, 0x9e, 0x8f, 0xd3, 0xb1, 0xe1, 0x8c, 0xe3, 0x34, 0x48, 0xfd,
+	0x8f, 0x02, 0x5c, 0x6c, 0x1b, 0x94, 0x50, 0xdf, 0xef, 0xe4, 0xe4, 0xf9, 0xbf, 0xd6, 0xee, 0xec,
+	0xe5, 0xb0, 0xe8, 0x94, 0xe5, 0xdf, 0x68, 0xcb, 0xf2, 0xcf, 0x75, 0xcf, 0xfb, 0xd7, 0x22, 0xc7,
+	0xff, 0x69, 0x1f, 0x94, 0x98, 0xd9, 0x88, 0x76, 0x40, 0x0d, 0x86, 0xf8, 0x89, 0x2b, 0x9c, 0xf9,
+	0x21, 0x2d, 0x7a, 0x47, 0x06, 0x4c, 0xc5, 0x0c, 0x96, 0x61, 0xed, 0x5a, 0x86, 0x6e, 0x52, 0x8f,
+	0xde, 0x72, 0x44, 0x26, 0xae, 0xc0, 0xdc, 0xed, 0x0e, 0xee, 0xff, 0xe5, 0x96, 0x81, 0x63, 0x3c,
+	0x96, 0xe2, 0x2c, 0xd0, 0x5d, 0xb8, 0x24, 0x3b, 0x89, 0x65, 0xe1, 0x42, 0xf7, 0x05, 0x71, 0x02,
+	0x71, 0x34, 0x5c, 0x14, 0x08, 0x4b, 0x51, 0xfb, 0x16, 0x6b, 0x46, 0xef, 0x43, 0x55, 0xd2, 0xb6,
+	0x02, 0x2c, 0x82, 0xb4, 0xc8, 0x48, 0x27, 0x45, 0xfb, 0x53, 0xd9, 0x2c, 0x28, 0xbf, 0x02, 0xb2,
+	0x2e, 0x49, 0xb7, 0x3d, 0xdd, 0xd9, 0x0d, 0x03, 0x16, 0x8b, 0x19, 0xd2, 0xa4, 0x89, 0x5e, 0xf7,
+	0x1e, 0xef, 0x86, 0x01, 0x9a, 0x83, 0x09, 0x89, 0x27, 0x2f, 0x81, 0x1c, 0x7b, 0x80, 0x61, 0x9f,
+	0x17, 0x8d, 0x1b, 0xa2, 0x8d, 0xd1, 0xcc, 0xc3, 0x15, 0x49, 0x73, 0xc0, 0xac, 0x1e, 0xbd, 0xe7,
+	0x10, 0xcb, 0x0b, 0xa5, 0x68, 0x83, 0x8c, 0xb6, 0x26, 0x90, 0xa4, 0x65, 0x64, 0x28, 0x5c, 0x3c,
+	0xf5, 0x5b, 0x30, 0x26, 0xa7, 0x49, 0xac, 0xfe, 0xfb, 0x30, 0xc6, 0x54, 0xcf, 0x62, 0x36, 0xb1,
+	0x5d, 0x77, 0x2d, 0x4f, 0xf7, 0x51, 0x9c, 0xa6, 0xc4, 0xe8, 0xe4, 0xab, 0x3a, 0x09, 0x17, 0xe6,
+	0x3d, 0x6f, 0x03, 0xfb, 0xb8, 0x41, 0x42, 0xe2, 0x47, 0x1e, 0xc0, 0x73, 0x98, 0x48, 0xc1, 0x45,
+	0xcf, 0x8b, 0x00, 0x5e, 0x04, 0xcd, 0xf1, 0xa0, 0xb0, 0xe7, 0xb1, 0x3d, 0x9e, 0x60, 0x10, 0x23,
+	0x53, 0x11, 0x54, 0xee, 0xe3, 0x60, 0xc3, 0xb7, 0x5a, 0x1e, 0xa4, 0xfa, 0x99, 0x02, 0xe3, 0x31,
+	0x60, 0xe4, 0x70, 0xc3, 0x1e, 0x0e, 0x74, 0x8f, 0x41, 0x73, 0x16, 0x7e, 0x5b, 0x30, 0xb9, 0xc5,
+	0x66, 0x78, 0x4f, 0x3e, 0xa2, 0x27, 0x30, 0x86, 0xed, 0x50, 0x8f, 0x71, 0xe3, 0xcb, 0xb5, 0x07,
+	0x6e, 0xa3, 0xd8, 0x0e, 0xa3, 0x37, 0xaa, 0xba, 0x95, 0x47, 0x4b, 0xed, 0xaa, 0xf3, 0x60, 0x22,
+	0x05, 0x17, 0x63, 0x79, 0x96, 0xa1, 0xba, 0xaf, 0xe5, 0xdf, 0xcc, 0x13, 0x45, 0xc8, 0x07, 0xb3,
+	0xf5, 0x95, 0x86, 0x99, 0xa3, 0xce, 0x3f, 0x53, 0xe0, 0x22, 0x3d, 0x59, 0x17, 0x8e, 0x62, 0x41,
+	0x6b, 0xb1, 0xa3, 0x37, 0xa0, 0xcc, 0x0a, 0xc1, 0x62, 0xd1, 0xef, 0x42, 0x8f, 0xd1, 0x6f, 0x4a,
+	0xdf, 0x7a, 0xcf, 0x2a, 0xd6, 0xe9, 0xcb, 0x2c, 0xd6, 0xd9, 0x87, 0x6a, 0xbb, 0x54, 0xd1, 0xe9,
+	0x37, 0x16, 0xc8, 0x3b, 0x38, 0xbb, 0xac, 0xf7, 0x56, 0xc7, 0x5b, 0x0a, 0xe2, 0x40, 0xa6, 0x80,
+	0xcd, 0x43, 0xec, 0xe5, 0x28, 0x20, 0x1d, 0xfe, 0x2f, 0x9c, 0x2a, 0xfc, 0xdf, 0xbd, 0x02, 0xd6,
+	0xa1, 0xda, 0x2e, 0x95, 0x50, 0xc0, 0x0c, 0x14, 0x29, 0xdb, 0xf6, 0xa4, 0x41, 0x34, 0xec, 0x43,
+	0xec, 0x89, 0xd1, 0x32, 0x4c, 0xf5, 0x22, 0x4c, 0x3c, 0x75, 0x58, 0x9a, 0x83, 0x98, 0xb4, 0x31,
+	0x5a, 0x70, 0x0f, 0x60, 0x32, 0xdd, 0x70, 0xe2, 0x4e, 0x3e, 0x51, 0x60, 0xf2, 0x71, 0xd3, 0xb6,
+	0xad, 0x5d, 0x8b, 0xf8, 0x89, 0x4b, 0x01, 0xba, 0x0f, 0xc3, 0x8e, 0x6c, 0x11, 0x2a, 0xbc, 0xd5,
+	0x29, 0x09, 0x17, 0xb1, 0xd2, 0x5a, 0xb4, 0xdd, 0xeb, 0x6f, 0x1a, 0x2e, 0xb6, 0xc9, 0x22, 0x46,
+	0x76, 0x01, 0xfa, 0xb9, 0xd7, 0xcc, 0x4f, 0x29, 0xfe, 0xa2, 0x6e, 0xc3, 0xe5, 0x78, 0xdd, 0x92,
+	0xb3, 0xeb, 0x2e, 0x1c, 0xad, 0xe2, 0x60, 0x5f, 0x0e, 0x81, 0x97, 0x3e, 0x15, 0x7a, 0x2d, 0x7d,
+	0x52, 0xbf, 0x0d, 0x93, 0x29, 0xbe, 0x92, 0xe3, 0x75, 0x16, 0x71, 0xf2, 0x53, 0x5e, 0xeb, 0x48,
+	0xd0, 0x8a, 0xdc, 0xa3, 0x2b, 0x00, 0xc4, 0x31, 0x93, 0xb7, 0x89, 0x61, 0xe2, 0x98, 0xe2, 0x62,
+	0xf0, 0xe7, 0x7d, 0x50, 0x4e, 0x31, 0x47, 0x93, 0x30, 0x90, 0xe0, 0x27, 0xde, 0x4e, 0x2a, 0x7f,
+	0xda, 0x7f, 0xe8, 0x3b, 0x55, 0xb1, 0xde, 0x36, 0x8c, 0x78, 0xc4, 0xa7, 0x2e, 0x00, 0xab, 0xeb,
+	0x2d, 0xa6, 0x0b, 0x20, 0x3b, 0xb9, 0x92, 0x2d, 0x5a, 0x2d, 0xce, 0x08, 0xcd, 0x43, 0x91, 0xdd,
+	0x61, 0xfb, 0x7b, 0xf4, 0x4d, 0xd9, 0x7d, 0x96, 0x91, 0xa2, 0x07, 0x30, 0x18, 0x34, 0x1b, 0x0d,
+	0xec, 0x1f, 0x89, 0x0b, 0xca, 0x4c, 0xd7, 0x5c, 0x36, 0x39, 0x9d, 0x26, 0x19, 0xa8, 0x4f, 0xe1,
+	0x62, 0xdb, 0x9c, 0x8b, 0xc5, 0x77, 0x17, 0x06, 0xc3, 0x57, 0xba, 0xe5, 0xec, 0xba, 0x62, 0x67,
+	0x5d, 0x3f, 0x36, 0x71, 0xcf, 0x68, 0x07, 0xc2, 0x57, 0xf4, 0x57, 0xfd, 0x0e, 0x5c, 0xc9, 0x59,
+	0xa2, 0x67, 0xc0, 0xfc, 0x19, 0x94, 0xbe, 0x94, 0xff, 0x4a, 0xa8, 0x7f, 0x47, 0xcd, 0x42, 0xea,
+	0xee, 0x76, 0xc6, 0x7f, 0xc7, 0x58, 0x86, 0x51, 0x99, 0x1d, 0xd4, 0x5f, 0x90, 0x23, 0xb1, 0xca,
+	0xbb, 0xc9, 0x10, 0x8e, 0x58, 0xad, 0x17, 0xf5, 0x9f, 0x8b, 0x70, 0x3e, 0xa3, 0xab, 0xac, 0x73,
+	0x50, 0x39, 0xdd, 0x39, 0xb8, 0x00, 0x45, 0xa7, 0x15, 0xfd, 0xaf, 0x77, 0x7f, 0x90, 0x33, 0xa9,
+	0x18, 0xed, 0xd9, 0xdd, 0x66, 0x93, 0xd6, 0xb9, 0x78, 0x0a, 0xeb, 0x7c, 0x03, 0xc6, 0xb8, 0xb5,
+	0xd1, 0x0d, 0x9f, 0xe0, 0x90, 0x98, 0x22, 0x2d, 0x59, 0xe2, 0xd0, 0x45, 0x0e, 0xa4, 0x86, 0x4f,
+	0xa0, 0x71, 0x3b, 0x3c, 0xc0, 0x0d, 0x1f, 0x87, 0xf1, 0xe0, 0x45, 0x2d, 0x96, 0xa1, 0x1c, 0x14,
+	0xa9, 0x13, 0x99, 0xa4, 0x58, 0x8d, 0x6a, 0x32, 0x87, 0x3a, 0x24, 0x1c, 0x85, 0xac, 0x2d, 0xc5,
+	0x6f, 0x32, 0xba, 0xa8, 0x40, 0x73, 0x0d, 0xc6, 0x7c, 0x12, 0x36, 0x7d, 0x27, 0x0a, 0xa7, 0x0d,
+	0x77, 0x1d, 0x4e, 0x2b, 0x71, 0x4a, 0x01, 0x52, 0xff, 0xad, 0x0f, 0xa0, 0x75, 0x22, 0x9e, 0x7d,
+	0xe1, 0x00, 0x35, 0x71, 0xec, 0x3c, 0x2e, 0x74, 0x48, 0x5c, 0x89, 0x44, 0x20, 0x95, 0x25, 0x56,
+	0xcc, 0x4a, 0x49, 0x13, 0x4a, 0xed, 0x4b, 0x29, 0xf5, 0xcc, 0xd6, 0xc0, 0x16, 0x8c, 0xf0, 0x8a,
+	0x55, 0x99, 0x44, 0xa2, 0xac, 0xee, 0x74, 0x12, 0x77, 0x01, 0x87, 0xc6, 0x3e, 0x95, 0x99, 0x97,
+	0xda, 0xb0, 0x5b, 0x3d, 0xb8, 0xd1, 0x73, 0x7c, 0x65, 0x71, 0x67, 0x45, 0x2c, 0x1a, 0xb9, 0xb2,
+	0x38, 0x30, 0xb6, 0x34, 0x06, 0x4f, 0xb7, 0x34, 0xd4, 0xef, 0x17, 0xe0, 0xe2, 0x93, 0x43, 0x87,
+	0x98, 0xad, 0x2c, 0x6f, 0xe4, 0xcd, 0x6c, 0xc5, 0xca, 0x18, 0xf9, 0x7f, 0x4e, 0x94, 0xee, 0x26,
+	0x45, 0xf2, 0x62, 0x73, 0xdd, 0xaa, 0x5d, 0xe4, 0xff, 0x4f, 0x49, 0x67, 0x7c, 0x0b, 0xa7, 0xcb,
+	0xf8, 0xd2, 0xdb, 0x56, 0xd0, 0xdc, 0x91, 0xf1, 0xea, 0x1e, 0x8c, 0x43, 0x8c, 0x4c, 0xfd, 0x47,
+	0x05, 0xaa, 0xed, 0x6a, 0x10, 0xe6, 0xfb, 0x4c, 0xd3, 0xe6, 0x49, 0x71, 0x0b, 0x27, 0x13, 0x77,
+	0x1b, 0xaa, 0xec, 0xb6, 0x2b, 0xef, 0xa8, 0x0b, 0x47, 0x51, 0xfa, 0x28, 0x11, 0x0f, 0x2d, 0xf4,
+	0x16, 0x0f, 0x55, 0x4d, 0xb8, 0x94, 0xc1, 0x37, 0xf7, 0x42, 0xad, 0x9c, 0xec, 0x42, 0xfd, 0x93,
+	0x02, 0x5c, 0x6b, 0x45, 0x26, 0x82, 0x28, 0x85, 0xf4, 0xe5, 0xa4, 0xed, 0xd0, 0x47, 0x30, 0x10,
+	0x4b, 0x91, 0x8c, 0x65, 0x15, 0x2e, 0x76, 0x92, 0xa6, 0xce, 0xb3, 0x25, 0x9a, 0x60, 0xa4, 0x7e,
+	0x0c, 0x03, 0x22, 0x11, 0x33, 0x09, 0x68, 0x65, 0x6d, 0x7d, 0x6b, 0x59, 0xd3, 0x9f, 0x3e, 0xde,
+	0xdc, 0x58, 0x5e, 0x5c, 0x5b, 0x59, 0x5b, 0x5e, 0xaa, 0x9c, 0x43, 0x6f, 0xc1, 0x9b, 0x02, 0x3e,
+	0xbf, 0xbe, 0xae, 0xcf, 0x2f, 0x6e, 0xad, 0x6d, 0x2f, 0xeb, 0xcf, 0xd6, 0xb6, 0x56, 0xf5, 0xc7,
+	0x4f, 0x1e, 0x7f, 0x7b, 0x59, 0x7b, 0xa2, 0x2f, 0xcc, 0xaf, 0xcf, 0x3f, 0x5e, 0x5c, 0xde, 0xac,
+	0x28, 0x68, 0x0c, 0xa0, 0x85, 0x5c, 0x29, 0xa8, 0x04, 0xae, 0x1f, 0x23, 0x91, 0x98, 0x8e, 0xdf,
+	0x02, 0x60, 0xa5, 0x49, 0x3c, 0xab, 0xa1, 0x74, 0x9b, 0xd5, 0x18, 0x3e, 0x90, 0x8f, 0xea, 0x5f,
+	0x17, 0xe0, 0x8d, 0x54, 0x98, 0x27, 0x7b, 0x2e, 0x9e, 0x46, 0x1a, 0x54, 0x98, 0x06, 0xbf, 0xde,
+	0xae, 0xc1, 0x6e, 0xf8, 0xa4, 0xb4, 0xd8, 0x3e, 0xc5, 0x85, 0x93, 0x27, 0xf1, 0x3a, 0xcd, 0xc7,
+	0x05, 0xa8, 0x08, 0xf8, 0xe2, 0xfa, 0xfc, 0xda, 0xa3, 0xf9, 0x85, 0xf5, 0xe5, 0x8a, 0x82, 0x2e,
+	0x43, 0x55, 0x40, 0x1f, 0x3f, 0xd9, 0xd2, 0xbf, 0xb5, 0xbc, 0x15, 0x6b, 0x2d, 0xa8, 0x3f, 0x50,
+	0xe0, 0x46, 0x87, 0x71, 0x9d, 0xd5, 0x5c, 0xa0, 0xcb, 0x30, 0xcc, 0x2c, 0x3e, 0x75, 0xc9, 0x44,
+	0x9a, 0xa3, 0x05, 0x50, 0xff, 0x4b, 0x01, 0x24, 0xfe, 0xe3, 0x17, 0xbb, 0xd5, 0x9e, 0x71, 0x46,
+	0xb1, 0x18, 0x33, 0xc7, 0x1d, 0x0f, 0xb2, 0x25, 0xcb, 0x27, 0x46, 0x48, 0xcc, 0xb8, 0x59, 0x66,
+	0x0c, 0xa8, 0xd7, 0x83, 0x77, 0x43, 0xe2, 0x27, 0xd3, 0x3d, 0x23, 0x0c, 0xd6, 0xaa, 0xd2, 0xf0,
+	0x85, 0xea, 0x74, 0xdb, 0x6a, 0x58, 0xa1, 0xac, 0xd2, 0x90, 0xd0, 0x75, 0x0a, 0x54, 0x3f, 0x2d,
+	0xc0, 0xf9, 0xc4, 0xa8, 0x23, 0x43, 0xc4, 0x45, 0x55, 0x4e, 0x2b, 0xea, 0x1d, 0xe8, 0xb7, 0x1c,
+	0xaf, 0x19, 0x76, 0x95, 0xa2, 0xd4, 0x38, 0x2e, 0x7a, 0x17, 0x06, 0xf8, 0x81, 0xdd, 0xe5, 0x7f,
+	0x69, 0x39, 0x72, 0xdb, 0x3f, 0x9d, 0x8b, 0xed, 0xff, 0x74, 0xe6, 0x57, 0xd7, 0xfe, 0x9e, 0xaf,
+	0xde, 0x5f, 0x14, 0xe0, 0xe2, 0xba, 0x27, 0xcf, 0x9b, 0x85, 0xa6, 0x63, 0xda, 0x44, 0x2e, 0x91,
+	0xe4, 0x71, 0xa3, 0x9c, 0xe8, 0xb8, 0x39, 0xf3, 0x23, 0xfb, 0x63, 0x18, 0x4f, 0x54, 0xd4, 0xc5,
+	0x2a, 0x3c, 0x7b, 0xaf, 0xaa, 0xab, 0x78, 0x29, 0x48, 0x86, 0xdf, 0x52, 0x3c, 0xbd, 0xdf, 0xa2,
+	0xfe, 0xa0, 0x08, 0xd5, 0x76, 0x2d, 0x8b, 0x25, 0xf9, 0x00, 0x06, 0x89, 0x13, 0xfa, 0x56, 0xf4,
+	0xf7, 0xf1, 0x8c, 0xff, 0x1a, 0xe5, 0x11, 0xd7, 0x97, 0x9d, 0x90, 0xde, 0xaa, 0x05, 0x83, 0xda,
+	0x4f, 0xfa, 0xa0, 0x9f, 0x81, 0xda, 0xf4, 0xae, 0x9c, 0xa9, 0xab, 0x74, 0x32, 0xdf, 0xe3, 0xd7,
+	0x72, 0xf2, 0xd2, 0x2e, 0x5c, 0xa7, 0x92, 0xaf, 0x63, 0x5d, 0x38, 0xf5, 0x4f, 0x0a, 0x74, 0x25,
+	0x6c, 0x86, 0x3e, 0x0e, 0xc9, 0xde, 0xd1, 0x22, 0x0e, 0xb1, 0xed, 0xee, 0xfd, 0x06, 0x6f, 0x38,
+	0xf5, 0x7f, 0x0b, 0x70, 0x29, 0x43, 0x21, 0x62, 0x6f, 0x7c, 0x0b, 0x20, 0xe0, 0x4d, 0xad, 0xed,
+	0xf1, 0x41, 0xd6, 0xf6, 0xc8, 0x61, 0x50, 0x97, 0x70, 0xbe, 0x4f, 0x62, 0xcc, 0x6a, 0xbf, 0x5f,
+	0x80, 0x52, 0xa2, 0xf5, 0x37, 0x71, 0xcb, 0xcc, 0xfd, 0xd5, 0x65, 0x18, 0xa1, 0x4e, 0xc4, 0x26,
+	0xf1, 0x0f, 0x2c, 0x56, 0x3e, 0x33, 0xc0, 0x43, 0xc1, 0xe8, 0x6a, 0x46, 0x8c, 0x29, 0x1e, 0xb0,
+	0xae, 0x5d, 0xcb, 0x47, 0x10, 0xb3, 0xa7, 0xc3, 0x68, 0xbc, 0x82, 0x04, 0xdd, 0xc8, 0xa3, 0x48,
+	0x54, 0x9e, 0xd4, 0xbe, 0xd2, 0x09, 0x8d, 0xb3, 0x9f, 0x51, 0xd0, 0x03, 0xe8, 0xe7, 0xf5, 0x84,
+	0x53, 0xed, 0x24, 0xf1, 0x6a, 0x90, 0xda, 0xd5, 0xdc, 0xf6, 0x88, 0x17, 0x81, 0xb1, 0x64, 0x08,
+	0x0e, 0xbd, 0x99, 0x43, 0x94, 0x2e, 0xb0, 0xa8, 0xdd, 0xec, 0x8c, 0x18, 0x75, 0xf3, 0x08, 0x06,
+	0x78, 0xb2, 0x31, 0x4b, 0xc1, 0x89, 0x6c, 0x71, 0x96, 0x82, 0x93, 0x79, 0xca, 0x19, 0x05, 0xd9,
+	0x30, 0xde, 0x76, 0xeb, 0x42, 0xb7, 0x73, 0x08, 0x33, 0xae, 0x7c, 0xb5, 0xb7, 0xba, 0xc2, 0x8d,
+	0xaa, 0x02, 0x4a, 0x89, 0xac, 0x23, 0xca, 0x98, 0xaa, 0xac, 0x7c, 0x67, 0xed, 0xcd, 0x8e, 0x78,
+	0xa2, 0x87, 0x2d, 0x18, 0x8e, 0x52, 0x80, 0x48, 0x6d, 0xa7, 0x4a, 0xe7, 0x35, 0x6b, 0xaf, 0x1f,
+	0x8b, 0xd3, 0x92, 0x3b, 0x91, 0x33, 0xcc, 0x92, 0x3b, 0x2b, 0xd9, 0x98, 0x25, 0x77, 0x76, 0xf2,
+	0xd1, 0x80, 0xb1, 0x64, 0x7d, 0x67, 0xd6, 0xea, 0xc9, 0x2c, 0x32, 0xcd, 0x5a, 0x3d, 0x39, 0xa5,
+	0xa2, 0x2e, 0xa0, 0xf6, 0x6f, 0x99, 0xa0, 0xb7, 0x72, 0x02, 0xd8, 0x59, 0x9f, 0x43, 0xa9, 0xbd,
+	0xdd, 0x1d, 0xb2, 0xe8, 0xf0, 0x23, 0x18, 0x92, 0x25, 0xa1, 0x28, 0x23, 0x4e, 0x9e, 0xaa, 0x3e,
+	0xad, 0xa9, 0xc7, 0xa1, 0xb4, 0x14, 0x95, 0x2c, 0xfe, 0xcc, 0x52, 0x54, 0x66, 0xc5, 0x69, 0x96,
+	0xa2, 0x72, 0xea, 0x48, 0x2d, 0xa8, 0xa4, 0x0b, 0x33, 0xd1, 0xad, 0x76, 0xea, 0x9c, 0x0a, 0xd1,
+	0xda, 0xed, 0x6e, 0x50, 0x45, 0x57, 0x9b, 0x30, 0x24, 0x6b, 0x20, 0xb3, 0x54, 0x94, 0x2a, 0xe4,
+	0xcc, 0x52, 0x51, 0xba, 0x84, 0x72, 0x46, 0xa1, 0xf2, 0xa7, 0x53, 0xbb, 0x59, 0xf2, 0xe7, 0x24,
+	0xa5, 0xb3, 0xe4, 0xcf, 0xcd, 0x14, 0x5b, 0x50, 0x49, 0x27, 0x51, 0xb3, 0xba, 0xca, 0x49, 0xff,
+	0x66, 0x75, 0x95, 0x9b, 0x93, 0x25, 0x30, 0x96, 0x4c, 0xa4, 0x66, 0x4d, 0x7d, 0x66, 0x0e, 0x36,
+	0x6b, 0xea, 0xb3, 0x73, 0xb2, 0x33, 0x0a, 0xda, 0x85, 0x72, 0x2a, 0xad, 0x89, 0xb2, 0x0c, 0x74,
+	0x66, 0x16, 0xb6, 0x76, 0xab, 0x0b, 0x4c, 0x31, 0x9c, 0x57, 0x30, 0x91, 0x99, 0x6a, 0x42, 0xf5,
+	0x8e, 0x19, 0xa5, 0x44, 0xda, 0xb4, 0x36, 0xdd, 0x35, 0xbe, 0xe8, 0x79, 0xbf, 0x3d, 0xa5, 0x79,
+	0xb3, 0x73, 0x16, 0x2b, 0x7f, 0x84, 0x39, 0x89, 0xb8, 0x19, 0x05, 0xbd, 0x80, 0x4a, 0x3a, 0xb4,
+	0x99, 0xb5, 0x3a, 0x72, 0xa2, 0xc0, 0x59, 0xab, 0x23, 0x2f, 0x52, 0x3a, 0xa3, 0x44, 0xe6, 0x2d,
+	0x51, 0xe7, 0x9f, 0x6b, 0xde, 0xb2, 0xfe, 0xb5, 0x9b, 0x6b, 0xde, 0xb2, 0xff, 0x3a, 0xf0, 0x18,
+	0x06, 0x45, 0x81, 0x19, 0xba, 0x96, 0x5b, 0x7b, 0x26, 0x59, 0x5f, 0x3f, 0x06, 0xa3, 0x35, 0x2f,
+	0xa9, 0x82, 0xb5, 0xac, 0x79, 0xc9, 0xae, 0x23, 0xcc, 0x9a, 0x97, 0x9c, 0xea, 0xb7, 0x19, 0x05,
+	0x39, 0x30, 0xde, 0xf6, 0x01, 0x9c, 0xcc, 0x63, 0x3f, 0xe7, 0xfb, 0x41, 0x99, 0xc7, 0x7e, 0xde,
+	0x17, 0x75, 0x66, 0x14, 0x74, 0x08, 0x17, 0xb2, 0x3e, 0xb2, 0x82, 0xbe, 0xda, 0xed, 0xc7, 0x58,
+	0x78, 0xaf, 0xf5, 0xde, 0xbe, 0xdd, 0x32, 0xa3, 0xa0, 0x3f, 0x54, 0xe0, 0x52, 0x6e, 0x3c, 0x13,
+	0xcd, 0xf5, 0x1e, 0x8e, 0xad, 0xdd, 0xe9, 0x89, 0x26, 0x12, 0xe4, 0x47, 0x0a, 0x5c, 0x39, 0x36,
+	0xa0, 0x87, 0xde, 0x3b, 0x59, 0x64, 0xb3, 0xf6, 0xb5, 0x9e, 0xe9, 0x22, 0xa1, 0x36, 0x61, 0x48,
+	0x7e, 0x51, 0x2b, 0xeb, 0xf0, 0x49, 0x7d, 0x83, 0x2c, 0xeb, 0xf0, 0x49, 0x7f, 0x90, 0x6b, 0x46,
+	0x41, 0xcf, 0x61, 0x24, 0x16, 0x39, 0x43, 0x6f, 0x64, 0x5c, 0xb7, 0xda, 0xc2, 0x89, 0xb5, 0x1b,
+	0x1d, 0xb0, 0x22, 0xee, 0xd4, 0x76, 0x25, 0xbf, 0x85, 0x97, 0x69, 0xbb, 0x32, 0xbf, 0x09, 0x98,
+	0x69, 0xbb, 0xb2, 0x3f, 0xac, 0xc7, 0x1d, 0xfa, 0xe4, 0x27, 0x0e, 0xb3, 0x8e, 0x9b, 0xcc, 0x6f,
+	0x31, 0x66, 0x1d, 0x37, 0xd9, 0x5f, 0x4b, 0xe4, 0x26, 0x32, 0x1d, 0x9d, 0xc9, 0x32, 0x91, 0x39,
+	0x41, 0xb6, 0x2c, 0x13, 0x99, 0x17, 0xec, 0xe1, 0xfb, 0xbe, 0xed, 0xae, 0x8b, 0x6e, 0x77, 0x75,
+	0x21, 0xce, 0xdd, 0xf7, 0xb9, 0x97, 0xe7, 0x19, 0x65, 0xe1, 0x97, 0xca, 0xcf, 0x3e, 0x9f, 0x52,
+	0x7e, 0xfe, 0xf9, 0x94, 0xf2, 0xcb, 0xcf, 0xa7, 0x94, 0x3f, 0xfd, 0x62, 0xea, 0xdc, 0xcf, 0xbf,
+	0x98, 0x3a, 0xf7, 0x8b, 0x2f, 0xa6, 0xce, 0xc1, 0x05, 0xc3, 0x6d, 0xb4, 0x31, 0x5b, 0x18, 0xa6,
+	0x97, 0xc9, 0x0d, 0xdf, 0x0d, 0xdd, 0x0d, 0xe5, 0xdb, 0x8b, 0x7b, 0x56, 0xb8, 0xdf, 0xdc, 0xa1,
+	0x17, 0xd3, 0x69, 0xc3, 0x0d, 0x1a, 0x6e, 0x30, 0xcd, 0xbe, 0xc5, 0x42, 0xfc, 0xe9, 0x83, 0xb9,
+	0xe8, 0xd1, 0xd8, 0xc7, 0x96, 0x13, 0x4c, 0xa7, 0x3f, 0xef, 0x7a, 0x8f, 0xfe, 0x1e, 0xcc, 0xfe,
+	0x4d, 0xa1, 0x6f, 0x63, 0xfb, 0x9b, 0xff, 0x50, 0xa8, 0x6c, 0xc8, 0xae, 0x68, 0x0f, 0xf5, 0xed,
+	0xd9, 0x7f, 0x6d, 0x81, 0x9e, 0x53, 0xd0, 0xf3, 0xed, 0xd9, 0xcf, 0x0b, 0x97, 0xd3, 0xa0, 0xe7,
+	0xf7, 0x37, 0x16, 0xe4, 0x55, 0xe6, 0x3f, 0x0b, 0x48, 0x36, 0xdf, 0xbd, 0x4b, 0xdb, 0xef, 0xde,
+	0xdd, 0x9e, 0xdd, 0x19, 0x60, 0x5f, 0x8a, 0xbb, 0xf3, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x96,
+	0xc4, 0x2d, 0x40, 0x60, 0x56, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -5176,6 +6278,8 @@ type ViewServiceClient interface {
 	FMDParameters(ctx context.Context, in *FMDParametersRequest, opts ...grpc.CallOption) (*FMDParametersResponse, error)
 	// Query for an address given an address index
 	AddressByIndex(ctx context.Context, in *AddressByIndexRequest, opts ...grpc.CallOption) (*AddressByIndexResponse, error)
+	// Returns the transparent address for the user's wallet.
+	TransparentAddress(ctx context.Context, in *TransparentAddressRequest, opts ...grpc.CallOption) (*TransparentAddressResponse, error)
 	// Query for wallet id
 	WalletId(ctx context.Context, in *WalletIdRequest, opts ...grpc.CallOption) (*WalletIdResponse, error)
 	// Query for an address given an address index
@@ -5243,6 +6347,16 @@ type ViewServiceClient interface {
 	UnbondingTokensByAddressIndex(ctx context.Context, in *UnbondingTokensByAddressIndexRequest, opts ...grpc.CallOption) (ViewService_UnbondingTokensByAddressIndexClient, error)
 	// Gets the auctions controlled by the user's wallet.
 	Auctions(ctx context.Context, in *AuctionsRequest, opts ...grpc.CallOption) (ViewService_AuctionsClient, error)
+	// Gets the latest swaps controlled by the user's wallet.
+	LatestSwaps(ctx context.Context, in *LatestSwapsRequest, opts ...grpc.CallOption) (ViewService_LatestSwapsClient, error)
+	// Gets a list of votes cast in the liquidity tournament for a specific epoch or up to certain block height.
+	TournamentVotes(ctx context.Context, in *TournamentVotesRequest, opts ...grpc.CallOption) (ViewService_TournamentVotesClient, error)
+	// Gets the spendable note records that are eligible for voting in the current epoch.
+	LqtVotingNotes(ctx context.Context, in *LqtVotingNotesRequest, opts ...grpc.CallOption) (ViewService_LqtVotingNotesClient, error)
+	// Request bundles of liquidity positions by trading pair / subaccount / strategy.
+	LpPositionBundle(ctx context.Context, in *LpPositionBundleRequest, opts ...grpc.CallOption) (ViewService_LpPositionBundleClient, error)
+	// Request a list of LP strategies (e.g, for a UI to display a catalogue of strategies).
+	LpStrategyCatalog(ctx context.Context, in *LpStrategyCatalogRequest, opts ...grpc.CallOption) (ViewService_LpStrategyCatalogClient, error)
 }
 
 type viewServiceClient struct {
@@ -5429,6 +6543,15 @@ func (c *viewServiceClient) FMDParameters(ctx context.Context, in *FMDParameters
 func (c *viewServiceClient) AddressByIndex(ctx context.Context, in *AddressByIndexRequest, opts ...grpc.CallOption) (*AddressByIndexResponse, error) {
 	out := new(AddressByIndexResponse)
 	err := c.cc.Invoke(ctx, "/penumbra.view.v1.ViewService/AddressByIndex", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *viewServiceClient) TransparentAddress(ctx context.Context, in *TransparentAddressRequest, opts ...grpc.CallOption) (*TransparentAddressResponse, error) {
+	out := new(TransparentAddressResponse)
+	err := c.cc.Invoke(ctx, "/penumbra.view.v1.ViewService/TransparentAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -5836,6 +6959,166 @@ func (x *viewServiceAuctionsClient) Recv() (*AuctionsResponse, error) {
 	return m, nil
 }
 
+func (c *viewServiceClient) LatestSwaps(ctx context.Context, in *LatestSwapsRequest, opts ...grpc.CallOption) (ViewService_LatestSwapsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ViewService_serviceDesc.Streams[14], "/penumbra.view.v1.ViewService/LatestSwaps", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &viewServiceLatestSwapsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ViewService_LatestSwapsClient interface {
+	Recv() (*LatestSwapsResponse, error)
+	grpc.ClientStream
+}
+
+type viewServiceLatestSwapsClient struct {
+	grpc.ClientStream
+}
+
+func (x *viewServiceLatestSwapsClient) Recv() (*LatestSwapsResponse, error) {
+	m := new(LatestSwapsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *viewServiceClient) TournamentVotes(ctx context.Context, in *TournamentVotesRequest, opts ...grpc.CallOption) (ViewService_TournamentVotesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ViewService_serviceDesc.Streams[15], "/penumbra.view.v1.ViewService/TournamentVotes", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &viewServiceTournamentVotesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ViewService_TournamentVotesClient interface {
+	Recv() (*TournamentVotesResponse, error)
+	grpc.ClientStream
+}
+
+type viewServiceTournamentVotesClient struct {
+	grpc.ClientStream
+}
+
+func (x *viewServiceTournamentVotesClient) Recv() (*TournamentVotesResponse, error) {
+	m := new(TournamentVotesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *viewServiceClient) LqtVotingNotes(ctx context.Context, in *LqtVotingNotesRequest, opts ...grpc.CallOption) (ViewService_LqtVotingNotesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ViewService_serviceDesc.Streams[16], "/penumbra.view.v1.ViewService/LqtVotingNotes", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &viewServiceLqtVotingNotesClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ViewService_LqtVotingNotesClient interface {
+	Recv() (*LqtVotingNotesResponse, error)
+	grpc.ClientStream
+}
+
+type viewServiceLqtVotingNotesClient struct {
+	grpc.ClientStream
+}
+
+func (x *viewServiceLqtVotingNotesClient) Recv() (*LqtVotingNotesResponse, error) {
+	m := new(LqtVotingNotesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *viewServiceClient) LpPositionBundle(ctx context.Context, in *LpPositionBundleRequest, opts ...grpc.CallOption) (ViewService_LpPositionBundleClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ViewService_serviceDesc.Streams[17], "/penumbra.view.v1.ViewService/LpPositionBundle", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &viewServiceLpPositionBundleClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ViewService_LpPositionBundleClient interface {
+	Recv() (*LpPositionBundleResponse, error)
+	grpc.ClientStream
+}
+
+type viewServiceLpPositionBundleClient struct {
+	grpc.ClientStream
+}
+
+func (x *viewServiceLpPositionBundleClient) Recv() (*LpPositionBundleResponse, error) {
+	m := new(LpPositionBundleResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *viewServiceClient) LpStrategyCatalog(ctx context.Context, in *LpStrategyCatalogRequest, opts ...grpc.CallOption) (ViewService_LpStrategyCatalogClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ViewService_serviceDesc.Streams[18], "/penumbra.view.v1.ViewService/LpStrategyCatalog", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &viewServiceLpStrategyCatalogClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type ViewService_LpStrategyCatalogClient interface {
+	Recv() (*LpStrategyCatalogResponse, error)
+	grpc.ClientStream
+}
+
+type viewServiceLpStrategyCatalogClient struct {
+	grpc.ClientStream
+}
+
+func (x *viewServiceLpStrategyCatalogClient) Recv() (*LpStrategyCatalogResponse, error) {
+	m := new(LpStrategyCatalogResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // ViewServiceServer is the server API for ViewService service.
 type ViewServiceServer interface {
 	// Get current status of chain sync
@@ -5865,6 +7148,8 @@ type ViewServiceServer interface {
 	FMDParameters(context.Context, *FMDParametersRequest) (*FMDParametersResponse, error)
 	// Query for an address given an address index
 	AddressByIndex(context.Context, *AddressByIndexRequest) (*AddressByIndexResponse, error)
+	// Returns the transparent address for the user's wallet.
+	TransparentAddress(context.Context, *TransparentAddressRequest) (*TransparentAddressResponse, error)
 	// Query for wallet id
 	WalletId(context.Context, *WalletIdRequest) (*WalletIdResponse, error)
 	// Query for an address given an address index
@@ -5932,6 +7217,16 @@ type ViewServiceServer interface {
 	UnbondingTokensByAddressIndex(*UnbondingTokensByAddressIndexRequest, ViewService_UnbondingTokensByAddressIndexServer) error
 	// Gets the auctions controlled by the user's wallet.
 	Auctions(*AuctionsRequest, ViewService_AuctionsServer) error
+	// Gets the latest swaps controlled by the user's wallet.
+	LatestSwaps(*LatestSwapsRequest, ViewService_LatestSwapsServer) error
+	// Gets a list of votes cast in the liquidity tournament for a specific epoch or up to certain block height.
+	TournamentVotes(*TournamentVotesRequest, ViewService_TournamentVotesServer) error
+	// Gets the spendable note records that are eligible for voting in the current epoch.
+	LqtVotingNotes(*LqtVotingNotesRequest, ViewService_LqtVotingNotesServer) error
+	// Request bundles of liquidity positions by trading pair / subaccount / strategy.
+	LpPositionBundle(*LpPositionBundleRequest, ViewService_LpPositionBundleServer) error
+	// Request a list of LP strategies (e.g, for a UI to display a catalogue of strategies).
+	LpStrategyCatalog(*LpStrategyCatalogRequest, ViewService_LpStrategyCatalogServer) error
 }
 
 // UnimplementedViewServiceServer can be embedded to have forward compatible implementations.
@@ -5967,6 +7262,9 @@ func (*UnimplementedViewServiceServer) FMDParameters(ctx context.Context, req *F
 }
 func (*UnimplementedViewServiceServer) AddressByIndex(ctx context.Context, req *AddressByIndexRequest) (*AddressByIndexResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddressByIndex not implemented")
+}
+func (*UnimplementedViewServiceServer) TransparentAddress(ctx context.Context, req *TransparentAddressRequest) (*TransparentAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TransparentAddress not implemented")
 }
 func (*UnimplementedViewServiceServer) WalletId(ctx context.Context, req *WalletIdRequest) (*WalletIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WalletId not implemented")
@@ -6024,6 +7322,21 @@ func (*UnimplementedViewServiceServer) UnbondingTokensByAddressIndex(req *Unbond
 }
 func (*UnimplementedViewServiceServer) Auctions(req *AuctionsRequest, srv ViewService_AuctionsServer) error {
 	return status.Errorf(codes.Unimplemented, "method Auctions not implemented")
+}
+func (*UnimplementedViewServiceServer) LatestSwaps(req *LatestSwapsRequest, srv ViewService_LatestSwapsServer) error {
+	return status.Errorf(codes.Unimplemented, "method LatestSwaps not implemented")
+}
+func (*UnimplementedViewServiceServer) TournamentVotes(req *TournamentVotesRequest, srv ViewService_TournamentVotesServer) error {
+	return status.Errorf(codes.Unimplemented, "method TournamentVotes not implemented")
+}
+func (*UnimplementedViewServiceServer) LqtVotingNotes(req *LqtVotingNotesRequest, srv ViewService_LqtVotingNotesServer) error {
+	return status.Errorf(codes.Unimplemented, "method LqtVotingNotes not implemented")
+}
+func (*UnimplementedViewServiceServer) LpPositionBundle(req *LpPositionBundleRequest, srv ViewService_LpPositionBundleServer) error {
+	return status.Errorf(codes.Unimplemented, "method LpPositionBundle not implemented")
+}
+func (*UnimplementedViewServiceServer) LpStrategyCatalog(req *LpStrategyCatalogRequest, srv ViewService_LpStrategyCatalogServer) error {
+	return status.Errorf(codes.Unimplemented, "method LpStrategyCatalog not implemented")
 }
 
 func RegisterViewServiceServer(s grpc1.Server, srv ViewServiceServer) {
@@ -6218,6 +7531,24 @@ func _ViewService_AddressByIndex_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ViewServiceServer).AddressByIndex(ctx, req.(*AddressByIndexRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ViewService_TransparentAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TransparentAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ViewServiceServer).TransparentAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/penumbra.view.v1.ViewService/TransparentAddress",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ViewServiceServer).TransparentAddress(ctx, req.(*TransparentAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -6594,6 +7925,111 @@ func (x *viewServiceAuctionsServer) Send(m *AuctionsResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
+func _ViewService_LatestSwaps_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(LatestSwapsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ViewServiceServer).LatestSwaps(m, &viewServiceLatestSwapsServer{stream})
+}
+
+type ViewService_LatestSwapsServer interface {
+	Send(*LatestSwapsResponse) error
+	grpc.ServerStream
+}
+
+type viewServiceLatestSwapsServer struct {
+	grpc.ServerStream
+}
+
+func (x *viewServiceLatestSwapsServer) Send(m *LatestSwapsResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ViewService_TournamentVotes_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(TournamentVotesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ViewServiceServer).TournamentVotes(m, &viewServiceTournamentVotesServer{stream})
+}
+
+type ViewService_TournamentVotesServer interface {
+	Send(*TournamentVotesResponse) error
+	grpc.ServerStream
+}
+
+type viewServiceTournamentVotesServer struct {
+	grpc.ServerStream
+}
+
+func (x *viewServiceTournamentVotesServer) Send(m *TournamentVotesResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ViewService_LqtVotingNotes_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(LqtVotingNotesRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ViewServiceServer).LqtVotingNotes(m, &viewServiceLqtVotingNotesServer{stream})
+}
+
+type ViewService_LqtVotingNotesServer interface {
+	Send(*LqtVotingNotesResponse) error
+	grpc.ServerStream
+}
+
+type viewServiceLqtVotingNotesServer struct {
+	grpc.ServerStream
+}
+
+func (x *viewServiceLqtVotingNotesServer) Send(m *LqtVotingNotesResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ViewService_LpPositionBundle_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(LpPositionBundleRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ViewServiceServer).LpPositionBundle(m, &viewServiceLpPositionBundleServer{stream})
+}
+
+type ViewService_LpPositionBundleServer interface {
+	Send(*LpPositionBundleResponse) error
+	grpc.ServerStream
+}
+
+type viewServiceLpPositionBundleServer struct {
+	grpc.ServerStream
+}
+
+func (x *viewServiceLpPositionBundleServer) Send(m *LpPositionBundleResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _ViewService_LpStrategyCatalog_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(LpStrategyCatalogRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(ViewServiceServer).LpStrategyCatalog(m, &viewServiceLpStrategyCatalogServer{stream})
+}
+
+type ViewService_LpStrategyCatalogServer interface {
+	Send(*LpStrategyCatalogResponse) error
+	grpc.ServerStream
+}
+
+type viewServiceLpStrategyCatalogServer struct {
+	grpc.ServerStream
+}
+
+func (x *viewServiceLpStrategyCatalogServer) Send(m *LpStrategyCatalogResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 var _ViewService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "penumbra.view.v1.ViewService",
 	HandlerType: (*ViewServiceServer)(nil),
@@ -6621,6 +8057,10 @@ var _ViewService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddressByIndex",
 			Handler:    _ViewService_AddressByIndex_Handler,
+		},
+		{
+			MethodName: "TransparentAddress",
+			Handler:    _ViewService_TransparentAddress_Handler,
 		},
 		{
 			MethodName: "WalletId",
@@ -6730,8 +8170,341 @@ var _ViewService_serviceDesc = grpc.ServiceDesc{
 			Handler:       _ViewService_Auctions_Handler,
 			ServerStreams: true,
 		},
+		{
+			StreamName:    "LatestSwaps",
+			Handler:       _ViewService_LatestSwaps_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "TournamentVotes",
+			Handler:       _ViewService_TournamentVotes_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "LqtVotingNotes",
+			Handler:       _ViewService_LqtVotingNotes_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "LpPositionBundle",
+			Handler:       _ViewService_LpPositionBundle_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "LpStrategyCatalog",
+			Handler:       _ViewService_LpStrategyCatalog_Handler,
+			ServerStreams: true,
+		},
 	},
 	Metadata: "penumbra/view/v1/view.proto",
+}
+
+func (m *LqtVotingNotesRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LqtVotingNotesRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LqtVotingNotesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.AccountFilter != nil {
+		{
+			size, err := m.AccountFilter.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.EpochIndex != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.EpochIndex))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LqtVotingNotesResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LqtVotingNotesResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LqtVotingNotesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.AlreadyVoted {
+		i--
+		if m.AlreadyVoted {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.NoteRecord != nil {
+		{
+			size, err := m.NoteRecord.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TournamentVotesRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TournamentVotesRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TournamentVotesRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.AccountFilter != nil {
+		{
+			size, err := m.AccountFilter.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.BlockHeight != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.BlockHeight))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.EpochIndex != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.EpochIndex))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TournamentVotesResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TournamentVotesResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TournamentVotesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Votes) > 0 {
+		for iNdEx := len(m.Votes) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Votes[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TournamentVotesResponse_Vote) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TournamentVotesResponse_Vote) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TournamentVotesResponse_Vote) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.EpochIndex != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.EpochIndex))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.Transaction != nil {
+		{
+			size, err := m.Transaction.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.Reward != nil {
+		{
+			size, err := m.Reward.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.VotePower != nil {
+		{
+			size, err := m.VotePower.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.IncentivizedAsset != nil {
+		{
+			size, err := m.IncentivizedAsset.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TransparentAddressRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TransparentAddressRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TransparentAddressRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *TransparentAddressResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TransparentAddressResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TransparentAddressResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Encoding) > 0 {
+		i -= len(m.Encoding)
+		copy(dAtA[i:], m.Encoding)
+		i = encodeVarintView(dAtA, i, uint64(len(m.Encoding)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Address != nil {
+		{
+			size, err := m.Address.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *AuctionsRequest) Marshal() (dAtA []byte, err error) {
@@ -7296,6 +9069,22 @@ func (m *TransactionPlannerRequest) MarshalToSizedBuffer(dAtA []byte) (int, erro
 			if _, err := m.FeeMode.MarshalTo(dAtA[i:]); err != nil {
 				return 0, err
 			}
+		}
+	}
+	if len(m.ActionLiquidityTournamentVote) > 0 {
+		for iNdEx := len(m.ActionLiquidityTournamentVote) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ActionLiquidityTournamentVote[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x4
+			i--
+			dAtA[i] = 0xea
 		}
 	}
 	if len(m.DelegatorVotes) > 0 {
@@ -8015,6 +9804,18 @@ func (m *TransactionPlannerRequest_PositionOpen) MarshalToSizedBuffer(dAtA []byt
 	_ = i
 	var l int
 	_ = l
+	if m.PositionMeta != nil {
+		{
+			size, err := m.PositionMeta.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
 	if m.Position != nil {
 		{
 			size, err := m.Position.MarshalToSizedBuffer(dAtA[:i])
@@ -8294,6 +10095,72 @@ func (m *TransactionPlannerRequest_DelegatorVote) MarshalToSizedBuffer(dAtA []by
 		i = encodeVarintView(dAtA, i, uint64(m.Proposal))
 		i--
 		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.EpochIndex != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.EpochIndex))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.StakedNotes) > 0 {
+		for iNdEx := len(m.StakedNotes) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.StakedNotes[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if m.RewardsRecipient != nil {
+		{
+			size, err := m.RewardsRecipient.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Incentivized != nil {
+		{
+			size, err := m.Incentivized.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -9914,6 +11781,18 @@ func (m *TransactionInfo) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.Summary != nil {
+		{
+			size, err := m.Summary.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x32
+	}
 	if m.View != nil {
 		{
 			size, err := m.View.MarshalToSizedBuffer(dAtA[:i])
@@ -10345,6 +12224,18 @@ func (m *OwnedPositionIdsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
 	if m.TradingPair != nil {
 		{
 			size, err := m.TradingPair.MarshalToSizedBuffer(dAtA[:i])
@@ -10392,6 +12283,18 @@ func (m *OwnedPositionIdsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	_ = i
 	var l int
 	_ = l
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
 	if m.PositionId != nil {
 		{
 			size, err := m.PositionId.MarshalToSizedBuffer(dAtA[:i])
@@ -10637,6 +12540,487 @@ func (m *UnbondingTokensByAddressIndexResponse) MarshalToSizedBuffer(dAtA []byte
 	return len(dAtA) - i, nil
 }
 
+func (m *LatestSwapsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LatestSwapsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LatestSwapsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ResponseLimit != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.ResponseLimit))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.AfterHeight != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.AfterHeight))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.Pair != nil {
+		{
+			size, err := m.Pair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.AccountFilter != nil {
+		{
+			size, err := m.AccountFilter.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LatestSwapsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LatestSwapsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LatestSwapsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != nil {
+		{
+			size, err := m.Id.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x2a
+	}
+	if m.BlockHeight != 0 {
+		i = encodeVarintView(dAtA, i, uint64(m.BlockHeight))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.Output != nil {
+		{
+			size, err := m.Output.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Input != nil {
+		{
+			size, err := m.Input.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Pair != nil {
+		{
+			size, err := m.Pair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpPositionBundleRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpPositionBundleRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpPositionBundleRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.PositionState != nil {
+		{
+			size, err := m.PositionState.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.PositionMetadata != nil {
+		{
+			size, err := m.PositionMetadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.TradingPair != nil {
+		{
+			size, err := m.TradingPair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpPositionBundleResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpPositionBundleResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpPositionBundleResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Entries) > 0 {
+		for iNdEx := len(m.Entries) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Entries[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpPositionBundleResponse_Entry) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpPositionBundleResponse_Entry) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpPositionBundleResponse_Entry) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.PositionId) > 0 {
+		for iNdEx := len(m.PositionId) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.PositionId[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0x2a
+		}
+	}
+	if m.PositionState != nil {
+		{
+			size, err := m.PositionState.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.PositionMetadata != nil {
+		{
+			size, err := m.PositionMetadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.TradingPair != nil {
+		{
+			size, err := m.TradingPair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpStrategyCatalogRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpStrategyCatalogRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpStrategyCatalogRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.PositionMetadata != nil {
+		{
+			size, err := m.PositionMetadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.TradingPair != nil {
+		{
+			size, err := m.TradingPair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpStrategyCatalogResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpStrategyCatalogResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpStrategyCatalogResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Strategies) > 0 {
+		for iNdEx := len(m.Strategies) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Strategies[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintView(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.PositionMetadata != nil {
+		{
+			size, err := m.PositionMetadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Subaccount != nil {
+		{
+			size, err := m.Subaccount.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.TradingPair != nil {
+		{
+			size, err := m.TradingPair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintView(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintView(dAtA []byte, offset int, v uint64) int {
 	offset -= sovView(v)
 	base := offset
@@ -10648,6 +13032,126 @@ func encodeVarintView(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *LqtVotingNotesRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.EpochIndex != 0 {
+		n += 1 + sovView(uint64(m.EpochIndex))
+	}
+	if m.AccountFilter != nil {
+		l = m.AccountFilter.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
+func (m *LqtVotingNotesResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.NoteRecord != nil {
+		l = m.NoteRecord.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.AlreadyVoted {
+		n += 2
+	}
+	return n
+}
+
+func (m *TournamentVotesRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.EpochIndex != 0 {
+		n += 1 + sovView(uint64(m.EpochIndex))
+	}
+	if m.BlockHeight != 0 {
+		n += 1 + sovView(uint64(m.BlockHeight))
+	}
+	if m.AccountFilter != nil {
+		l = m.AccountFilter.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
+func (m *TournamentVotesResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Votes) > 0 {
+		for _, e := range m.Votes {
+			l = e.Size()
+			n += 1 + l + sovView(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *TournamentVotesResponse_Vote) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IncentivizedAsset != nil {
+		l = m.IncentivizedAsset.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.VotePower != nil {
+		l = m.VotePower.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Reward != nil {
+		l = m.Reward.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Transaction != nil {
+		l = m.Transaction.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.EpochIndex != 0 {
+		n += 1 + sovView(uint64(m.EpochIndex))
+	}
+	return n
+}
+
+func (m *TransparentAddressRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *TransparentAddressResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Address != nil {
+		l = m.Address.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	l = len(m.Encoding)
+	if l > 0 {
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
 func (m *AuctionsRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -10971,6 +13475,12 @@ func (m *TransactionPlannerRequest) Size() (n int) {
 			n += 2 + l + sovView(uint64(l))
 		}
 	}
+	if len(m.ActionLiquidityTournamentVote) > 0 {
+		for _, e := range m.ActionLiquidityTournamentVote {
+			l = e.Size()
+			n += 2 + l + sovView(uint64(l))
+		}
+	}
 	if m.FeeMode != nil {
 		n += m.FeeMode.Size()
 	}
@@ -11151,6 +13661,10 @@ func (m *TransactionPlannerRequest_PositionOpen) Size() (n int) {
 		l = m.Position.Size()
 		n += 1 + l + sovView(uint64(l))
 	}
+	if m.PositionMeta != nil {
+		l = m.PositionMeta.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
 	return n
 }
 
@@ -11254,6 +13768,32 @@ func (m *TransactionPlannerRequest_DelegatorVote) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovView(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Incentivized != nil {
+		l = m.Incentivized.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.RewardsRecipient != nil {
+		l = m.RewardsRecipient.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if len(m.StakedNotes) > 0 {
+		for _, e := range m.StakedNotes {
+			l = e.Size()
+			n += 1 + l + sovView(uint64(l))
+		}
+	}
+	if m.EpochIndex != 0 {
+		n += 1 + sovView(uint64(m.EpochIndex))
 	}
 	return n
 }
@@ -11890,6 +14430,10 @@ func (m *TransactionInfo) Size() (n int) {
 		l = m.View.Size()
 		n += 1 + l + sovView(uint64(l))
 	}
+	if m.Summary != nil {
+		l = m.Summary.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
 	return n
 }
 
@@ -12040,6 +14584,10 @@ func (m *OwnedPositionIdsRequest) Size() (n int) {
 		l = m.TradingPair.Size()
 		n += 1 + l + sovView(uint64(l))
 	}
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
 	return n
 }
 
@@ -12051,6 +14599,10 @@ func (m *OwnedPositionIdsResponse) Size() (n int) {
 	_ = l
 	if m.PositionId != nil {
 		l = m.PositionId.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
 		n += 1 + l + sovView(uint64(l))
 	}
 	return n
@@ -12143,11 +14695,990 @@ func (m *UnbondingTokensByAddressIndexResponse) Size() (n int) {
 	return n
 }
 
+func (m *LatestSwapsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.AccountFilter != nil {
+		l = m.AccountFilter.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Pair != nil {
+		l = m.Pair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.AfterHeight != 0 {
+		n += 1 + sovView(uint64(m.AfterHeight))
+	}
+	if m.ResponseLimit != 0 {
+		n += 1 + sovView(uint64(m.ResponseLimit))
+	}
+	return n
+}
+
+func (m *LatestSwapsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pair != nil {
+		l = m.Pair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Input != nil {
+		l = m.Input.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Output != nil {
+		l = m.Output.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.BlockHeight != 0 {
+		n += 1 + sovView(uint64(m.BlockHeight))
+	}
+	if m.Id != nil {
+		l = m.Id.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
+func (m *LpPositionBundleRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.TradingPair != nil {
+		l = m.TradingPair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionMetadata != nil {
+		l = m.PositionMetadata.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionState != nil {
+		l = m.PositionState.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
+func (m *LpPositionBundleResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Entries) > 0 {
+		for _, e := range m.Entries {
+			l = e.Size()
+			n += 1 + l + sovView(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *LpPositionBundleResponse_Entry) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.TradingPair != nil {
+		l = m.TradingPair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionMetadata != nil {
+		l = m.PositionMetadata.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionState != nil {
+		l = m.PositionState.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if len(m.PositionId) > 0 {
+		for _, e := range m.PositionId {
+			l = e.Size()
+			n += 1 + l + sovView(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *LpStrategyCatalogRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.TradingPair != nil {
+		l = m.TradingPair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionMetadata != nil {
+		l = m.PositionMetadata.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
+func (m *LpStrategyCatalogResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Strategies) > 0 {
+		for _, e := range m.Strategies {
+			l = e.Size()
+			n += 1 + l + sovView(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *LpStrategyCatalogResponse_StrategyEntry) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.TradingPair != nil {
+		l = m.TradingPair.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.Subaccount != nil {
+		l = m.Subaccount.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	if m.PositionMetadata != nil {
+		l = m.PositionMetadata.Size()
+		n += 1 + l + sovView(uint64(l))
+	}
+	return n
+}
+
 func sovView(x uint64) (n int) {
 	return (math_bits.Len64(x|1) + 6) / 7
 }
 func sozView(x uint64) (n int) {
 	return sovView(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *LqtVotingNotesRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LqtVotingNotesRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LqtVotingNotesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIndex", wireType)
+			}
+			m.EpochIndex = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EpochIndex |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AccountFilter", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.AccountFilter == nil {
+				m.AccountFilter = &v1.AddressIndex{}
+			}
+			if err := m.AccountFilter.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LqtVotingNotesResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LqtVotingNotesResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LqtVotingNotesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NoteRecord", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.NoteRecord == nil {
+				m.NoteRecord = &SpendableNoteRecord{}
+			}
+			if err := m.NoteRecord.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AlreadyVoted", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.AlreadyVoted = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TournamentVotesRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TournamentVotesRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TournamentVotesRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIndex", wireType)
+			}
+			m.EpochIndex = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EpochIndex |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
+			}
+			m.BlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AccountFilter", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.AccountFilter == nil {
+				m.AccountFilter = &v1.AddressIndex{}
+			}
+			if err := m.AccountFilter.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TournamentVotesResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TournamentVotesResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TournamentVotesResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Votes", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Votes = append(m.Votes, &TournamentVotesResponse_Vote{})
+			if err := m.Votes[len(m.Votes)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TournamentVotesResponse_Vote) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Vote: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Vote: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IncentivizedAsset", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.IncentivizedAsset == nil {
+				m.IncentivizedAsset = &v11.AssetId{}
+			}
+			if err := m.IncentivizedAsset.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VotePower", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.VotePower == nil {
+				m.VotePower = &v12.Amount{}
+			}
+			if err := m.VotePower.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Reward", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Reward == nil {
+				m.Reward = &v11.Value{}
+			}
+			if err := m.Reward.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Transaction", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Transaction == nil {
+				m.Transaction = &v13.TransactionId{}
+			}
+			if err := m.Transaction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIndex", wireType)
+			}
+			m.EpochIndex = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EpochIndex |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TransparentAddressRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TransparentAddressRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TransparentAddressRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *TransparentAddressResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TransparentAddressResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TransparentAddressResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Address == nil {
+				m.Address = &v1.Address{}
+			}
+			if err := m.Address.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Encoding", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Encoding = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *AuctionsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -12283,7 +15814,7 @@ func (m *AuctionsRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AuctionIdsFilter = append(m.AuctionIdsFilter, &v11.AuctionId{})
+			m.AuctionIdsFilter = append(m.AuctionIdsFilter, &v14.AuctionId{})
 			if err := m.AuctionIdsFilter[len(m.AuctionIdsFilter)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -12368,7 +15899,7 @@ func (m *AuctionsResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Id == nil {
-				m.Id = &v11.AuctionId{}
+				m.Id = &v14.AuctionId{}
 			}
 			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -12439,7 +15970,7 @@ func (m *AuctionsResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Positions = append(m.Positions, &v12.Position{})
+			m.Positions = append(m.Positions, &v15.Position{})
 			if err := m.Positions[len(m.Positions)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -12579,7 +16110,7 @@ func (m *AuthorizeAndBuildRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.TransactionPlan == nil {
-				m.TransactionPlan = &v13.TransactionPlan{}
+				m.TransactionPlan = &v16.TransactionPlan{}
 			}
 			if err := m.TransactionPlan.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -12846,7 +16377,7 @@ func (m *AuthorizeAndBuildResponse_Complete) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Transaction == nil {
-				m.Transaction = &v13.Transaction{}
+				m.Transaction = &v16.Transaction{}
 			}
 			if err := m.Transaction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -12932,7 +16463,7 @@ func (m *BroadcastTransactionRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Transaction == nil {
-				m.Transaction = &v13.Transaction{}
+				m.Transaction = &v16.Transaction{}
 			}
 			if err := m.Transaction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -13158,7 +16689,7 @@ func (m *BroadcastTransactionResponse_BroadcastSuccess) Unmarshal(dAtA []byte) e
 				return io.ErrUnexpectedEOF
 			}
 			if m.Id == nil {
-				m.Id = &v14.TransactionId{}
+				m.Id = &v13.TransactionId{}
 			}
 			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -13244,7 +16775,7 @@ func (m *BroadcastTransactionResponse_Confirmed) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Id == nil {
-				m.Id = &v14.TransactionId{}
+				m.Id = &v13.TransactionId{}
 			}
 			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -13368,7 +16899,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Memo == nil {
-				m.Memo = &v13.MemoPlaintext{}
+				m.Memo = &v16.MemoPlaintext{}
 			}
 			if err := m.Memo.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -13677,7 +17208,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.IbcRelayActions = append(m.IbcRelayActions, &v15.IbcRelay{})
+			m.IbcRelayActions = append(m.IbcRelayActions, &v17.IbcRelay{})
 			if err := m.IbcRelayActions[len(m.IbcRelayActions)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -13711,7 +17242,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Ics20Withdrawals = append(m.Ics20Withdrawals, &v15.Ics20Withdrawal{})
+			m.Ics20Withdrawals = append(m.Ics20Withdrawals, &v17.Ics20Withdrawal{})
 			if err := m.Ics20Withdrawals[len(m.Ics20Withdrawals)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -13954,6 +17485,40 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 77:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ActionLiquidityTournamentVote", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ActionLiquidityTournamentVote = append(m.ActionLiquidityTournamentVote, &TransactionPlannerRequest_ActionLiquidityTournamentVote{})
+			if err := m.ActionLiquidityTournamentVote[len(m.ActionLiquidityTournamentVote)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 100:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AutoFee", wireType)
@@ -13983,7 +17548,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := &v16.FeeTier{}
+			v := &v18.FeeTier{}
 			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -14018,7 +17583,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			v := &v16.Fee{}
+			v := &v18.Fee{}
 			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -14073,7 +17638,7 @@ func (m *TransactionPlannerRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Epoch == nil {
-				m.Epoch = &v17.Epoch{}
+				m.Epoch = &v19.Epoch{}
 			}
 			if err := m.Epoch.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14159,7 +17724,7 @@ func (m *TransactionPlannerRequest_Output) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Value == nil {
-				m.Value = &v18.Value{}
+				m.Value = &v11.Value{}
 			}
 			if err := m.Value.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14281,7 +17846,7 @@ func (m *TransactionPlannerRequest_Spend) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Value == nil {
-				m.Value = &v18.Value{}
+				m.Value = &v11.Value{}
 			}
 			if err := m.Value.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14403,7 +17968,7 @@ func (m *TransactionPlannerRequest_Swap) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Value == nil {
-				m.Value = &v18.Value{}
+				m.Value = &v11.Value{}
 			}
 			if err := m.Value.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14439,7 +18004,7 @@ func (m *TransactionPlannerRequest_Swap) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.TargetAsset == nil {
-				m.TargetAsset = &v18.AssetId{}
+				m.TargetAsset = &v11.AssetId{}
 			}
 			if err := m.TargetAsset.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14475,7 +18040,7 @@ func (m *TransactionPlannerRequest_Swap) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Fee == nil {
-				m.Fee = &v16.Fee{}
+				m.Fee = &v18.Fee{}
 			}
 			if err := m.Fee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14597,7 +18162,7 @@ func (m *TransactionPlannerRequest_SwapClaim) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.SwapCommitment == nil {
-				m.SwapCommitment = &v19.StateCommitment{}
+				m.SwapCommitment = &v110.StateCommitment{}
 			}
 			if err := m.SwapCommitment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14683,7 +18248,7 @@ func (m *TransactionPlannerRequest_Delegate) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Amount == nil {
-				m.Amount = &v110.Amount{}
+				m.Amount = &v12.Amount{}
 			}
 			if err := m.Amount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -14805,7 +18370,7 @@ func (m *TransactionPlannerRequest_Undelegate) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Value == nil {
-				m.Value = &v18.Value{}
+				m.Value = &v11.Value{}
 			}
 			if err := m.Value.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15018,7 +18583,7 @@ func (m *TransactionPlannerRequest_UndelegateClaim) Unmarshal(dAtA []byte) error
 				return io.ErrUnexpectedEOF
 			}
 			if m.UnbondingAmount == nil {
-				m.UnbondingAmount = &v110.Amount{}
+				m.UnbondingAmount = &v12.Amount{}
 			}
 			if err := m.UnbondingAmount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15123,9 +18688,45 @@ func (m *TransactionPlannerRequest_PositionOpen) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Position == nil {
-				m.Position = &v12.Position{}
+				m.Position = &v15.Position{}
 			}
 			if err := m.Position.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionMeta", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionMeta == nil {
+				m.PositionMeta = &v15.PositionMetadata{}
+			}
+			if err := m.PositionMeta.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -15209,7 +18810,7 @@ func (m *TransactionPlannerRequest_PositionClose) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.PositionId == nil {
-				m.PositionId = &v12.PositionId{}
+				m.PositionId = &v15.PositionId{}
 			}
 			if err := m.PositionId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15295,7 +18896,7 @@ func (m *TransactionPlannerRequest_PositionWithdraw) Unmarshal(dAtA []byte) erro
 				return io.ErrUnexpectedEOF
 			}
 			if m.PositionId == nil {
-				m.PositionId = &v12.PositionId{}
+				m.PositionId = &v15.PositionId{}
 			}
 			if err := m.PositionId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15331,7 +18932,7 @@ func (m *TransactionPlannerRequest_PositionWithdraw) Unmarshal(dAtA []byte) erro
 				return io.ErrUnexpectedEOF
 			}
 			if m.Reserves == nil {
-				m.Reserves = &v12.Reserves{}
+				m.Reserves = &v15.Reserves{}
 			}
 			if err := m.Reserves.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15367,7 +18968,7 @@ func (m *TransactionPlannerRequest_PositionWithdraw) Unmarshal(dAtA []byte) erro
 				return io.ErrUnexpectedEOF
 			}
 			if m.TradingPair == nil {
-				m.TradingPair = &v12.TradingPair{}
+				m.TradingPair = &v15.TradingPair{}
 			}
 			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15453,7 +19054,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionSchedule) Unmarshal(dAtA []
 				return io.ErrUnexpectedEOF
 			}
 			if m.Description == nil {
-				m.Description = &v11.DutchAuctionDescription{}
+				m.Description = &v14.DutchAuctionDescription{}
 			}
 			if err := m.Description.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15539,7 +19140,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionEnd) Unmarshal(dAtA []byte)
 				return io.ErrUnexpectedEOF
 			}
 			if m.AuctionId == nil {
-				m.AuctionId = &v11.AuctionId{}
+				m.AuctionId = &v14.AuctionId{}
 			}
 			if err := m.AuctionId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15625,7 +19226,7 @@ func (m *TransactionPlannerRequest_ActionDutchAuctionWithdraw) Unmarshal(dAtA []
 				return io.ErrUnexpectedEOF
 			}
 			if m.AuctionId == nil {
-				m.AuctionId = &v11.AuctionId{}
+				m.AuctionId = &v14.AuctionId{}
 			}
 			if err := m.AuctionId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -15848,6 +19449,181 @@ func (m *TransactionPlannerRequest_DelegatorVote) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *TransactionPlannerRequest_ActionLiquidityTournamentVote) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ActionLiquidityTournamentVote: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ActionLiquidityTournamentVote: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Incentivized", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Incentivized == nil {
+				m.Incentivized = &v11.Denom{}
+			}
+			if err := m.Incentivized.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RewardsRecipient", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.RewardsRecipient == nil {
+				m.RewardsRecipient = &v1.Address{}
+			}
+			if err := m.RewardsRecipient.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StakedNotes", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.StakedNotes = append(m.StakedNotes, &SpendableNoteRecord{})
+			if err := m.StakedNotes[len(m.StakedNotes)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIndex", wireType)
+			}
+			m.EpochIndex = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EpochIndex |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *TransactionPlannerResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -15907,7 +19683,7 @@ func (m *TransactionPlannerResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Plan == nil {
-				m.Plan = &v13.TransactionPlan{}
+				m.Plan = &v16.TransactionPlan{}
 			}
 			if err := m.Plan.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -16681,7 +20457,7 @@ func (m *BalancesRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.AssetIdFilter == nil {
-				m.AssetIdFilter = &v18.AssetId{}
+				m.AssetIdFilter = &v11.AssetId{}
 			}
 			if err := m.AssetIdFilter.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -16803,7 +20579,7 @@ func (m *BalancesResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Balance == nil {
-				m.Balance = &v18.Value{}
+				m.Balance = &v11.Value{}
 			}
 			if err := m.Balance.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -16875,7 +20651,7 @@ func (m *BalancesResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.BalanceView == nil {
-				m.BalanceView = &v18.ValueView{}
+				m.BalanceView = &v11.ValueView{}
 			}
 			if err := m.BalanceView.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17296,7 +21072,7 @@ func (m *NotesRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.AssetId == nil {
-				m.AssetId = &v18.AssetId{}
+				m.AssetId = &v11.AssetId{}
 			}
 			if err := m.AssetId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17368,7 +21144,7 @@ func (m *NotesRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.AmountToSpend == nil {
-				m.AmountToSpend = &v110.Amount{}
+				m.AmountToSpend = &v12.Amount{}
 			}
 			if err := m.AmountToSpend.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17559,7 +21335,7 @@ func (m *WitnessRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.TransactionPlan == nil {
-				m.TransactionPlan = &v13.TransactionPlan{}
+				m.TransactionPlan = &v16.TransactionPlan{}
 			}
 			if err := m.TransactionPlan.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17645,7 +21421,7 @@ func (m *WitnessResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.WitnessData == nil {
-				m.WitnessData = &v13.WitnessData{}
+				m.WitnessData = &v16.WitnessData{}
 			}
 			if err := m.WitnessData.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17731,7 +21507,7 @@ func (m *WitnessAndBuildRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.TransactionPlan == nil {
-				m.TransactionPlan = &v13.TransactionPlan{}
+				m.TransactionPlan = &v16.TransactionPlan{}
 			}
 			if err := m.TransactionPlan.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -17767,7 +21543,7 @@ func (m *WitnessAndBuildRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.AuthorizationData == nil {
-				m.AuthorizationData = &v13.AuthorizationData{}
+				m.AuthorizationData = &v16.AuthorizationData{}
 			}
 			if err := m.AuthorizationData.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -18034,7 +21810,7 @@ func (m *WitnessAndBuildResponse_Complete) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Transaction == nil {
-				m.Transaction = &v13.Transaction{}
+				m.Transaction = &v16.Transaction{}
 			}
 			if err := m.Transaction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -18139,7 +21915,7 @@ func (m *AssetsRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.IncludeSpecificDenominations = append(m.IncludeSpecificDenominations, &v18.Denom{})
+			m.IncludeSpecificDenominations = append(m.IncludeSpecificDenominations, &v11.Denom{})
 			if err := m.IncludeSpecificDenominations[len(m.IncludeSpecificDenominations)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -18324,7 +22100,7 @@ func (m *AssetsResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.DenomMetadata == nil {
-				m.DenomMetadata = &v18.Metadata{}
+				m.DenomMetadata = &v11.Metadata{}
 			}
 			if err := m.DenomMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -18596,7 +22372,7 @@ func (m *GasPricesResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.GasPrices == nil {
-				m.GasPrices = &v16.GasPrices{}
+				m.GasPrices = &v18.GasPrices{}
 			}
 			if err := m.GasPrices.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -18631,7 +22407,7 @@ func (m *GasPricesResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AltGasPrices = append(m.AltGasPrices, &v16.GasPrices{})
+			m.AltGasPrices = append(m.AltGasPrices, &v18.GasPrices{})
 			if err := m.AltGasPrices[len(m.AltGasPrices)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -18852,7 +22628,7 @@ func (m *NoteByCommitmentRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.NoteCommitment == nil {
-				m.NoteCommitment = &v19.StateCommitment{}
+				m.NoteCommitment = &v110.StateCommitment{}
 			}
 			if err := m.NoteCommitment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19044,7 +22820,7 @@ func (m *SwapByCommitmentRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.SwapCommitment == nil {
-				m.SwapCommitment = &v19.StateCommitment{}
+				m.SwapCommitment = &v110.StateCommitment{}
 			}
 			if err := m.SwapCommitment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19372,7 +23148,7 @@ func (m *NullifierStatusRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Nullifier == nil {
-				m.Nullifier = &v17.Nullifier{}
+				m.Nullifier = &v19.Nullifier{}
 			}
 			if err := m.Nullifier.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19548,7 +23324,7 @@ func (m *TransactionInfoByHashRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Id == nil {
-				m.Id = &v14.TransactionId{}
+				m.Id = &v13.TransactionId{}
 			}
 			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19741,7 +23517,7 @@ func (m *TransactionInfo) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Id == nil {
-				m.Id = &v14.TransactionId{}
+				m.Id = &v13.TransactionId{}
 			}
 			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19777,7 +23553,7 @@ func (m *TransactionInfo) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Transaction == nil {
-				m.Transaction = &v13.Transaction{}
+				m.Transaction = &v16.Transaction{}
 			}
 			if err := m.Transaction.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19813,7 +23589,7 @@ func (m *TransactionInfo) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Perspective == nil {
-				m.Perspective = &v13.TransactionPerspective{}
+				m.Perspective = &v16.TransactionPerspective{}
 			}
 			if err := m.Perspective.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -19849,9 +23625,45 @@ func (m *TransactionInfo) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.View == nil {
-				m.View = &v13.TransactionView{}
+				m.View = &v16.TransactionView{}
 			}
 			if err := m.View.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Summary", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Summary == nil {
+				m.Summary = &v16.TransactionSummary{}
+			}
+			if err := m.Summary.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -20315,7 +24127,7 @@ func (m *SpendableNoteRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.NoteCommitment == nil {
-				m.NoteCommitment = &v19.StateCommitment{}
+				m.NoteCommitment = &v110.StateCommitment{}
 			}
 			if err := m.NoteCommitment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20423,7 +24235,7 @@ func (m *SpendableNoteRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Nullifier == nil {
-				m.Nullifier = &v17.Nullifier{}
+				m.Nullifier = &v19.Nullifier{}
 			}
 			if err := m.Nullifier.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20516,7 +24328,7 @@ func (m *SpendableNoteRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Source == nil {
-				m.Source = &v17.CommitmentSource{}
+				m.Source = &v19.CommitmentSource{}
 			}
 			if err := m.Source.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20638,7 +24450,7 @@ func (m *SwapRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.SwapCommitment == nil {
-				m.SwapCommitment = &v19.StateCommitment{}
+				m.SwapCommitment = &v110.StateCommitment{}
 			}
 			if err := m.SwapCommitment.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20674,7 +24486,7 @@ func (m *SwapRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Swap == nil {
-				m.Swap = &v12.SwapPlaintext{}
+				m.Swap = &v15.SwapPlaintext{}
 			}
 			if err := m.Swap.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20729,7 +24541,7 @@ func (m *SwapRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Nullifier == nil {
-				m.Nullifier = &v17.Nullifier{}
+				m.Nullifier = &v19.Nullifier{}
 			}
 			if err := m.Nullifier.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20765,7 +24577,7 @@ func (m *SwapRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.OutputData == nil {
-				m.OutputData = &v12.BatchSwapOutputData{}
+				m.OutputData = &v15.BatchSwapOutputData{}
 			}
 			if err := m.OutputData.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20820,7 +24632,7 @@ func (m *SwapRecord) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Source == nil {
-				m.Source = &v17.CommitmentSource{}
+				m.Source = &v19.CommitmentSource{}
 			}
 			if err := m.Source.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20906,7 +24718,7 @@ func (m *OwnedPositionIdsRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.PositionState == nil {
-				m.PositionState = &v12.PositionState{}
+				m.PositionState = &v15.PositionState{}
 			}
 			if err := m.PositionState.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -20942,9 +24754,45 @@ func (m *OwnedPositionIdsRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.TradingPair == nil {
-				m.TradingPair = &v12.TradingPair{}
+				m.TradingPair = &v15.TradingPair{}
 			}
 			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -21028,9 +24876,45 @@ func (m *OwnedPositionIdsResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.PositionId == nil {
-				m.PositionId = &v12.PositionId{}
+				m.PositionId = &v15.PositionId{}
 			}
 			if err := m.PositionId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -21114,7 +24998,7 @@ func (m *AssetMetadataByIdRequest) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.AssetId == nil {
-				m.AssetId = &v18.AssetId{}
+				m.AssetId = &v11.AssetId{}
 			}
 			if err := m.AssetId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -21200,7 +25084,7 @@ func (m *AssetMetadataByIdResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.DenomMetadata == nil {
-				m.DenomMetadata = &v18.Metadata{}
+				m.DenomMetadata = &v11.Metadata{}
 			}
 			if err := m.DenomMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -21391,7 +25275,7 @@ func (m *DelegationsByAddressIndexResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.ValueView == nil {
-				m.ValueView = &v18.ValueView{}
+				m.ValueView = &v11.ValueView{}
 			}
 			if err := m.ValueView.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -21582,7 +25466,7 @@ func (m *UnbondingTokensByAddressIndexResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.ValueView == nil {
-				m.ValueView = &v18.ValueView{}
+				m.ValueView = &v11.ValueView{}
 			}
 			if err := m.ValueView.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -21608,6 +25492,1285 @@ func (m *UnbondingTokensByAddressIndexResponse) Unmarshal(dAtA []byte) error {
 				}
 			}
 			m.Claimable = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LatestSwapsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LatestSwapsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LatestSwapsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AccountFilter", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.AccountFilter == nil {
+				m.AccountFilter = &v1.AddressIndex{}
+			}
+			if err := m.AccountFilter.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pair == nil {
+				m.Pair = &v15.DirectedTradingPair{}
+			}
+			if err := m.Pair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AfterHeight", wireType)
+			}
+			m.AfterHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.AfterHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResponseLimit", wireType)
+			}
+			m.ResponseLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ResponseLimit |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LatestSwapsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LatestSwapsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LatestSwapsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pair == nil {
+				m.Pair = &v15.DirectedTradingPair{}
+			}
+			if err := m.Pair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Input", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Input == nil {
+				m.Input = &v11.Value{}
+			}
+			if err := m.Input.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Output", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Output == nil {
+				m.Output = &v11.Value{}
+			}
+			if err := m.Output.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
+			}
+			m.BlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Id == nil {
+				m.Id = &v13.TransactionId{}
+			}
+			if err := m.Id.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpPositionBundleRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LpPositionBundleRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LpPositionBundleRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingPair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingPair == nil {
+				m.TradingPair = &v15.TradingPair{}
+			}
+			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionMetadata == nil {
+				m.PositionMetadata = &v15.PositionMetadata{}
+			}
+			if err := m.PositionMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionState", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionState == nil {
+				m.PositionState = &v15.PositionState{}
+			}
+			if err := m.PositionState.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpPositionBundleResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LpPositionBundleResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LpPositionBundleResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Entries", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Entries = append(m.Entries, &LpPositionBundleResponse_Entry{})
+			if err := m.Entries[len(m.Entries)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpPositionBundleResponse_Entry) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Entry: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Entry: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingPair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingPair == nil {
+				m.TradingPair = &v15.TradingPair{}
+			}
+			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionMetadata == nil {
+				m.PositionMetadata = &v15.PositionMetadata{}
+			}
+			if err := m.PositionMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionState", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionState == nil {
+				m.PositionState = &v15.PositionState{}
+			}
+			if err := m.PositionState.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionId", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PositionId = append(m.PositionId, &v15.PositionId{})
+			if err := m.PositionId[len(m.PositionId)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpStrategyCatalogRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LpStrategyCatalogRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LpStrategyCatalogRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingPair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingPair == nil {
+				m.TradingPair = &v15.TradingPair{}
+			}
+			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionMetadata == nil {
+				m.PositionMetadata = &v15.PositionMetadata{}
+			}
+			if err := m.PositionMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpStrategyCatalogResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: LpStrategyCatalogResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: LpStrategyCatalogResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Strategies", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Strategies = append(m.Strategies, &LpStrategyCatalogResponse_StrategyEntry{})
+			if err := m.Strategies[len(m.Strategies)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipView(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthView
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *LpStrategyCatalogResponse_StrategyEntry) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowView
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: StrategyEntry: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: StrategyEntry: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TradingPair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TradingPair == nil {
+				m.TradingPair = &v15.TradingPair{}
+			}
+			if err := m.TradingPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Subaccount", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Subaccount == nil {
+				m.Subaccount = &v1.AddressIndex{}
+			}
+			if err := m.Subaccount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PositionMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowView
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthView
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthView
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PositionMetadata == nil {
+				m.PositionMetadata = &v15.PositionMetadata{}
+			}
+			if err := m.PositionMetadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipView(dAtA[iNdEx:])
