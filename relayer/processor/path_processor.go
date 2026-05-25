@@ -3,6 +3,7 @@ package processor
 import (
 	"context"
 	"fmt"
+	"sync"
 	"time"
 
 	chantypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
@@ -81,6 +82,11 @@ type PathProcessor struct {
 	memoLimit, maxReceiverSize int
 
 	metrics *PrometheusMetrics
+
+	// prunedPackets tracks packets whose IBC events cannot be loaded from RPC (typically pruned history).
+	// Keyed by source chain + channel + port + sequence (chain that sent the packet / holds the commitment).
+	prunedPacketsMu sync.RWMutex
+	prunedPackets   map[prunedPacketKey]prunedPacketRecord
 }
 
 // PathProcessors is a slice of PathProcessor instances
@@ -121,6 +127,7 @@ func NewPathProcessor(
 		maxMsgs:                   maxMsgs,
 		memoLimit:                 memoLimit,
 		maxReceiverSize:           maxReceiverSize,
+		prunedPackets:             make(map[prunedPacketKey]prunedPacketRecord),
 	}
 	if flushInterval == 0 {
 		pp.disablePeriodicFlush()

@@ -1192,8 +1192,10 @@ func queryPacketCommitments(
 
 // skippedPackets is used to track the number of packets skipped during a flush.
 type skippedPackets struct {
-	Recv uint64
-	Ack  uint64
+	Recv       uint64
+	Ack        uint64
+	PrunedRecv uint64
+	PrunedAck  uint64
 }
 
 // queuePendingRecvAndAcks returns the number of packets skipped during a flush (nil if none).
@@ -1265,6 +1267,9 @@ func (pp *PathProcessor) queuePendingRecvAndAcks(
 	var eg errgroup.Group
 
 	var skipped *skippedPackets
+	var skippedMu sync.Mutex
+	var recvSlotsMu sync.Mutex
+	var recvSlotsUsed int
 
 	for i, seq := range unrecv {
 		if state, ok := dst.messageCache.PacketState.State(k, seq); ok && stateValue(state) >= stateValue(chantypes.EventTypeRecvPacket) {
@@ -1272,18 +1277,46 @@ func (pp *PathProcessor) queuePendingRecvAndAcks(
 		}
 
 		srcMu.Lock()
-		if srcCache.IsCached(chantypes.EventTypeSendPacket, k, seq) {
+		cached := srcCache.IsCached(chantypes.EventTypeSendPacket, k, seq)
+		srcMu.Unlock()
+		if cached {
 			continue // already cached
 		}
-		srcMu.Unlock()
 
-		if i >= int(pp.maxMsgs) {
+		if pp.isPacketPruned(src.info.ChainID, k.ChannelID, k.PortID, seq) {
 			if skipped == nil {
 				skipped = new(skippedPackets)
 			}
-			skipped.Recv = uint64(len(unrecv) - i)
+			skipped.PrunedRecv++
+			continue
+		}
+
+		recvSlotsMu.Lock()
+		if pp.maxMsgs > 0 && uint64(recvSlotsUsed) >= pp.maxMsgs {
+			recvSlotsMu.Unlock()
+			if skipped == nil {
+				skipped = new(skippedPackets)
+			}
+			for _, remainingSeq := range unrecv[i:] {
+				if pp.isPacketPruned(src.info.ChainID, k.ChannelID, k.PortID, remainingSeq) {
+					skipped.PrunedRecv++
+					continue
+				}
+				if state, ok := dst.messageCache.PacketState.State(k, remainingSeq); ok && stateValue(state) >= stateValue(chantypes.EventTypeRecvPacket) {
+					continue
+				}
+				srcMu.Lock()
+				remainingCached := srcCache.IsCached(chantypes.EventTypeSendPacket, k, remainingSeq)
+				srcMu.Unlock()
+				if remainingCached {
+					continue
+				}
+				skipped.Recv++
+			}
 			break
 		}
+		recvSlotsUsed++
+		recvSlotsMu.Unlock()
 
 		src.log.Debug("Querying send packet",
 			zap.String("channel", k.ChannelID),
@@ -1295,6 +1328,44 @@ func (pp *PathProcessor) queuePendingRecvAndAcks(
 
 		eg.Go(func() error {
 			sendPacket, err := src.chainProvider.QuerySendPacket(ctx, k.ChannelID, k.PortID, seq)
+			if isUnqueryableIBCEvent(err, "send_packet") {
+				pp.markPacketPruned(
+					prunedPacketKey{
+						SourceChainID: src.info.ChainID,
+						ChannelID:     k.ChannelID,
+						PortID:        k.PortID,
+						Sequence:      seq,
+					},
+					prunedPacketRecord{
+						QueryChainID:          src.info.ChainID,
+						QueryEvent:            "send_packet",
+						CounterpartyChainID:   dst.info.ChainID,
+						CounterpartyChannelID: k.CounterpartyChannelID,
+						CounterpartyPortID:    k.CounterpartyPortID,
+					},
+				)
+				src.log.Warn("packet blacklisted: send_packet event unavailable (likely pruned RPC history)",
+					zap.String("packet_source_chain_id", src.info.ChainID),
+					zap.String("event_query_chain_id", src.info.ChainID),
+					zap.String("counterparty_chain_id", dst.info.ChainID),
+					zap.String("channel_id", k.ChannelID),
+					zap.String("port_id", k.PortID),
+					zap.String("counterparty_channel_id", k.CounterpartyChannelID),
+					zap.String("counterparty_port_id", k.CounterpartyPortID),
+					zap.Uint64("sequence", seq),
+					zap.Error(err),
+				)
+				skippedMu.Lock()
+				if skipped == nil {
+					skipped = new(skippedPackets)
+				}
+				skipped.PrunedRecv++
+				skippedMu.Unlock()
+				recvSlotsMu.Lock()
+				recvSlotsUsed--
+				recvSlotsMu.Unlock()
+				return nil
+			}
 			if err != nil {
 				return err
 			}
@@ -1349,6 +1420,9 @@ SeqLoop:
 		pp.metrics.SetUnrelayedAcks(pp.pathEnd1.info.PathName, src.info.ChainID, dst.info.ChainID, k.ChannelID, k.CounterpartyChannelID, len(unacked))
 	}
 
+	var ackSlotsMu sync.Mutex
+	var ackSlotsUsed int
+
 	for i, seq := range unacked {
 		ck := k.Counterparty()
 
@@ -1357,19 +1431,50 @@ SeqLoop:
 		}
 
 		dstMu.Lock()
-		if dstCache.IsCached(chantypes.EventTypeRecvPacket, ck, seq) &&
-			dstCache.IsCached(chantypes.EventTypeWriteAck, ck, seq) {
+		recvCached := dstCache.IsCached(chantypes.EventTypeRecvPacket, ck, seq)
+		writeAckCached := dstCache.IsCached(chantypes.EventTypeWriteAck, ck, seq)
+		dstMu.Unlock()
+		if recvCached && writeAckCached {
 			continue // already cached
 		}
-		dstMu.Unlock()
 
-		if i >= int(pp.maxMsgs) {
+		// Packet was originally sent from src; commitment lives on src.
+		if pp.isPacketPruned(src.info.ChainID, k.ChannelID, k.PortID, seq) {
 			if skipped == nil {
 				skipped = new(skippedPackets)
 			}
-			skipped.Ack = uint64(len(unacked) - i)
+			skipped.PrunedAck++
+			continue
+		}
+
+		ackSlotsMu.Lock()
+		if pp.maxMsgs > 0 && uint64(ackSlotsUsed) >= pp.maxMsgs {
+			ackSlotsMu.Unlock()
+			if skipped == nil {
+				skipped = new(skippedPackets)
+			}
+			for _, remainingSeq := range unacked[i:] {
+				if pp.isPacketPruned(src.info.ChainID, k.ChannelID, k.PortID, remainingSeq) {
+					skipped.PrunedAck++
+					continue
+				}
+				remainingCk := k.Counterparty()
+				if state, ok := dst.messageCache.PacketState.State(remainingCk, remainingSeq); ok && stateValue(state) >= stateValue(chantypes.EventTypeAcknowledgePacket) {
+					continue
+				}
+				dstMu.Lock()
+				remainingRecvCached := dstCache.IsCached(chantypes.EventTypeRecvPacket, remainingCk, remainingSeq)
+				remainingWriteAckCached := dstCache.IsCached(chantypes.EventTypeWriteAck, remainingCk, remainingSeq)
+				dstMu.Unlock()
+				if remainingRecvCached && remainingWriteAckCached {
+					continue
+				}
+				skipped.Ack++
+			}
 			break
 		}
+		ackSlotsUsed++
+		ackSlotsMu.Unlock()
 
 		seq := seq
 
@@ -1381,6 +1486,44 @@ SeqLoop:
 
 		eg.Go(func() error {
 			recvPacket, err := dst.chainProvider.QueryRecvPacket(ctx, k.CounterpartyChannelID, k.CounterpartyPortID, seq)
+			if isUnqueryableIBCEvent(err, "write_acknowledgement") {
+				pp.markPacketPruned(
+					prunedPacketKey{
+						SourceChainID: src.info.ChainID,
+						ChannelID:     k.ChannelID,
+						PortID:        k.PortID,
+						Sequence:      seq,
+					},
+					prunedPacketRecord{
+						QueryChainID:          dst.info.ChainID,
+						QueryEvent:            "write_acknowledgement",
+						CounterpartyChainID:   src.info.ChainID,
+						CounterpartyChannelID: k.ChannelID,
+						CounterpartyPortID:    k.PortID,
+					},
+				)
+				src.log.Warn("packet blacklisted: write_acknowledgement event unavailable (likely pruned RPC history)",
+					zap.String("packet_source_chain_id", src.info.ChainID),
+					zap.String("event_query_chain_id", dst.info.ChainID),
+					zap.String("counterparty_chain_id", src.info.ChainID),
+					zap.String("channel_id", k.ChannelID),
+					zap.String("port_id", k.PortID),
+					zap.String("counterparty_channel_id", k.CounterpartyChannelID),
+					zap.String("counterparty_port_id", k.CounterpartyPortID),
+					zap.Uint64("sequence", seq),
+					zap.Error(err),
+				)
+				skippedMu.Lock()
+				if skipped == nil {
+					skipped = new(skippedPackets)
+				}
+				skipped.PrunedAck++
+				skippedMu.Unlock()
+				ackSlotsMu.Lock()
+				ackSlotsUsed--
+				ackSlotsMu.Unlock()
+				return nil
+			}
 			if err != nil {
 				return err
 			}
@@ -1527,20 +1670,35 @@ func (pp *PathProcessor) flush(ctx context.Context) error {
 	pp.pathEnd2.mergeMessageCache(pathEnd2Cache, pp.pathEnd1.info.ChainID, pp.pathEnd1.inSync, pp.memoLimit, pp.maxReceiverSize)
 
 	if len(skipped) > 0 {
+		var pendingRecv, pendingAck uint64
 		skippedPacketsString := ""
 		for chainID, chainSkipped := range skipped {
-			for channelKey, skipped := range chainSkipped {
-				skippedPacketsString += fmt.Sprintf(
-					"{ %s %s %s recv: %d, ack: %d } ",
-					chainID, channelKey.ChannelID, channelKey.PortID, skipped.Recv, skipped.Ack,
-				)
+			for channelKey, s := range chainSkipped {
+				pendingRecv += s.Recv
+				pendingAck += s.Ack
+				if s.Recv > 0 || s.Ack > 0 || s.PrunedRecv > 0 || s.PrunedAck > 0 {
+					skippedPacketsString += fmt.Sprintf(
+						"{ %s %s %s recv: %d, ack: %d, pruned_recv: %d, pruned_ack: %d } ",
+						chainID, channelKey.ChannelID, channelKey.PortID,
+						s.Recv, s.Ack, s.PrunedRecv, s.PrunedAck,
+					)
+				}
 			}
 		}
-		return fmt.Errorf(
-			"flush was successful, but packets are still pending. %s",
-			skippedPacketsString,
-		)
+		if pendingRecv > 0 || pendingAck > 0 {
+			return fmt.Errorf(
+				"flush was successful, but packets are still pending. %s",
+				skippedPacketsString,
+			)
+		}
+		if skippedPacketsString != "" {
+			pp.log.Warn("flush completed with pruned/blacklisted packets (RPC event history unavailable)",
+				zap.String("details", skippedPacketsString),
+			)
+		}
 	}
+
+	pp.logPrunedPacketBlacklistSummary()
 
 	return nil
 }
